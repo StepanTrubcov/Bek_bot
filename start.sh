@@ -1,2 +1,6 @@
 #!/bin/bash
-gunicorn --bind 0.0.0.0:10000 app:app
+gunicorn app:app \
+  --workers 2 \
+  --worker-class sync \
+  --timeout 120 \
+  --bind 0.0.0.0:10000
