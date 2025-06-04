@@ -415,9 +415,10 @@ def request_entity_too_large(error):
         status_code=413
     )
 
+
 if __name__ == "__main__":
     app.run(
         host=os.getenv('HOST', '0.0.0.0'),
-        port=int(os.getenv('PORT', 5001)),
+        port=int(os.getenv('PORT', 10000)),  # Изменили 5001 на 10000
         debug=app.config['DEBUG']
     )
