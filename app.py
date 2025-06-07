@@ -165,7 +165,15 @@ class AudioStorage:
             logger.error(f"Failed to initialize storage: {str(e)}")
             raise
         self.references = {}
-        
+    
+    def get_reference_path(self, teacher_id):
+        """Получает путь к референсному аудио для указанного teacher_id"""
+        path = self.references.get(str(teacher_id))  # Приводим к строке
+        if path and not os.path.exists(path):
+            logger.error(f"Reference file not found: {path}")
+            return None
+        return path
+    
     def save_reference(self, teacher_id, file):
         try:
             if teacher_id in self.references:
@@ -221,9 +229,6 @@ class AudioStorage:
                 os.remove(filepath)
         except Exception as e:
             logger.warning(f"Could not remove file {filepath}: {str(e)}")
-
-    def get_reference_path(self, teacher_id):
-        return self.references.get(teacher_id)
 
 app = Flask(__name__)
 CORS(app)
