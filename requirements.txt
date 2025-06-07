@@ -1,15 +1,11 @@
-text
 flask>=2.0.0
 flask-cors>=3.0.10
-numpy>=1.20.0
-librosa>=0.8.0
+numpy>=1.21.0
+librosa>=0.9.0
 soundfile>=0.10.0
 pyworld>=0.3.0
-scikit-learn>=1.0.0
+scikit-learn>=1.0.2
 python-dotenv>=0.19.0
 gunicorn>=20.1.0
-ffmpeg-python>=0.2.0  # Для работы с аудио
-pydub>=0.25.1         # Для обработки аудио
-requests>=2.26.0      # Для HTTP-запросов
-concurrent-log-handler>=0.9.20  # Для ротации логов
-pytest>=7.0.0         # Для тестирования (опционально)
+ffmpeg-python>=0.2.0
+pydub>=0.25.1
