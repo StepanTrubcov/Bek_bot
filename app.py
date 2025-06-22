@@ -13,9 +13,9 @@ import datetime
 import concurrent.futures
 from functools import partial
 
+# Настройка логирования
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 class TimeoutError(Exception):
     pass
@@ -38,11 +38,9 @@ class AudioProcessor:
 
     def _load_audio(self, filepath):
         try:
-            # Пробуем прочитать файл с разными форматами
             try:
                 audio, sr = sf.read(filepath)
             except:
-                # Если не получилось, пробуем через librosa
                 audio, sr = librosa.load(filepath, sr=self.sr)
             
             if len(audio) == 0:
@@ -167,8 +165,7 @@ class AudioStorage:
         self.references = {}
     
     def get_reference_path(self, teacher_id):
-        """Получает путь к референсному аудио для указанного teacher_id"""
-        path = self.references.get(str(teacher_id))  # Приводим к строке
+        path = self.references.get(str(teacher_id))
         if path and not os.path.exists(path):
             logger.error(f"Reference file not found: {path}")
             return None
@@ -231,21 +228,11 @@ class AudioStorage:
             logger.warning(f"Could not remove file {filepath}: {str(e)}")
 
 app = Flask(__name__)
-CORS(app)
-
-@app.route("/", methods=["GET"])
-def index():
-    return api_response(
-        message="Audio comparison server is running",
-        data={
-            "endpoints": {
-                "health_check": "/health (GET)",
-                "upload_reference": "/upload_reference (POST)",
-                "compare_audio": "/compare_audio (POST)"
-            },
-            "status": "operational"
-        }
-    )
+CORS(app, resources={
+    r"/upload_reference": {"origins": "*"},
+    r"/compare_audio": {"origins": "*"},
+    r"/health": {"origins": "*"}
+})
 
 app.config.update(
     UPLOAD_FOLDER=os.getenv('UPLOAD_FOLDER', 'uploads'),
@@ -267,6 +254,24 @@ def api_response(data=None, status="success", message="", status_code=200):
         response["data"] = data
     return jsonify(response), status_code
 
+@app.before_request
+def log_request_info():
+    logger.info(f"Request: {request.method} {request.url}")
+
+@app.route("/", methods=["GET"])
+def index():
+    return api_response(
+        message="Audio comparison server is running",
+        data={
+            "endpoints": {
+                "health_check": "/health (GET)",
+                "upload_reference": "/upload_reference (POST)",
+                "compare_audio": "/compare_audio (POST)"
+            },
+            "status": "operational"
+        }
+    )
+
 @app.route("/health", methods=["GET"])
 def health_check():
     return api_response(
@@ -277,8 +282,15 @@ def health_check():
         message="Service is healthy"
     )
 
-@app.route("/upload_reference", methods=["POST"])
+@app.route("/test", methods=["GET"])
+def test():
+    return api_response(message="Test successful")
+
+@app.route("/upload_reference", methods=["POST", "OPTIONS"])
 def upload_reference():
+    if request.method == "OPTIONS":
+        return api_response(message="OK")
+        
     logger.info(f"Upload reference request from {request.remote_addr}")
     
     if 'audio' not in request.files:
@@ -319,8 +331,11 @@ def upload_reference():
             status_code=500
         )
 
-@app.route("/compare_audio", methods=["POST"])
+@app.route("/compare_audio", methods=["POST", "OPTIONS"])
 def compare_audio():
+    if request.method == "OPTIONS":
+        return api_response(message="OK")
+        
     logger.info(f"Compare audio request from {request.remote_addr}")
     
     if 'audio' not in request.files:
@@ -412,8 +427,6 @@ def compare_audio():
         if temp_path:
             audio_storage._safe_remove(temp_path)
 
-
-
 @app.errorhandler(413)
 def request_entity_too_large(error):
     return api_response(
@@ -422,8 +435,9 @@ def request_entity_too_large(error):
         status_code=413
     )
 
-
 if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
     app.run(
         host=os.getenv('HOST', '0.0.0.0'),
         port=int(os.getenv('PORT', 10000)),  # Изменили 5001 на 10000
