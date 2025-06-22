@@ -282,6 +282,13 @@ def health_check():
         message="Service is healthy"
     )
 
+@app.route("/health", methods=["GET"])
+def health_check():
+    return api_response(
+        data={"status": "ok", "server": "audio-comparison"},
+        message="Service is healthy"
+    )
+
 @app.route("/test", methods=["GET"])
 def test():
     return api_response(message="Test successful")

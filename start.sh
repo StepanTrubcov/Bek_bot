@@ -1,8 +1,14 @@
 #!/bin/bash
 
-# Установка переменных окружения
-export PYTHONUNBUFFERED=TRUE
-export PYTHONPATH="${PYTHONPATH}:/app"
+# Получаем порт из переменной окружения (Render сам его задаст)
+PORT=${PORT:-10000}
 
-# Запуск Gunicorn с оптимизированными параметрами (все в одной строке)
-gunicorn app:app --workers 2 --worker-class gevent --timeout 300 --bind 0.0.0.0:10000 --preload --access-logfile - --error-logfile - --capture-output --log-level info
+# Запускаем Gunicorn
+gunicorn app:app \
+  --workers 2 \
+  --worker-class gevent \
+  --timeout 300 \
+  --bind 0.0.0.0:$PORT \
+  --preload \
+  --access-logfile - \
+  --error-logfile -
