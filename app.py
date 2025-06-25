@@ -119,6 +119,7 @@ class AudioStorage:
 class AudioProcessor:
     def __init__(self):
         self.executor = ThreadPoolExecutor(max_workers=1)
+        self.sample_rate = app.config['AUDIO_SAMPLE_RATE']
     
     def process_with_timeout(self, func, *args, **kwargs):
         future = self.executor.submit(func, *args, **kwargs)
@@ -130,10 +131,10 @@ class AudioProcessor:
     
     def extract_features(self, audio):
         try:
-            # Normalize audio
+            # Нормализация аудио
             audio = audio / np.max(np.abs(audio))
             
-            # Extract features with timeout
+            # Извлечение фич с таймаутом
             features = self.process_with_timeout(self._extract_features_safe, audio)
             return features
         except Exception as e:
@@ -141,11 +142,12 @@ class AudioProcessor:
             raise
     
     def _extract_features_safe(self, audio):
+        """Внутренний метод для безопасного извлечения аудио-фич"""
         # Pitch extraction
-        f0 = pw.harvest(
+        f0, _ = pw.harvest(
             audio.astype(np.float64), 
-            app.config['AUDIO_SAMPLE_RATE']
-        )[0]
+            self.sample_rate
+        )
         f0[f0 == 0] = np.nan
         f0_norm = (f0 - np.nanmean(f0)) / np.nanstd(f0)
         f0_norm = np.nan_to_num(f0_norm)
@@ -153,14 +155,14 @@ class AudioProcessor:
         # MFCC
         mfcc = librosa.feature.mfcc(
             y=audio, 
-            sr=app.config['AUDIO_SAMPLE_RATE'], 
+            sr=self.sample_rate, 
             n_mfcc=13
         )
         
         # Chroma
         chroma = librosa.feature.chroma_cqt(
             y=audio, 
-            sr=app.config['AUDIO_SAMPLE_RATE']
+            sr=self.sample_rate
         )
         
         return {
@@ -169,7 +171,7 @@ class AudioProcessor:
             'chroma': np.mean(chroma, axis=1),
             'spectral_contrast': librosa.feature.spectral_contrast(
                 y=audio, 
-                sr=app.config['AUDIO_SAMPLE_RATE']
+                sr=self.sample_rate
             ).mean(axis=1)
         }
     
@@ -214,7 +216,6 @@ class AudioProcessor:
         except Exception as e:
             logger.error(f"Similarity calculation failed: {str(e)}")
             return 0
-
 # Initialize components
 audio_storage = AudioStorage(app.config['UPLOAD_FOLDER'])
 audio_processor = AudioProcessor()
