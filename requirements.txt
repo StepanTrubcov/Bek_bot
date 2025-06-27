@@ -6,7 +6,9 @@ numpy==1.24.3
 pyworld==0.3.2
 scikit-learn==1.3.0
 soundfile==0.12.1
-gevent==22.10.2  # Обновлённая версия с поддержкой Python 3.11
+gevent==22.10.2
 gunicorn==20.1.0
 psutil==5.9.0
-cython==0.29.36  # Добавляем явную зависимость
+cython==0.29.36
+zope.event==5.0  # Явно указываем версию
+zope.interface==7.0  # Явно указываем версию
