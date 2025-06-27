@@ -4,9 +4,9 @@ import gc
 import logging
 import signal
 import sys
+import psutil
 from functools import wraps
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeoutError
-
 import numpy as np
 import librosa
 import soundfile as sf
@@ -17,36 +17,36 @@ from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
-# Configure logging
+# ==================== Configuration ====================
+class Config:
+    UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER', 'uploads')
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB
+    AUDIO_SAMPLE_RATE = 48000
+    MAX_AUDIO_DURATION = 120  # seconds
+    PROCESSING_TIMEOUT = 30  # seconds
+    DEBUG = os.getenv('DEBUG', 'false').lower() == 'true'
+    RATE_LIMIT = "5 per minute"
+
+# ==================== Initialization ====================
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Configure environment
+# Set environment variables for performance
 os.environ["OMP_NUM_THREADS"] = "1"
 os.environ["MKL_NUM_THREADS"] = "1"
 
-# Initialize Flask app
 app = Flask(__name__)
+app.config.from_object(Config)
 CORS(app)
 
-# Rate limiting
 limiter = Limiter(
     app=app,
     key_func=get_remote_address,
-    default_limits=["5 per minute"]
+    storage_uri="memory://",
+    default_limits=[Config.RATE_LIMIT]
 )
 
-# Configuration
-app.config.update(
-    UPLOAD_FOLDER=os.getenv('UPLOAD_FOLDER', 'uploads'),
-    MAX_CONTENT_LENGTH=16 * 1024 * 1024,  # 16MB
-    AUDIO_SAMPLE_RATE=48000,
-    MAX_AUDIO_DURATION=120,  # seconds
-    PROCESSING_TIMEOUT=30,  # seconds
-    DEBUG=os.getenv('DEBUG', 'false').lower() == 'true'
-)
-
-# Global state
+# ==================== Audio Storage ====================
 class AudioStorage:
     def __init__(self, upload_folder):
         self.upload_folder = upload_folder
@@ -63,13 +63,11 @@ class AudioStorage:
             if teacher_id in self.references:
                 self._safe_remove(self.references[teacher_id])
             
-            # Save new reference
             filename = f"ref_{teacher_id}_{uuid.uuid4()}.wav"
             filepath = os.path.join(self.upload_folder, filename)
             
-            # Process and validate audio
             audio = self._load_and_validate_audio(file)
-            sf.write(filepath, audio, app.config['AUDIO_SAMPLE_RATE'])
+            sf.write(filepath, audio, Config.AUDIO_SAMPLE_RATE)
             
             self.references[teacher_id] = filepath
             return filepath
@@ -78,63 +76,50 @@ class AudioStorage:
             raise
 
     def _load_and_validate_audio(self, file):
+        temp_path = None
         try:
-            # Save to temp file
             temp_path = os.path.join(self.upload_folder, f"temp_{uuid.uuid4()}.wav")
             file.save(temp_path)
             
-            # Load audio
             audio, sr = sf.read(temp_path)
             if len(audio) == 0:
                 raise ValueError("Empty audio file")
             
-            # Convert to mono if needed
             if len(audio.shape) > 1:
                 audio = np.mean(audio, axis=1)
             
-            # Resample if needed
-            if sr != app.config['AUDIO_SAMPLE_RATE']:
-                audio = librosa.resample(
-                    audio, 
-                    orig_sr=sr, 
-                    target_sr=app.config['AUDIO_SAMPLE_RATE']
-                )
+            if sr != Config.AUDIO_SAMPLE_RATE:
+                audio = librosa.resample(audio, orig_sr=sr, target_sr=Config.AUDIO_SAMPLE_RATE)
             
-            # Trim to max duration
-            max_samples = app.config['MAX_AUDIO_DURATION'] * app.config['AUDIO_SAMPLE_RATE']
+            max_samples = Config.MAX_AUDIO_DURATION * Config.AUDIO_SAMPLE_RATE
             if len(audio) > max_samples:
                 audio = audio[:max_samples]
             
             return audio
         finally:
-            self._safe_remove(temp_path)
+            if temp_path and os.path.exists(temp_path):
+                try:
+                    os.remove(temp_path)
+                except Exception as e:
+                    logger.warning(f"Could not remove temp file: {str(e)}")
 
-    def _safe_remove(self, filepath):
-        try:
-            if filepath and os.path.exists(filepath):
-                os.remove(filepath)
-        except Exception as e:
-            logger.warning(f"Could not remove file {filepath}: {str(e)}")
-
+# ==================== Audio Processor ====================
 class AudioProcessor:
     def __init__(self):
         self.executor = ThreadPoolExecutor(max_workers=1)
-        self.sample_rate = app.config['AUDIO_SAMPLE_RATE']
+        self.sample_rate = Config.AUDIO_SAMPLE_RATE
     
     def process_with_timeout(self, func, *args, **kwargs):
         future = self.executor.submit(func, *args, **kwargs)
         try:
-            return future.result(timeout=app.config['PROCESSING_TIMEOUT'])
+            return future.result(timeout=Config.PROCESSING_TIMEOUT)
         except FutureTimeoutError:
             future.cancel()
             raise TimeoutError("Processing timed out")
     
     def extract_features(self, audio):
         try:
-            # Нормализация аудио
             audio = audio / np.max(np.abs(audio))
-            
-            # Извлечение фич с таймаутом
             features = self.process_with_timeout(self._extract_features_safe, audio)
             return features
         except Exception as e:
@@ -142,73 +127,49 @@ class AudioProcessor:
             raise
     
     def _extract_features_safe(self, audio):
-        """Внутренний метод для безопасного извлечения аудио-фич"""
-        # Pitch extraction
-        f0, _ = pw.harvest(
-            audio.astype(np.float64), 
-            self.sample_rate
-        )
-        f0[f0 == 0] = np.nan
-        f0_norm = (f0 - np.nanmean(f0)) / np.nanstd(f0)
-        f0_norm = np.nan_to_num(f0_norm)
-        
-        # MFCC
-        mfcc = librosa.feature.mfcc(
-            y=audio, 
-            sr=self.sample_rate, 
-            n_mfcc=13
-        )
-        
-        # Chroma
-        chroma = librosa.feature.chroma_cqt(
-            y=audio, 
-            sr=self.sample_rate
-        )
-        
-        return {
-            'f0': f0_norm,
-            'mfcc': np.mean(mfcc, axis=1),
-            'chroma': np.mean(chroma, axis=1),
-            'spectral_contrast': librosa.feature.spectral_contrast(
-                y=audio, 
-                sr=self.sample_rate
-            ).mean(axis=1)
-        }
+        """Extract audio features with error handling"""
+        try:
+            # Pitch extraction
+            f0, _ = pw.harvest(audio.astype(np.float64), self.sample_rate)
+            f0[f0 == 0] = np.nan
+            f0_norm = (f0 - np.nanmean(f0)) / np.nanstd(f0)
+            f0_norm = np.nan_to_num(f0_norm)
+            
+            # MFCC and Chroma
+            mfcc = librosa.feature.mfcc(y=audio, sr=self.sample_rate, n_mfcc=13)
+            chroma = librosa.feature.chroma_cqt(y=audio, sr=self.sample_rate)
+            
+            return {
+                'f0': f0_norm,
+                'mfcc': np.mean(mfcc, axis=1),
+                'chroma': np.mean(chroma, axis=1),
+                'spectral_contrast': librosa.feature.spectral_contrast(
+                    y=audio, sr=self.sample_rate).mean(axis=1)
+            }
+        except Exception as e:
+            logger.error(f"Feature extraction error: {str(e)}")
+            raise
     
     def calculate_similarity(self, ref_features, student_features):
         try:
-            weights = {
-                'f0': 0.4,
-                'mfcc': 0.4,
-                'chroma': 0.2
-            }
-            
+            weights = {'f0': 0.4, 'mfcc': 0.4, 'chroma': 0.2}
             similarities = []
             
             # F0 similarity
             if len(ref_features['f0']) > 0 and len(student_features['f0']) > 0:
                 min_len = min(len(ref_features['f0']), len(student_features['f0']))
-                f0_corr = np.corrcoef(
-                    ref_features['f0'][:min_len], 
-                    student_features['f0'][:min_len]
-                )[0, 1]
+                f0_corr = np.corrcoef(ref_features['f0'][:min_len], student_features['f0'][:min_len])[0, 1]
                 similarities.append((max(f0_corr, 0), weights['f0']))
             
-            # MFCC similarity
-            mfcc_sim = cosine_similarity(
-                [ref_features['mfcc']], 
-                [student_features['mfcc']]
-            )[0][0]
-            similarities.append((mfcc_sim, weights['mfcc']))
+            # MFCC and Chroma similarities
+            mfcc_sim = cosine_similarity([ref_features['mfcc']], [student_features['mfcc']])[0][0]
+            chroma_sim = cosine_similarity([ref_features['chroma']], [student_features['chroma']])[0][0]
             
-            # Chroma similarity
-            chroma_sim = cosine_similarity(
-                [ref_features['chroma']], 
-                [student_features['chroma']]
-            )[0][0]
-            similarities.append((chroma_sim, weights['chroma']))
+            similarities.extend([
+                (mfcc_sim, weights['mfcc']),
+                (chroma_sim, weights['chroma'])
+            ])
             
-            # Calculate weighted average
             total_weight = sum(w for _, w in similarities)
             weighted_sum = sum(s * w for s, w in similarities)
             
@@ -216,11 +177,11 @@ class AudioProcessor:
         except Exception as e:
             logger.error(f"Similarity calculation failed: {str(e)}")
             return 0
-# Initialize components
-audio_storage = AudioStorage(app.config['UPLOAD_FOLDER'])
+
+# ==================== Application Setup ====================
+audio_storage = AudioStorage(Config.UPLOAD_FOLDER)
 audio_processor = AudioProcessor()
 
-# Signal handling for graceful shutdown
 def handle_shutdown(signum, frame):
     logger.info("Shutting down gracefully...")
     audio_processor.executor.shutdown(wait=False)
@@ -229,7 +190,6 @@ def handle_shutdown(signum, frame):
 signal.signal(signal.SIGTERM, handle_shutdown)
 signal.signal(signal.SIGINT, handle_shutdown)
 
-# Helper decorator for memory cleanup
 def memory_cleanup(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -239,22 +199,34 @@ def memory_cleanup(f):
             gc.collect()
     return decorated_function
 
-# API Endpoints
+# ==================== API Endpoints ====================
 @app.route("/", methods=["GET"])
 def index():
     return jsonify({
         "status": "running",
         "service": "audio-comparison",
-        "version": "1.1.0"
+        "version": "1.1.0",
+        "endpoints": {
+            "health_check": "/health (GET)",
+            "upload_reference": "/upload_reference (POST)",
+            "compare_audio": "/compare_audio (POST)"
+        }
     })
 
 @app.route("/health", methods=["GET"])
 def health_check():
-    return jsonify({
-        "status": "healthy",
-        "references": len(audio_storage.references),
-        "memory_usage": f"{psutil.Process(os.getpid()).memory_info().rss / 1024 / 1024:.2f} MB"
-    })
+    try:
+        process = psutil.Process(os.getpid())
+        return jsonify({
+            "status": "healthy",
+            "references": len(audio_storage.references),
+            "memory_usage_mb": round(process.memory_info().rss / (1024 * 1024), 2),
+            "cpu_percent": process.cpu_percent(),
+            "active_threads": threading.active_count()
+        })
+    except Exception as e:
+        logger.error(f"Health check error: {str(e)}")
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 @app.route("/upload_reference", methods=["POST"])
 @limiter.limit("3 per minute")
@@ -271,9 +243,11 @@ def upload_reference():
         filepath = audio_storage.save_reference(teacher_id, request.files['audio'])
         return jsonify({
             "status": "success",
-            "filepath": filepath
+            "filepath": filepath,
+            "teacher_id": teacher_id
         })
     except Exception as e:
+        logger.error(f"Upload reference failed: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
 @app.route("/compare_audio", methods=["POST"])
@@ -292,25 +266,26 @@ def compare_audio():
         return jsonify({"error": "No reference audio for this teacher"}), 404
         
     try:
-        # Load and process reference audio
         ref_audio, _ = sf.read(ref_path)
-        ref_features = audio_processor.extract_features(ref_audio)
-        
-        # Load and process student audio
         student_audio = audio_storage._load_and_validate_audio(request.files['audio'])
+        
+        ref_features = audio_processor.extract_features(ref_audio)
         student_features = audio_processor.extract_features(student_audio)
         
-        # Calculate similarity
         similarity = audio_processor.calculate_similarity(ref_features, student_features)
         
         return jsonify({
             "similarity_percent": round(similarity * 100, 2),
+            "teacher_id": teacher_id,
             "features": {
-                "reference": {k: v.tolist() for k, v in ref_features.items()},
-                "student": {k: v.tolist() for k, v in student_features.items()}
+                "reference": {k: v.tolist() if isinstance(v, np.ndarray) else v 
+                           for k, v in ref_features.items()},
+                "student": {k: v.tolist() if isinstance(v, np.ndarray) else v 
+                          for k, v in student_features.items()}
             }
         })
     except TimeoutError:
+        logger.error("Audio processing timed out")
         return jsonify({"error": "Processing timed out"}), 504
     except Exception as e:
         logger.error(f"Comparison failed: {str(e)}", exc_info=True)
@@ -320,7 +295,24 @@ def compare_audio():
 def request_entity_too_large(error):
     return jsonify({"error": "File too large (max 16MB)"}), 413
 
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({"error": "Endpoint not found"}), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    logger.error(f"Internal server error: {str(error)}")
+    return jsonify({"error": "Internal server error"}), 500
+
 if __name__ == "__main__":
+    port = int(os.getenv('PORT', 10000))
+    app.run(
+        host='0.0.0.0',
+        port=port,
+        threaded=True,
+        debug=Config.DEBUG
+    )
+
     port = int(os.getenv('PORT', 10000))
     app.run(
         host='0.0.0.0',
