@@ -1,0 +1,140 @@
+2025-06-30 11:39:49,131 - __main__ - INFO - Storage initialized at /Users/stepantrubcov/Documents/Bek_Bot/audio_storage
+2025-06-30 11:39:49,131 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-06-30 11:39:49,145 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-06-30 11:39:49,145 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-30 11:41:00,925 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_c7962810-4bf0-41a7-a55f-a6b0030e6bba.wav
+2025-06-30 11:41:00,926 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 11:41:00] "POST /upload_reference HTTP/1.1" 200 -
+2025-06-30 11:41:00,931 - __main__ - INFO - Saved temp file for comparison: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpb0hoehq9.ogg
+2025-06-30 11:41:03,431 - __main__ - ERROR - Temporal features extraction failed: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-06-30 11:41:03,431 - __main__ - ERROR - Audio analysis failed: Ошибка анализа временных характеристик
+2025-06-30 11:41:03,431 - __main__ - ERROR - Comparison failed: Не удалось проанализировать аудиофайл
+Traceback (most recent call last):
+  File "/Users/stepantrubcov/Documents/Bek_Bot/app.py", line 179, in _extract_temporal_features
+    'beat_count': int(len(beats)) if beats else 0,    # Явное преобразование
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/stepantrubcov/Documents/Bek_Bot/app.py", line 292, in analyze_audio
+    'temporal': self._extract_temporal_features(audio),
+  File "/Users/stepantrubcov/Documents/Bek_Bot/app.py", line 184, in _extract_temporal_features
+    raise AudioProcessingError("Ошибка анализа временных характеристик")
+AudioProcessingError: Ошибка анализа временных характеристик
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/stepantrubcov/Documents/Bek_Bot/app.py", line 304, in compare_recordings
+    ref_features = self.analyze_audio(ref_path)
+  File "/Users/stepantrubcov/Documents/Bek_Bot/app.py", line 298, in analyze_audio
+    raise AudioProcessingError("Не удалось проанализировать аудиофайл")
+AudioProcessingError: Не удалось проанализировать аудиофайл
+2025-06-30 11:41:03,431 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpb0hoehq9.ogg
+2025-06-30 11:41:03,431 - __main__ - ERROR - Audio processing error: Не удалось сравнить аудиозаписи
+2025-06-30 11:41:03,431 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 11:41:03] "[31m[1mPOST /compare_audio HTTP/1.1[0m" 400 -
+2025-06-30 12:10:02,679 - __main__ - INFO - Storage initialized at /Users/stepantrubcov/Documents/Bek_Bot/audio_storage
+2025-06-30 12:10:02,680 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-06-30 12:10:02,691 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-06-30 12:10:02,691 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-30 12:13:43,851 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 12:13:43] "GET /health HTTP/1.1" 200 -
+2025-06-30 12:13:43,872 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_ea644ea3-85f7-4c99-aa09-88a9c97eb086.wav
+2025-06-30 12:13:43,872 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 12:13:43] "POST /upload_reference HTTP/1.1" 200 -
+2025-06-30 12:13:43,877 - __main__ - INFO - Starting comparison: ref=audio_storage/ref_5102803347_ea644ea3-85f7-4c99-aa09-88a9c97eb086.wav, student=/var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmptgty1w_v.ogg
+2025-06-30 12:13:44,765 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_ea644ea3-85f7-4c99-aa09-88a9c97eb086.wav
+2025-06-30 12:13:46,447 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_ea644ea3-85f7-4c99-aa09-88a9c97eb086.wav
+2025-06-30 12:13:46,483 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmptgty1w_v.ogg
+2025-06-30 12:13:46,976 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmptgty1w_v.ogg
+2025-06-30 12:13:46,979 - __main__ - INFO - Comparison result: 58.8%
+2025-06-30 12:13:46,979 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmptgty1w_v.ogg
+2025-06-30 12:13:46,979 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 12:13:46] "POST /compare_audio HTTP/1.1" 200 -
+2025-06-30 12:14:24,558 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_ea644ea3-85f7-4c99-aa09-88a9c97eb086.wav
+2025-06-30 12:14:24,562 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_17c78501-8168-4d1d-8330-7879b2c0a5df.wav
+2025-06-30 12:14:24,562 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 12:14:24] "POST /upload_reference HTTP/1.1" 200 -
+2025-06-30 12:14:24,568 - __main__ - INFO - Starting comparison: ref=audio_storage/ref_5102803347_17c78501-8168-4d1d-8330-7879b2c0a5df.wav, student=/var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpnu07ugnl.ogg
+2025-06-30 12:14:24,617 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_17c78501-8168-4d1d-8330-7879b2c0a5df.wav
+2025-06-30 12:14:25,155 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_17c78501-8168-4d1d-8330-7879b2c0a5df.wav
+2025-06-30 12:14:25,189 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpnu07ugnl.ogg
+2025-06-30 12:14:25,766 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpnu07ugnl.ogg
+2025-06-30 12:14:25,767 - __main__ - INFO - Comparison result: 75.87%
+2025-06-30 12:14:25,767 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpnu07ugnl.ogg
+2025-06-30 12:14:25,767 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 12:14:25] "POST /compare_audio HTTP/1.1" 200 -
+2025-06-30 12:15:48,736 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_17c78501-8168-4d1d-8330-7879b2c0a5df.wav
+2025-06-30 12:15:48,747 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_ff0334fa-9239-432f-b740-ed6b0a3532c7.wav
+2025-06-30 12:15:48,749 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 12:15:48] "POST /upload_reference HTTP/1.1" 200 -
+2025-06-30 12:15:48,754 - __main__ - INFO - Starting comparison: ref=audio_storage/ref_5102803347_ff0334fa-9239-432f-b740-ed6b0a3532c7.wav, student=/var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpm8fuccdt.ogg
+2025-06-30 12:15:48,890 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_ff0334fa-9239-432f-b740-ed6b0a3532c7.wav
+2025-06-30 12:15:50,262 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_ff0334fa-9239-432f-b740-ed6b0a3532c7.wav
+2025-06-30 12:15:50,294 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpm8fuccdt.ogg
+2025-06-30 12:15:50,747 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpm8fuccdt.ogg
+2025-06-30 12:15:50,749 - __main__ - INFO - Comparison result: 41.58%
+2025-06-30 12:15:50,749 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpm8fuccdt.ogg
+2025-06-30 12:15:50,749 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 12:15:50] "POST /compare_audio HTTP/1.1" 200 -
+2025-06-30 12:16:39,818 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_ff0334fa-9239-432f-b740-ed6b0a3532c7.wav
+2025-06-30 12:16:39,827 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_39cc7b8d-26e7-402d-bce0-30fa64608e9c.wav
+2025-06-30 12:16:39,829 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 12:16:39] "POST /upload_reference HTTP/1.1" 200 -
+2025-06-30 12:16:39,834 - __main__ - INFO - Starting comparison: ref=audio_storage/ref_5102803347_39cc7b8d-26e7-402d-bce0-30fa64608e9c.wav, student=/var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpmp6c96no.ogg
+2025-06-30 12:16:39,971 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_39cc7b8d-26e7-402d-bce0-30fa64608e9c.wav
+2025-06-30 12:16:41,346 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_39cc7b8d-26e7-402d-bce0-30fa64608e9c.wav
+2025-06-30 12:16:41,425 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpmp6c96no.ogg
+2025-06-30 12:16:42,799 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpmp6c96no.ogg
+2025-06-30 12:16:42,802 - __main__ - INFO - Comparison result: 100.0%
+2025-06-30 12:16:42,803 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpmp6c96no.ogg
+2025-06-30 12:16:42,803 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 12:16:42] "POST /compare_audio HTTP/1.1" 200 -
+2025-06-30 12:17:41,302 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_39cc7b8d-26e7-402d-bce0-30fa64608e9c.wav
+2025-06-30 12:17:41,310 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_9bba77aa-0bf0-4cef-a7fd-54d256c0730a.wav
+2025-06-30 12:17:41,311 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 12:17:41] "POST /upload_reference HTTP/1.1" 200 -
+2025-06-30 12:17:41,315 - __main__ - INFO - Starting comparison: ref=audio_storage/ref_5102803347_9bba77aa-0bf0-4cef-a7fd-54d256c0730a.wav, student=/var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpiu4dh85i.ogg
+2025-06-30 12:17:41,445 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_9bba77aa-0bf0-4cef-a7fd-54d256c0730a.wav
+2025-06-30 12:17:42,680 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_9bba77aa-0bf0-4cef-a7fd-54d256c0730a.wav
+2025-06-30 12:17:42,734 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpiu4dh85i.ogg
+2025-06-30 12:17:43,348 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpiu4dh85i.ogg
+2025-06-30 12:17:43,350 - __main__ - INFO - Comparison result: 55.41%
+2025-06-30 12:17:43,351 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpiu4dh85i.ogg
+2025-06-30 12:17:43,351 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 12:17:43] "POST /compare_audio HTTP/1.1" 200 -
+2025-06-30 12:22:06,898 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_9bba77aa-0bf0-4cef-a7fd-54d256c0730a.wav
+2025-06-30 12:22:06,934 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_aee23c0c-4895-464e-8e1a-94b681ede0ac.wav
+2025-06-30 12:22:06,936 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 12:22:06] "POST /upload_reference HTTP/1.1" 200 -
+2025-06-30 12:22:06,951 - __main__ - INFO - Starting comparison: ref=audio_storage/ref_5102803347_aee23c0c-4895-464e-8e1a-94b681ede0ac.wav, student=/var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp6tuv8110.ogg
+2025-06-30 12:22:07,638 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_aee23c0c-4895-464e-8e1a-94b681ede0ac.wav
+2025-06-30 12:22:14,764 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_aee23c0c-4895-464e-8e1a-94b681ede0ac.wav
+2025-06-30 12:22:15,305 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp6tuv8110.ogg
+2025-06-30 12:22:20,948 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp6tuv8110.ogg
+2025-06-30 12:22:20,952 - __main__ - INFO - Comparison result: 56.52%
+2025-06-30 12:22:20,953 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp6tuv8110.ogg
+2025-06-30 12:22:20,955 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 12:22:20] "POST /compare_audio HTTP/1.1" 200 -
+2025-06-30 12:23:42,955 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_aee23c0c-4895-464e-8e1a-94b681ede0ac.wav
+2025-06-30 12:23:42,991 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_bfe3876e-94e5-4093-908b-af5976163711.wav
+2025-06-30 12:23:42,993 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 12:23:42] "POST /upload_reference HTTP/1.1" 200 -
+2025-06-30 12:23:43,004 - __main__ - INFO - Starting comparison: ref=audio_storage/ref_5102803347_bfe3876e-94e5-4093-908b-af5976163711.wav, student=/var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpl92o2ybb.ogg
+2025-06-30 12:23:43,619 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_bfe3876e-94e5-4093-908b-af5976163711.wav
+2025-06-30 12:23:50,847 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_bfe3876e-94e5-4093-908b-af5976163711.wav
+2025-06-30 12:23:51,444 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpl92o2ybb.ogg
+2025-06-30 12:23:58,132 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpl92o2ybb.ogg
+2025-06-30 12:23:58,135 - __main__ - INFO - Comparison result: 87.87%
+2025-06-30 12:23:58,136 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpl92o2ybb.ogg
+2025-06-30 12:23:58,141 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 12:23:58] "POST /compare_audio HTTP/1.1" 200 -
+2025-06-30 12:29:01,202 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_bfe3876e-94e5-4093-908b-af5976163711.wav
+2025-06-30 12:29:01,242 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_2c2a85e9-fc42-47b2-b5ea-44ab04837668.wav
+2025-06-30 12:29:01,246 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 12:29:01] "POST /upload_reference HTTP/1.1" 200 -
+2025-06-30 12:29:01,252 - __main__ - INFO - Starting comparison: ref=audio_storage/ref_5102803347_2c2a85e9-fc42-47b2-b5ea-44ab04837668.wav, student=/var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpn1asrf6s.ogg
+2025-06-30 12:29:01,749 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_2c2a85e9-fc42-47b2-b5ea-44ab04837668.wav
+2025-06-30 12:29:07,289 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_2c2a85e9-fc42-47b2-b5ea-44ab04837668.wav
+2025-06-30 12:29:07,554 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpn1asrf6s.ogg
+2025-06-30 12:29:10,269 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpn1asrf6s.ogg
+2025-06-30 12:29:10,272 - __main__ - INFO - Comparison result: 52.72%
+2025-06-30 12:29:10,273 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpn1asrf6s.ogg
+2025-06-30 12:29:10,274 - werkzeug - INFO - 127.0.0.1 - - [30/Jun/2025 12:29:10] "POST /compare_audio HTTP/1.1" 200 -
+2025-06-30 12:32:53,401 - __main__ - INFO - Storage initialized at /Users/stepantrubcov/Documents/Bek_Bot/audio_storage
+2025-06-30 12:32:53,402 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-06-30 12:32:53,431 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-06-30 12:32:53,431 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
