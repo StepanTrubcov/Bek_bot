@@ -138,3 +138,854 @@ AudioProcessingError: Не удалось проанализировать ау�
  * Running on http://127.0.0.1:10000
  * Running on http://192.168.1.8:10000
 2025-06-30 12:32:53,431 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-01 13:42:45,370 - __main__ - INFO - Storage initialized at /Users/stepantrubcov/Documents/Bek_Bot/audio_storage
+2025-07-01 13:42:45,371 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-01 13:42:45,386 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-01 13:42:45,386 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-01 13:51:19,220 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 13:51:19] "GET /health HTTP/1.1" 200 -
+2025-07-01 13:51:19,245 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_edf01257-dec4-4c10-8e7e-57aec9a447a6.wav
+2025-07-01 13:51:19,246 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 13:51:19] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-01 13:51:19,249 - __main__ - INFO - Starting comparison: ref=audio_storage/ref_5102803347_edf01257-dec4-4c10-8e7e-57aec9a447a6.wav, student=/var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp5z3ow807.ogg
+2025-07-01 13:51:20,250 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_edf01257-dec4-4c10-8e7e-57aec9a447a6.wav
+2025-07-01 13:51:23,205 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_edf01257-dec4-4c10-8e7e-57aec9a447a6.wav
+2025-07-01 13:51:23,272 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp5z3ow807.ogg
+2025-07-01 13:51:25,247 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp5z3ow807.ogg
+2025-07-01 13:51:25,258 - __main__ - INFO - Comparison result: 55.57%
+2025-07-01 13:51:25,259 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp5z3ow807.ogg
+2025-07-01 13:51:25,261 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 13:51:25] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-01 13:52:00,323 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_edf01257-dec4-4c10-8e7e-57aec9a447a6.wav
+2025-07-01 13:52:00,328 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_7ab7f620-171e-4683-9691-9f457050cabf.wav
+2025-07-01 13:52:00,329 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 13:52:00] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-01 13:52:00,334 - __main__ - INFO - Starting comparison: ref=audio_storage/ref_5102803347_7ab7f620-171e-4683-9691-9f457050cabf.wav, student=/var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp600m_agr.ogg
+2025-07-01 13:52:00,400 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_7ab7f620-171e-4683-9691-9f457050cabf.wav
+2025-07-01 13:52:02,451 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_7ab7f620-171e-4683-9691-9f457050cabf.wav
+2025-07-01 13:52:02,538 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp600m_agr.ogg
+2025-07-01 13:52:04,156 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp600m_agr.ogg
+2025-07-01 13:52:04,166 - __main__ - INFO - Comparison result: 62.61%
+2025-07-01 13:52:04,168 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp600m_agr.ogg
+2025-07-01 13:52:04,169 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 13:52:04] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-01 13:54:20,874 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_7ab7f620-171e-4683-9691-9f457050cabf.wav
+2025-07-01 13:54:20,890 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_90649c8c-5372-4faf-a819-fba08a02678e.wav
+2025-07-01 13:54:20,891 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 13:54:20] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-01 13:54:20,898 - __main__ - INFO - Starting comparison: ref=audio_storage/ref_5102803347_90649c8c-5372-4faf-a819-fba08a02678e.wav, student=/var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpoprbxo4l.ogg
+2025-07-01 13:54:21,242 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_90649c8c-5372-4faf-a819-fba08a02678e.wav
+2025-07-01 13:54:31,683 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_90649c8c-5372-4faf-a819-fba08a02678e.wav
+2025-07-01 13:54:32,030 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpoprbxo4l.ogg
+2025-07-01 13:54:46,308 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpoprbxo4l.ogg
+2025-07-01 13:54:46,322 - __main__ - INFO - Comparison result: 57.22%
+2025-07-01 13:54:46,324 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpoprbxo4l.ogg
+2025-07-01 13:54:46,326 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 13:54:46] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-01 13:55:50,164 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_90649c8c-5372-4faf-a819-fba08a02678e.wav
+2025-07-01 13:55:50,179 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_8885d0cd-86ed-4a4f-b202-e855a34ba606.wav
+2025-07-01 13:55:50,182 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 13:55:50] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-01 13:55:50,188 - __main__ - INFO - Starting comparison: ref=audio_storage/ref_5102803347_8885d0cd-86ed-4a4f-b202-e855a34ba606.wav, student=/var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpqonrcgon.ogg
+2025-07-01 13:55:50,498 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_8885d0cd-86ed-4a4f-b202-e855a34ba606.wav
+2025-07-01 13:56:02,759 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_8885d0cd-86ed-4a4f-b202-e855a34ba606.wav
+2025-07-01 13:56:03,067 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpqonrcgon.ogg
+2025-07-01 13:56:13,055 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpqonrcgon.ogg
+2025-07-01 13:56:13,069 - __main__ - INFO - Comparison result: 70.0%
+2025-07-01 13:56:13,071 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpqonrcgon.ogg
+2025-07-01 13:56:13,074 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 13:56:13] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-01 13:56:49,588 - __main__ - INFO - Storage initialized at /Users/stepantrubcov/Documents/Bek_Bot/audio_storage
+2025-07-01 13:56:49,589 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-01 13:56:49,603 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-01 13:56:49,603 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-01 13:56:51,331 - __main__ - INFO - Storage initialized at /Users/stepantrubcov/Documents/Bek_Bot/audio_storage
+2025-07-01 13:56:51,331 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-01 13:56:51,338 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-01 13:56:51,338 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-01 13:57:08,297 - __main__ - INFO - Storage initialized at /Users/stepantrubcov/Documents/Bek_Bot/audio_storage
+2025-07-01 13:57:08,297 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-01 13:57:08,307 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-01 13:57:08,307 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-01 13:57:33,581 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_33121f9c-6443-47f3-b156-76bcd2c53cc1.wav
+2025-07-01 13:57:33,584 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 13:57:33] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-01 13:57:33,592 - __main__ - INFO - Starting comparison: ref=audio_storage/ref_5102803347_33121f9c-6443-47f3-b156-76bcd2c53cc1.wav, student=/var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpxu0hzipg.ogg
+2025-07-01 13:57:34,339 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_33121f9c-6443-47f3-b156-76bcd2c53cc1.wav
+2025-07-01 13:57:38,611 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_33121f9c-6443-47f3-b156-76bcd2c53cc1.wav
+2025-07-01 13:57:38,850 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpxu0hzipg.ogg
+2025-07-01 13:57:41,940 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpxu0hzipg.ogg
+2025-07-01 13:57:41,942 - __main__ - INFO - Comparison result: 100.0%
+2025-07-01 13:57:41,942 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpxu0hzipg.ogg
+2025-07-01 13:57:41,943 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 13:57:41] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-01 13:58:08,919 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_33121f9c-6443-47f3-b156-76bcd2c53cc1.wav
+2025-07-01 13:58:08,932 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_a6fcc1b7-1836-4594-b424-15d832d9a419.wav
+2025-07-01 13:58:08,935 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 13:58:08] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-01 13:58:08,941 - __main__ - INFO - Starting comparison: ref=audio_storage/ref_5102803347_a6fcc1b7-1836-4594-b424-15d832d9a419.wav, student=/var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp4bhqantz.ogg
+2025-07-01 13:58:09,169 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_a6fcc1b7-1836-4594-b424-15d832d9a419.wav
+2025-07-01 13:58:12,183 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_a6fcc1b7-1836-4594-b424-15d832d9a419.wav
+2025-07-01 13:58:12,429 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp4bhqantz.ogg
+2025-07-01 13:58:15,422 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp4bhqantz.ogg
+2025-07-01 13:58:15,425 - __main__ - INFO - Comparison result: 79.79%
+2025-07-01 13:58:15,425 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp4bhqantz.ogg
+2025-07-01 13:58:15,426 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 13:58:15] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-01 13:59:03,688 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_a6fcc1b7-1836-4594-b424-15d832d9a419.wav
+2025-07-01 13:59:03,703 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_1a2a777f-e9c3-4a3e-8733-b69ca334dad3.wav
+2025-07-01 13:59:03,706 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 13:59:03] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-01 13:59:03,709 - __main__ - INFO - Starting comparison: ref=audio_storage/ref_5102803347_1a2a777f-e9c3-4a3e-8733-b69ca334dad3.wav, student=/var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpgzqjolt7.ogg
+2025-07-01 13:59:03,813 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_1a2a777f-e9c3-4a3e-8733-b69ca334dad3.wav
+2025-07-01 13:59:05,082 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_1a2a777f-e9c3-4a3e-8733-b69ca334dad3.wav
+2025-07-01 13:59:05,124 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpgzqjolt7.ogg
+2025-07-01 13:59:05,860 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpgzqjolt7.ogg
+2025-07-01 13:59:05,861 - __main__ - INFO - Comparison result: 67.75%
+2025-07-01 13:59:05,861 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpgzqjolt7.ogg
+2025-07-01 13:59:05,861 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 13:59:05] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-01 13:59:57,132 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_1a2a777f-e9c3-4a3e-8733-b69ca334dad3.wav
+2025-07-01 13:59:57,142 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_ccfaf90b-b760-4c8c-ac10-77623f0dd58a.wav
+2025-07-01 13:59:57,145 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 13:59:57] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-01 13:59:57,150 - __main__ - INFO - Starting comparison: ref=audio_storage/ref_5102803347_ccfaf90b-b760-4c8c-ac10-77623f0dd58a.wav, student=/var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpp4v_1n_i.ogg
+2025-07-01 13:59:57,259 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_ccfaf90b-b760-4c8c-ac10-77623f0dd58a.wav
+2025-07-01 13:59:58,541 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_ccfaf90b-b760-4c8c-ac10-77623f0dd58a.wav
+2025-07-01 13:59:58,619 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpp4v_1n_i.ogg
+2025-07-01 13:59:59,872 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpp4v_1n_i.ogg
+2025-07-01 13:59:59,874 - __main__ - INFO - Comparison result: 82.78%
+2025-07-01 13:59:59,874 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpp4v_1n_i.ogg
+2025-07-01 13:59:59,876 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 13:59:59] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-01 14:07:56,953 - __main__ - INFO - Storage initialized at /Users/stepantrubcov/Documents/Bek_Bot/audio_storage
+2025-07-01 14:07:56,959 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-01 14:07:56,972 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-01 14:07:56,972 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-01 14:08:18,475 - __main__ - INFO - Storage initialized at /Users/stepantrubcov/Documents/Bek_Bot/audio_storage
+2025-07-01 14:08:18,475 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-01 14:08:18,485 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-01 14:08:18,485 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-01 14:08:52,712 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_9a5aeabe-0604-49e0-a02e-754e7a4bb729.wav
+2025-07-01 14:08:52,713 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 14:08:52] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-01 14:08:52,716 - __main__ - INFO - Starting comparison: ref=audio_storage/ref_5102803347_9a5aeabe-0604-49e0-a02e-754e7a4bb729.wav, student=/var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpcgw8js7e.ogg
+2025-07-01 14:08:53,486 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_9a5aeabe-0604-49e0-a02e-754e7a4bb729.wav
+2025-07-01 14:08:55,989 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_9a5aeabe-0604-49e0-a02e-754e7a4bb729.wav
+2025-07-01 14:08:56,076 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpcgw8js7e.ogg
+2025-07-01 14:08:57,563 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpcgw8js7e.ogg
+2025-07-01 14:08:57,570 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpcgw8js7e.ogg
+2025-07-01 14:08:57,572 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 14:08:57] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-01 20:13:50,505 - __main__ - INFO - Storage initialized at /Users/stepantrubcov/Documents/Bek_Bot/audio_storage
+2025-07-01 20:13:50,505 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-01 20:13:50,520 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-01 20:13:50,520 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-01 20:15:24,746 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_86568908-a70f-47ff-87ab-f81dd3ea1746.wav
+2025-07-01 20:15:24,750 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 20:15:24] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-01 20:15:24,765 - __main__ - INFO - Starting comparison: ref=audio_storage/ref_5102803347_86568908-a70f-47ff-87ab-f81dd3ea1746.wav, student=/var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpe0oh34xk.ogg
+2025-07-01 20:15:26,066 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_86568908-a70f-47ff-87ab-f81dd3ea1746.wav
+2025-07-01 20:15:37,079 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_86568908-a70f-47ff-87ab-f81dd3ea1746.wav
+2025-07-01 20:15:37,396 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpe0oh34xk.ogg
+2025-07-01 20:15:42,919 - __main__ - WARNING - Google Speech Recognition could not understand audio
+2025-07-01 20:15:42,920 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpe0oh34xk.ogg
+2025-07-01 20:15:42,926 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpe0oh34xk.ogg
+2025-07-01 20:15:42,930 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 20:15:42] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-01 20:53:48,687 - __main__ - INFO - Storage initialized at /Users/stepantrubcov/Documents/Bek_Bot/audio_storage
+2025-07-01 20:53:48,688 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-01 20:53:48,711 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-01 20:53:48,711 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-01 20:54:17,025 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_fda512cc-b9ed-4929-ba42-e9079a0278a3.wav
+2025-07-01 20:54:17,028 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 20:54:17] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-01 20:54:17,033 - __main__ - INFO - 
+=== Starting comparison ===
+2025-07-01 20:54:17,033 - __main__ - INFO - Reference: audio_storage/ref_5102803347_fda512cc-b9ed-4929-ba42-e9079a0278a3.wav
+2025-07-01 20:54:17,033 - __main__ - INFO - Student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpi3chfrdq.wav
+2025-07-01 20:54:17,035 - __main__ - INFO - Original audio: SR=48000, Duration=3.21s, Max amplitude=0.30
+2025-07-01 20:54:17,851 - __main__ - INFO - Processed audio: SR=48000, Duration=3.21s
+2025-07-01 20:54:17,851 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_fda512cc-b9ed-4929-ba42-e9079a0278a3.wav
+2025-07-01 20:54:20,080 - __main__ - INFO - Recognized text: Господи по
+2025-07-01 20:54:20,083 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_fda512cc-b9ed-4929-ba42-e9079a0278a3.wav
+2025-07-01 20:54:20,088 - __main__ - INFO - Original audio: SR=48000, Duration=3.41s, Max amplitude=0.30
+2025-07-01 20:54:20,163 - __main__ - INFO - Processed audio: SR=48000, Duration=3.41s
+2025-07-01 20:54:20,163 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpi3chfrdq.wav
+2025-07-01 20:54:21,255 - __main__ - INFO - Recognized text: Господи помелу
+2025-07-01 20:54:21,256 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpi3chfrdq.wav
+2025-07-01 20:54:21,257 - __main__ - INFO - REF Pitch: mean=139.4±78.5Hz
+2025-07-01 20:54:21,257 - __main__ - INFO - STU Pitch: mean=244.2±156.3Hz
+2025-07-01 20:54:21,257 - __main__ - INFO - Reference text: господи по
+2025-07-01 20:54:21,257 - __main__ - INFO - Student text: господи помелу
+2025-07-01 20:54:21,261 - __main__ - INFO - Text similarity: 0.83, warning: Текст не распознан как известное песнопение
+2025-07-01 20:54:21,264 - __main__ - INFO - Pitch similarity: 0.31
+2025-07-01 20:54:21,264 - __main__ - INFO - Temporal similarity: 0.54
+2025-07-01 20:54:21,270 - __main__ - INFO - Spectral similarity: 0.99
+2025-07-01 20:54:21,271 - __main__ - INFO - Comparison result: 55.03% similarity
+2025-07-01 20:54:21,272 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpi3chfrdq.wav
+2025-07-01 20:54:21,273 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 20:54:21] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-01 20:55:19,639 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_fda512cc-b9ed-4929-ba42-e9079a0278a3.wav
+2025-07-01 20:55:19,645 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_7f3c9cb1-8600-4607-91ac-66ba54a313a1.wav
+2025-07-01 20:55:19,646 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 20:55:19] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-01 20:55:19,651 - __main__ - INFO - 
+=== Starting comparison ===
+2025-07-01 20:55:19,651 - __main__ - INFO - Reference: audio_storage/ref_5102803347_7f3c9cb1-8600-4607-91ac-66ba54a313a1.wav
+2025-07-01 20:55:19,651 - __main__ - INFO - Student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmptq3h7qnb.wav
+2025-07-01 20:55:19,653 - __main__ - INFO - Original audio: SR=48000, Duration=4.59s, Max amplitude=0.12
+2025-07-01 20:55:19,720 - __main__ - INFO - Processed audio: SR=48000, Duration=4.59s
+2025-07-01 20:55:19,720 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_7f3c9cb1-8600-4607-91ac-66ba54a313a1.wav
+2025-07-01 20:55:20,972 - __main__ - INFO - Recognized text: Господи помилуй
+2025-07-01 20:55:20,974 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_7f3c9cb1-8600-4607-91ac-66ba54a313a1.wav
+2025-07-01 20:55:20,983 - __main__ - INFO - Original audio: SR=48000, Duration=8.29s, Max amplitude=0.39
+2025-07-01 20:55:21,134 - __main__ - INFO - Processed audio: SR=48000, Duration=8.29s
+2025-07-01 20:55:21,134 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmptq3h7qnb.wav
+2025-07-01 20:55:23,518 - __main__ - INFO - Recognized text: тебе Господи
+2025-07-01 20:55:23,521 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmptq3h7qnb.wav
+2025-07-01 20:55:23,521 - __main__ - INFO - REF Pitch: mean=199.4±134.1Hz
+2025-07-01 20:55:23,522 - __main__ - INFO - STU Pitch: mean=137.7±87.5Hz
+2025-07-01 20:55:23,522 - __main__ - INFO - Reference text: господи помилуй
+2025-07-01 20:55:23,522 - __main__ - INFO - Student text: тебе господи
+2025-07-01 20:55:23,523 - __main__ - INFO - Text similarity: 0.52, warning: Текст не распознан как известное песнопение
+2025-07-01 20:55:23,525 - __main__ - INFO - Pitch similarity: 0.42
+2025-07-01 20:55:23,525 - __main__ - INFO - Temporal similarity: 0.26
+2025-07-01 20:55:23,532 - __main__ - INFO - Spectral similarity: 1.00
+2025-07-01 20:55:23,532 - __main__ - INFO - Comparison result: 50.16% similarity
+2025-07-01 20:55:23,534 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmptq3h7qnb.wav
+2025-07-01 20:55:23,536 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 20:55:23] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-01 21:08:09,889 - __main__ - INFO - Storage initialized at /Users/stepantrubcov/Documents/Bek_Bot/audio_storage
+2025-07-01 21:08:09,889 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-01 21:08:09,901 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-01 21:08:09,901 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-01 21:09:27,579 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_baef7d8c-4c95-4d8d-83c1-b062397b1979.wav
+2025-07-01 21:09:27,583 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 21:09:27] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-01 21:09:27,588 - __main__ - INFO - 
+=== Starting comparison ===
+2025-07-01 21:09:27,588 - __main__ - INFO - Reference: audio_storage/ref_5102803347_baef7d8c-4c95-4d8d-83c1-b062397b1979.wav
+2025-07-01 21:09:27,588 - __main__ - INFO - Student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpoy1vn7j_.wav
+2025-07-01 21:09:27,594 - __main__ - INFO - Original audio: SR=48000, Duration=15.87s, Max amplitude=0.11
+2025-07-01 21:09:28,787 - __main__ - INFO - Processed audio: SR=48000, Duration=15.87s
+2025-07-01 21:09:28,787 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_baef7d8c-4c95-4d8d-83c1-b062397b1979.wav
+2025-07-01 21:09:35,388 - __main__ - INFO - Recognized text: Если хочешь танцевать Танцуй танцуй со мной кайфуй кайфуй всё получится
+2025-07-01 21:09:35,390 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_baef7d8c-4c95-4d8d-83c1-b062397b1979.wav
+2025-07-01 21:09:35,405 - __main__ - INFO - Original audio: SR=48000, Duration=14.93s, Max amplitude=0.38
+2025-07-01 21:09:35,704 - __main__ - INFO - Processed audio: SR=48000, Duration=14.93s
+2025-07-01 21:09:35,704 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpoy1vn7j_.wav
+2025-07-01 21:09:40,723 - __main__ - INFO - Recognized text: кайфуй кайфуй всё получится Поверь со мной со мной но делать нечего ни к чему
+2025-07-01 21:09:40,725 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpoy1vn7j_.wav
+2025-07-01 21:09:40,725 - __main__ - INFO - REF Pitch: mean=230.0±81.9Hz
+2025-07-01 21:09:40,725 - __main__ - INFO - STU Pitch: mean=187.8±133.7Hz
+2025-07-01 21:09:40,726 - __main__ - INFO - Reference text: если хочешь танцевать танцуй танцуй со мной кайфуй кайфуй всё получится
+2025-07-01 21:09:40,726 - __main__ - INFO - Student text: кайфуй кайфуй всё получится поверь со мной со мной но делать нечего ни к чему
+2025-07-01 21:09:40,731 - __main__ - INFO - Text similarity: 0.00, warning: Текст значительно отличается
+2025-07-01 21:09:40,734 - __main__ - INFO - Pitch similarity: 0.48
+2025-07-01 21:09:40,734 - __main__ - INFO - Temporal similarity: 0.92
+2025-07-01 21:09:40,741 - __main__ - WARNING - Suspiciously high spectral similarity - applying penalty
+2025-07-01 21:09:40,742 - __main__ - INFO - Spectral similarity: 0.70
+2025-07-01 21:09:40,742 - __main__ - INFO - Comparison result: 30.0% similarity
+2025-07-01 21:09:40,743 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpoy1vn7j_.wav
+2025-07-01 21:09:40,745 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 21:09:40] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-01 21:10:17,615 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_baef7d8c-4c95-4d8d-83c1-b062397b1979.wav
+2025-07-01 21:10:17,621 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_b8a9b24c-8b0e-442a-b57c-9c3ef3421b34.wav
+2025-07-01 21:10:17,622 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 21:10:17] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-01 21:10:17,626 - __main__ - INFO - 
+=== Starting comparison ===
+2025-07-01 21:10:17,626 - __main__ - INFO - Reference: audio_storage/ref_5102803347_b8a9b24c-8b0e-442a-b57c-9c3ef3421b34.wav
+2025-07-01 21:10:17,626 - __main__ - INFO - Student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpqyxc79mo.wav
+2025-07-01 21:10:17,627 - __main__ - INFO - Original audio: SR=48000, Duration=3.37s, Max amplitude=0.24
+2025-07-01 21:10:17,675 - __main__ - INFO - Processed audio: SR=48000, Duration=3.37s
+2025-07-01 21:10:17,675 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_b8a9b24c-8b0e-442a-b57c-9c3ef3421b34.wav
+2025-07-01 21:10:18,655 - __main__ - INFO - Recognized text: Господи по
+2025-07-01 21:10:18,655 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_b8a9b24c-8b0e-442a-b57c-9c3ef3421b34.wav
+2025-07-01 21:10:18,657 - __main__ - INFO - Original audio: SR=48000, Duration=3.37s, Max amplitude=0.45
+2025-07-01 21:10:18,709 - __main__ - INFO - Processed audio: SR=48000, Duration=3.37s
+2025-07-01 21:10:18,709 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpqyxc79mo.wav
+2025-07-01 21:10:19,704 - __main__ - INFO - Recognized text: Господи поми
+2025-07-01 21:10:19,705 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpqyxc79mo.wav
+2025-07-01 21:10:19,706 - __main__ - INFO - REF Pitch: mean=288.1±159.0Hz
+2025-07-01 21:10:19,706 - __main__ - INFO - STU Pitch: mean=91.1±3.6Hz
+2025-07-01 21:10:19,706 - __main__ - INFO - Reference text: господи по
+2025-07-01 21:10:19,706 - __main__ - INFO - Student text: господи поми
+2025-07-01 21:10:19,709 - __main__ - INFO - Text similarity: 0.91, warning: 
+2025-07-01 21:10:19,710 - __main__ - INFO - Pitch similarity: 0.10
+2025-07-01 21:10:19,710 - __main__ - INFO - Temporal similarity: 0.92
+2025-07-01 21:10:19,715 - __main__ - WARNING - Suspiciously high spectral similarity - applying penalty
+2025-07-01 21:10:19,715 - __main__ - INFO - Spectral similarity: 0.70
+2025-07-01 21:10:19,715 - __main__ - INFO - Comparison result: 45.3% similarity
+2025-07-01 21:10:19,716 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpqyxc79mo.wav
+2025-07-01 21:10:19,718 - werkzeug - INFO - 127.0.0.1 - - [01/Jul/2025 21:10:19] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-02 11:40:14,732 - __main__ - INFO - Storage initialized at /Users/stepantrubcov/Documents/Bek_Bot/audio_storage
+2025-07-02 11:40:14,733 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-02 11:40:14,748 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-02 11:40:14,748 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-02 11:41:12,439 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_b11721ef-b9bd-4c9e-9c93-0780404fc1d9.wav
+2025-07-02 11:41:12,442 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 11:41:12] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-02 11:41:12,446 - __main__ - INFO - 
+=== Starting comparison ===
+2025-07-02 11:41:12,446 - __main__ - INFO - Reference: audio_storage/ref_5102803347_b11721ef-b9bd-4c9e-9c93-0780404fc1d9.wav
+2025-07-02 11:41:12,446 - __main__ - INFO - Student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpqc1mnuwe.wav
+2025-07-02 11:41:12,448 - __main__ - INFO - Original audio: SR=48000, Duration=3.85s, Max amplitude=0.12
+2025-07-02 11:41:21,095 - __main__ - INFO - Processed audio: SR=48000, Duration=3.85s
+2025-07-02 11:41:21,095 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_b11721ef-b9bd-4c9e-9c93-0780404fc1d9.wav
+2025-07-02 11:41:23,656 - __main__ - INFO - Recognized text: Господи поми
+2025-07-02 11:41:23,659 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_b11721ef-b9bd-4c9e-9c93-0780404fc1d9.wav
+2025-07-02 11:41:23,664 - __main__ - INFO - Original audio: SR=48000, Duration=3.29s, Max amplitude=0.24
+2025-07-02 11:41:23,735 - __main__ - INFO - Processed audio: SR=48000, Duration=3.29s
+2025-07-02 11:41:23,735 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpqc1mnuwe.wav
+2025-07-02 11:41:24,795 - __main__ - INFO - Recognized text: Господи по
+2025-07-02 11:41:24,796 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpqc1mnuwe.wav
+2025-07-02 11:41:24,797 - __main__ - INFO - REF Pitch: mean=138.3±3.9Hz
+2025-07-02 11:41:24,797 - __main__ - INFO - STU Pitch: mean=118.0±4.9Hz
+2025-07-02 11:41:24,797 - __main__ - INFO - Reference text: господи поми
+2025-07-02 11:41:24,797 - __main__ - INFO - Student text: господи по
+2025-07-02 11:41:24,803 - __main__ - INFO - Text similarity: 0.91, warning: 
+2025-07-02 11:41:24,805 - __main__ - INFO - Pitch similarity: 0.60
+2025-07-02 11:41:24,805 - __main__ - INFO - Temporal similarity: 0.20
+2025-07-02 11:41:24,812 - __main__ - INFO - Spectral similarity: 0.97
+2025-07-02 11:41:24,812 - __main__ - INFO - Comparison result: 78.16% similarity
+2025-07-02 11:41:24,814 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpqc1mnuwe.wav
+2025-07-02 11:41:24,815 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 11:41:24] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-02 11:41:50,600 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_b11721ef-b9bd-4c9e-9c93-0780404fc1d9.wav
+2025-07-02 11:41:50,605 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_8f4b4aa3-24e5-4973-80f6-93eeae62b4f2.wav
+2025-07-02 11:41:50,606 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 11:41:50] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-02 11:41:50,611 - __main__ - INFO - 
+=== Starting comparison ===
+2025-07-02 11:41:50,611 - __main__ - INFO - Reference: audio_storage/ref_5102803347_8f4b4aa3-24e5-4973-80f6-93eeae62b4f2.wav
+2025-07-02 11:41:50,611 - __main__ - INFO - Student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp118xeef4.wav
+2025-07-02 11:41:50,614 - __main__ - INFO - Original audio: SR=48000, Duration=3.85s, Max amplitude=0.12
+2025-07-02 11:41:50,677 - __main__ - INFO - Processed audio: SR=48000, Duration=3.85s
+2025-07-02 11:41:50,677 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_8f4b4aa3-24e5-4973-80f6-93eeae62b4f2.wav
+2025-07-02 11:41:51,746 - __main__ - INFO - Recognized text: Господи поми
+2025-07-02 11:41:51,746 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_8f4b4aa3-24e5-4973-80f6-93eeae62b4f2.wav
+2025-07-02 11:41:51,749 - __main__ - INFO - Original audio: SR=48000, Duration=3.93s, Max amplitude=0.16
+2025-07-02 11:41:51,808 - __main__ - INFO - Processed audio: SR=48000, Duration=3.93s
+2025-07-02 11:41:51,809 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp118xeef4.wav
+2025-07-02 11:41:53,030 - __main__ - INFO - Recognized text: Господи помелу
+2025-07-02 11:41:53,032 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp118xeef4.wav
+2025-07-02 11:41:53,032 - __main__ - INFO - REF Pitch: mean=138.3±3.9Hz
+2025-07-02 11:41:53,032 - __main__ - INFO - STU Pitch: mean=473.4±13.0Hz
+2025-07-02 11:41:53,033 - __main__ - INFO - Reference text: господи поми
+2025-07-02 11:41:53,033 - __main__ - INFO - Student text: господи помелу
+2025-07-02 11:41:53,035 - __main__ - INFO - Text similarity: 0.85, warning: 
+2025-07-02 11:41:53,035 - __main__ - INFO - Pitch similarity: 0.10
+2025-07-02 11:41:53,035 - __main__ - INFO - Temporal similarity: 0.20
+2025-07-02 11:41:53,040 - __main__ - INFO - Spectral similarity: 0.97
+2025-07-02 11:41:53,041 - __main__ - INFO - Comparison result: 51.58% similarity
+2025-07-02 11:41:53,042 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp118xeef4.wav
+2025-07-02 11:41:53,044 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 11:41:53] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-02 11:48:36,177 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_8f4b4aa3-24e5-4973-80f6-93eeae62b4f2.wav
+2025-07-02 11:48:36,246 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_9aceb0b6-3652-4679-9390-5b0a5122af9c.wav
+2025-07-02 11:48:36,249 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 11:48:36] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-02 11:48:36,270 - __main__ - INFO - 
+=== Starting comparison ===
+2025-07-02 11:48:36,270 - __main__ - INFO - Reference: audio_storage/ref_5102803347_9aceb0b6-3652-4679-9390-5b0a5122af9c.wav
+2025-07-02 11:48:36,270 - __main__ - INFO - Student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp6zo9ced6.wav
+2025-07-02 11:48:36,296 - __main__ - INFO - Original audio: SR=48000, Duration=111.03s, Max amplitude=0.29
+2025-07-02 11:48:37,313 - __main__ - INFO - Processed audio: SR=48000, Duration=111.03s
+2025-07-02 11:48:37,313 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_9aceb0b6-3652-4679-9390-5b0a5122af9c.wav
+2025-07-02 11:48:58,924 - __main__ - INFO - Recognized text: Спи сынок А завтра в церковь мы пойдём свечку и молитву Богу принесём Бог увидит свечку боку слышит нас и на поле дождик даст нам добрый час хлебном уродится
+2025-07-02 11:48:58,927 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_9aceb0b6-3652-4679-9390-5b0a5122af9c.wav
+2025-07-02 11:48:58,994 - __main__ - INFO - Original audio: SR=48000, Duration=111.03s, Max amplitude=0.29
+2025-07-02 11:48:59,862 - __main__ - INFO - Processed audio: SR=48000, Duration=111.03s
+2025-07-02 11:48:59,862 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp6zo9ced6.wav
+2025-07-02 11:49:19,275 - __main__ - INFO - Recognized text: Спи сынок А завтра в церковь мы пойдём свечку и молитву Богу принесём Бог увидит свечку боку слышит нас и на поле дождик даст нам добрый час хлебном уродится
+2025-07-02 11:49:19,278 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp6zo9ced6.wav
+2025-07-02 11:49:19,287 - __main__ - INFO - REF Pitch: mean=152.3±100.9Hz
+2025-07-02 11:49:19,287 - __main__ - INFO - STU Pitch: mean=152.3±100.9Hz
+2025-07-02 11:49:19,287 - __main__ - INFO - Reference text: спи сынок а завтра в церковь мы пойдём свечку и молитву богу принесём бог увидит свечку боку слышит нас и на поле дождик даст нам добрый час хлебном уродится
+2025-07-02 11:49:19,288 - __main__ - INFO - Student text: спи сынок а завтра в церковь мы пойдём свечку и молитву богу принесём бог увидит свечку боку слышит нас и на поле дождик даст нам добрый час хлебном уродится
+2025-07-02 11:49:19,292 - __main__ - INFO - Text similarity: 0.80, warning: Текст частично совпадает
+2025-07-02 11:49:19,298 - __main__ - INFO - Pitch similarity: 1.00
+2025-07-02 11:49:19,298 - __main__ - INFO - Temporal similarity: 1.00
+2025-07-02 11:49:19,303 - __main__ - INFO - Spectral similarity: 0.97
+2025-07-02 11:49:19,303 - __main__ - INFO - Comparison result: 87.75% similarity
+2025-07-02 11:49:19,306 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp6zo9ced6.wav
+2025-07-02 11:49:19,308 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 11:49:19] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-02 12:13:38,470 - __main__ - INFO - Storage initialized at /Users/stepantrubcov/Documents/Bek_Bot/audio_storage
+2025-07-02 12:13:38,480 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-02 12:13:38,557 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-02 12:13:38,558 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-02 12:13:59,446 - __main__ - INFO - Storage initialized at /Users/stepantrubcov/Documents/Bek_Bot/audio_storage
+2025-07-02 12:13:59,446 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-02 12:13:59,457 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-02 12:13:59,457 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-02 12:45:46,701 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_f2c0aaf6-8386-4a1a-bf2c-3d6c57d6e6a5.wav
+2025-07-02 12:45:46,705 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 12:45:46] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-02 12:45:46,709 - __main__ - INFO - 
+=== Starting comparison ===
+2025-07-02 12:45:46,709 - __main__ - INFO - Reference: audio_storage/ref_5102803347_f2c0aaf6-8386-4a1a-bf2c-3d6c57d6e6a5.wav
+2025-07-02 12:45:46,710 - __main__ - INFO - Student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpictz32nz.wav
+2025-07-02 12:45:46,712 - __main__ - INFO - Original audio: SR=48000, Duration=4.21s, Max amplitude=0.10
+2025-07-02 12:45:47,866 - __main__ - INFO - Processed audio: SR=48000, Duration=4.21s
+2025-07-02 12:45:47,866 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_f2c0aaf6-8386-4a1a-bf2c-3d6c57d6e6a5.wav
+2025-07-02 12:45:48,210 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 12:45:49,403 - __main__ - INFO - Recognized text: Господи поми
+2025-07-02 12:45:49,406 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_f2c0aaf6-8386-4a1a-bf2c-3d6c57d6e6a5.wav
+2025-07-02 12:45:49,411 - __main__ - INFO - Original audio: SR=48000, Duration=4.37s, Max amplitude=0.19
+2025-07-02 12:45:49,498 - __main__ - INFO - Processed audio: SR=48000, Duration=4.37s
+2025-07-02 12:45:49,499 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpictz32nz.wav
+2025-07-02 12:45:49,673 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 12:45:50,938 - __main__ - INFO - Recognized text: Господи помилуй
+2025-07-02 12:45:50,939 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpictz32nz.wav
+2025-07-02 12:45:50,939 - __main__ - INFO - REF Pitch: mean=120.7±6.9Hz
+2025-07-02 12:45:50,939 - __main__ - INFO - STU Pitch: mean=180.5±130.5Hz
+2025-07-02 12:45:50,939 - __main__ - INFO - Reference text: господи поми
+2025-07-02 12:45:50,939 - __main__ - INFO - Student text: господи помилуй
+2025-07-02 12:45:50,943 - __main__ - INFO - Text similarity: 0.89, warning: Незначительные отличия в тексте
+2025-07-02 12:45:50,944 - __main__ - INFO - Pitch similarity: 0.42
+2025-07-02 12:45:50,944 - __main__ - INFO - Temporal similarity: 1.00
+2025-07-02 12:45:50,947 - __main__ - INFO - Spectral similarity: 0.97
+2025-07-02 12:45:50,947 - __main__ - INFO - Comparison result: 77.7% similarity
+2025-07-02 12:45:50,948 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpictz32nz.wav
+2025-07-02 12:45:50,949 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 12:45:50] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-02 12:46:35,111 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_f2c0aaf6-8386-4a1a-bf2c-3d6c57d6e6a5.wav
+2025-07-02 12:46:35,116 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_a3e2423a-bb99-4e77-a754-f54d6c48cddb.wav
+2025-07-02 12:46:35,116 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 12:46:35] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-02 12:46:35,120 - __main__ - INFO - 
+=== Starting comparison ===
+2025-07-02 12:46:35,120 - __main__ - INFO - Reference: audio_storage/ref_5102803347_a3e2423a-bb99-4e77-a754-f54d6c48cddb.wav
+2025-07-02 12:46:35,120 - __main__ - INFO - Student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpo_kdy5tq.wav
+2025-07-02 12:46:35,122 - __main__ - INFO - Original audio: SR=48000, Duration=4.21s, Max amplitude=0.10
+2025-07-02 12:46:35,185 - __main__ - INFO - Processed audio: SR=48000, Duration=4.21s
+2025-07-02 12:46:35,186 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_a3e2423a-bb99-4e77-a754-f54d6c48cddb.wav
+2025-07-02 12:46:35,379 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 12:46:36,475 - __main__ - INFO - Recognized text: Господи поми
+2025-07-02 12:46:36,476 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_a3e2423a-bb99-4e77-a754-f54d6c48cddb.wav
+2025-07-02 12:46:36,483 - __main__ - INFO - Original audio: SR=48000, Duration=4.21s, Max amplitude=0.10
+2025-07-02 12:46:36,584 - __main__ - INFO - Processed audio: SR=48000, Duration=4.21s
+2025-07-02 12:46:36,584 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpo_kdy5tq.wav
+2025-07-02 12:46:36,779 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 12:46:37,966 - __main__ - INFO - Recognized text: Господи поми
+2025-07-02 12:46:37,968 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpo_kdy5tq.wav
+2025-07-02 12:46:37,968 - __main__ - INFO - REF Pitch: mean=120.7±6.9Hz
+2025-07-02 12:46:37,968 - __main__ - INFO - STU Pitch: mean=120.7±6.9Hz
+2025-07-02 12:46:37,969 - __main__ - INFO - Text similarity: 1.00, warning: 
+2025-07-02 12:46:37,970 - __main__ - INFO - Pitch similarity: 1.00
+2025-07-02 12:46:37,970 - __main__ - INFO - Temporal similarity: 1.00
+2025-07-02 12:46:37,975 - __main__ - INFO - Spectral similarity: 0.98
+2025-07-02 12:46:37,975 - __main__ - INFO - Comparison result: 100% similarity
+2025-07-02 12:46:37,976 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpo_kdy5tq.wav
+2025-07-02 12:46:37,977 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 12:46:37] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-02 12:47:20,198 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_a3e2423a-bb99-4e77-a754-f54d6c48cddb.wav
+2025-07-02 12:47:20,207 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_a758b093-2ed1-4884-81be-dc05b727a3e1.wav
+2025-07-02 12:47:20,209 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 12:47:20] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-02 12:47:20,214 - __main__ - INFO - 
+=== Starting comparison ===
+2025-07-02 12:47:20,214 - __main__ - INFO - Reference: audio_storage/ref_5102803347_a758b093-2ed1-4884-81be-dc05b727a3e1.wav
+2025-07-02 12:47:20,214 - __main__ - INFO - Student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpp28pm3_u.wav
+2025-07-02 12:47:20,218 - __main__ - INFO - Original audio: SR=48000, Duration=9.71s, Max amplitude=0.11
+2025-07-02 12:47:20,358 - __main__ - INFO - Processed audio: SR=48000, Duration=9.71s
+2025-07-02 12:47:20,358 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_a758b093-2ed1-4884-81be-dc05b727a3e1.wav
+2025-07-02 12:47:20,670 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 12:47:24,012 - __main__ - INFO - Recognized text: тебе Господи
+2025-07-02 12:47:24,014 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_a758b093-2ed1-4884-81be-dc05b727a3e1.wav
+2025-07-02 12:47:24,024 - __main__ - INFO - Original audio: SR=48000, Duration=9.73s, Max amplitude=0.14
+2025-07-02 12:47:24,183 - __main__ - INFO - Processed audio: SR=48000, Duration=9.73s
+2025-07-02 12:47:24,183 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpp28pm3_u.wav
+2025-07-02 12:47:24,521 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 12:47:26,674 - __main__ - INFO - Recognized text: Господи и
+2025-07-02 12:47:26,675 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpp28pm3_u.wav
+2025-07-02 12:47:26,676 - __main__ - INFO - REF Pitch: mean=196.5±127.5Hz
+2025-07-02 12:47:26,676 - __main__ - INFO - STU Pitch: mean=131.6±60.4Hz
+2025-07-02 12:47:26,676 - __main__ - INFO - Reference text: тебе господи
+2025-07-02 12:47:26,676 - __main__ - INFO - Student text: господи и
+2025-07-02 12:47:26,677 - __main__ - INFO - Text similarity: 0.66, warning: Текст частично совпадает
+2025-07-02 12:47:26,680 - __main__ - INFO - Pitch similarity: 0.58
+2025-07-02 12:47:26,680 - __main__ - INFO - Temporal similarity: 1.00
+2025-07-02 12:47:26,686 - __main__ - INFO - Spectral similarity: 0.97
+2025-07-02 12:47:26,686 - __main__ - INFO - Comparison result: 73.69% similarity
+2025-07-02 12:47:26,687 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpp28pm3_u.wav
+2025-07-02 12:47:26,689 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 12:47:26] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-02 12:48:06,820 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_a758b093-2ed1-4884-81be-dc05b727a3e1.wav
+2025-07-02 12:48:06,826 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_92713873-1566-48a2-b125-2434a07ee98e.wav
+2025-07-02 12:48:06,828 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 12:48:06] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-02 12:48:06,831 - __main__ - INFO - 
+=== Starting comparison ===
+2025-07-02 12:48:06,831 - __main__ - INFO - Reference: audio_storage/ref_5102803347_92713873-1566-48a2-b125-2434a07ee98e.wav
+2025-07-02 12:48:06,831 - __main__ - INFO - Student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpp52f9isp.wav
+2025-07-02 12:48:06,835 - __main__ - INFO - Original audio: SR=48000, Duration=9.71s, Max amplitude=0.11
+2025-07-02 12:48:06,970 - __main__ - INFO - Processed audio: SR=48000, Duration=9.71s
+2025-07-02 12:48:06,970 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_92713873-1566-48a2-b125-2434a07ee98e.wav
+2025-07-02 12:48:07,296 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 12:48:10,645 - __main__ - INFO - Recognized text: тебе Господи
+2025-07-02 12:48:10,646 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_92713873-1566-48a2-b125-2434a07ee98e.wav
+2025-07-02 12:48:10,653 - __main__ - INFO - Original audio: SR=48000, Duration=4.17s, Max amplitude=0.16
+2025-07-02 12:48:10,735 - __main__ - INFO - Processed audio: SR=48000, Duration=4.17s
+2025-07-02 12:48:10,736 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpp52f9isp.wav
+2025-07-02 12:48:10,852 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 12:48:11,969 - __main__ - INFO - Recognized text: Господи поми
+2025-07-02 12:48:11,971 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpp52f9isp.wav
+2025-07-02 12:48:11,971 - __main__ - INFO - REF Pitch: mean=196.5±127.5Hz
+2025-07-02 12:48:11,971 - __main__ - INFO - STU Pitch: mean=138.7±122.0Hz
+2025-07-02 12:48:11,972 - __main__ - INFO - Reference text: тебе господи
+2025-07-02 12:48:11,972 - __main__ - INFO - Student text: господи поми
+2025-07-02 12:48:11,973 - __main__ - INFO - Text similarity: 0.52, warning: Текст частично совпадает
+2025-07-02 12:48:11,974 - __main__ - INFO - Pitch similarity: 0.56
+2025-07-02 12:48:11,974 - __main__ - INFO - Temporal similarity: 0.83
+2025-07-02 12:48:11,979 - __main__ - INFO - Spectral similarity: 0.97
+2025-07-02 12:48:11,979 - __main__ - INFO - Comparison result: 64.21% similarity
+2025-07-02 12:48:11,980 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpp52f9isp.wav
+2025-07-02 12:48:11,981 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 12:48:11] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-02 12:49:21,117 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_92713873-1566-48a2-b125-2434a07ee98e.wav
+2025-07-02 12:49:21,122 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_4cd7cbeb-0972-42fb-98bf-230595c0c82c.wav
+2025-07-02 12:49:21,122 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 12:49:21] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-02 12:49:21,126 - __main__ - INFO - 
+=== Starting comparison ===
+2025-07-02 12:49:21,126 - __main__ - INFO - Reference: audio_storage/ref_5102803347_4cd7cbeb-0972-42fb-98bf-230595c0c82c.wav
+2025-07-02 12:49:21,126 - __main__ - INFO - Student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp7muxpgop.wav
+2025-07-02 12:49:21,127 - __main__ - INFO - Original audio: SR=48000, Duration=4.23s, Max amplitude=0.13
+2025-07-02 12:49:21,187 - __main__ - INFO - Processed audio: SR=48000, Duration=4.23s
+2025-07-02 12:49:21,187 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_4cd7cbeb-0972-42fb-98bf-230595c0c82c.wav
+2025-07-02 12:49:21,360 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 12:49:22,228 - __main__ - WARNING - Google Speech Recognition could not understand audio
+2025-07-02 12:49:22,229 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_4cd7cbeb-0972-42fb-98bf-230595c0c82c.wav
+2025-07-02 12:49:22,232 - __main__ - INFO - Original audio: SR=48000, Duration=3.53s, Max amplitude=0.19
+2025-07-02 12:49:22,295 - __main__ - INFO - Processed audio: SR=48000, Duration=3.53s
+2025-07-02 12:49:22,295 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp7muxpgop.wav
+2025-07-02 12:49:22,408 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 12:49:23,460 - __main__ - INFO - Recognized text: Господи поми
+2025-07-02 12:49:23,462 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp7muxpgop.wav
+2025-07-02 12:49:23,462 - __main__ - INFO - REF Pitch: mean=232.8±172.3Hz
+2025-07-02 12:49:23,462 - __main__ - INFO - STU Pitch: mean=90.9±3.9Hz
+2025-07-02 12:49:23,462 - __main__ - INFO - Text similarity: 0.00, warning: Один из текстов не распознан
+2025-07-02 12:49:23,462 - __main__ - INFO - Pitch similarity: 0.30
+2025-07-02 12:49:23,463 - __main__ - INFO - Temporal similarity: 0.98
+2025-07-02 12:49:23,468 - __main__ - INFO - Spectral similarity: 0.95
+2025-07-02 12:49:23,468 - __main__ - INFO - Comparison result: 38.09% similarity
+2025-07-02 12:49:23,469 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp7muxpgop.wav
+2025-07-02 12:49:23,471 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 12:49:23] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-02 12:50:12,691 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_4cd7cbeb-0972-42fb-98bf-230595c0c82c.wav
+2025-07-02 12:50:12,695 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_9a132563-af95-452a-b0cc-505ecb7fbb73.wav
+2025-07-02 12:50:12,695 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 12:50:12] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-02 12:50:12,699 - __main__ - INFO - 
+=== Starting comparison ===
+2025-07-02 12:50:12,699 - __main__ - INFO - Reference: audio_storage/ref_5102803347_9a132563-af95-452a-b0cc-505ecb7fbb73.wav
+2025-07-02 12:50:12,699 - __main__ - INFO - Student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpw1l98ky3.wav
+2025-07-02 12:50:12,701 - __main__ - INFO - Original audio: SR=48000, Duration=4.15s, Max amplitude=0.13
+2025-07-02 12:50:12,758 - __main__ - INFO - Processed audio: SR=48000, Duration=4.15s
+2025-07-02 12:50:12,758 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_9a132563-af95-452a-b0cc-505ecb7fbb73.wav
+2025-07-02 12:50:12,922 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 12:50:13,903 - __main__ - INFO - Recognized text: Господи поми
+2025-07-02 12:50:13,904 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_9a132563-af95-452a-b0cc-505ecb7fbb73.wav
+2025-07-02 12:50:13,910 - __main__ - INFO - Original audio: SR=48000, Duration=4.45s, Max amplitude=0.18
+2025-07-02 12:50:13,997 - __main__ - INFO - Processed audio: SR=48000, Duration=4.45s
+2025-07-02 12:50:13,997 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpw1l98ky3.wav
+2025-07-02 12:50:14,171 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 12:50:15,285 - __main__ - INFO - Recognized text: Господи помелу
+2025-07-02 12:50:15,286 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpw1l98ky3.wav
+2025-07-02 12:50:15,287 - __main__ - INFO - REF Pitch: mean=119.3±18.0Hz
+2025-07-02 12:50:15,287 - __main__ - INFO - STU Pitch: mean=149.0±100.0Hz
+2025-07-02 12:50:15,287 - __main__ - INFO - Reference text: господи поми
+2025-07-02 12:50:15,287 - __main__ - INFO - Student text: господи помелу
+2025-07-02 12:50:15,288 - __main__ - INFO - Text similarity: 0.85, warning: Незначительные отличия в тексте
+2025-07-02 12:50:15,290 - __main__ - INFO - Pitch similarity: 0.44
+2025-07-02 12:50:15,290 - __main__ - INFO - Temporal similarity: 0.99
+2025-07-02 12:50:15,295 - __main__ - INFO - Spectral similarity: 0.97
+2025-07-02 12:50:15,296 - __main__ - INFO - Comparison result: 76.53% similarity
+2025-07-02 12:50:15,297 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpw1l98ky3.wav
+2025-07-02 12:50:15,298 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 12:50:15] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-02 13:05:49,186 - __main__ - INFO - Storage initialized at /Users/stepantrubcov/Documents/Bek_Bot/audio_storage
+2025-07-02 13:05:49,199 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-02 13:05:49,199 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-02 13:18:17,453 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 13:18:17] "[33mGET /health HTTP/1.1[0m" 404 -
+2025-07-02 13:19:26,412 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 13:19:26] "[33mGET /health HTTP/1.1[0m" 404 -
+2025-07-02 15:44:44,911 - __main__ - INFO - Storage initialized at /Users/stepantrubcov/Documents/Bek_Bot/audio_storage
+2025-07-02 15:44:44,912 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-02 15:44:44,936 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-02 15:44:44,936 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-02 15:55:28,936 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 15:55:28] "GET /health HTTP/1.1" 200 -
+2025-07-02 15:55:28,970 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_d1d9f35f-84bb-4c72-806a-779abc1ace28.wav
+2025-07-02 15:55:28,971 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 15:55:28] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-02 15:55:28,974 - __main__ - INFO - 
+=== Starting comparison ===
+2025-07-02 15:55:28,974 - __main__ - INFO - Reference: audio_storage/ref_5102803347_d1d9f35f-84bb-4c72-806a-779abc1ace28.wav
+2025-07-02 15:55:28,974 - __main__ - INFO - Student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp3vdpct8e.wav
+2025-07-02 15:55:28,981 - __main__ - INFO - Original audio: SR=48000, Duration=3.75s, Max amplitude=0.96
+2025-07-02 15:55:31,003 - __main__ - INFO - Processed audio: SR=48000, Duration=3.75s
+2025-07-02 15:55:31,003 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_d1d9f35f-84bb-4c72-806a-779abc1ace28.wav
+2025-07-02 15:55:31,351 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 15:55:32,324 - __main__ - INFO - Recognized text: Господи
+2025-07-02 15:55:32,325 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_d1d9f35f-84bb-4c72-806a-779abc1ace28.wav
+2025-07-02 15:55:32,330 - __main__ - INFO - Original audio: SR=48000, Duration=3.17s, Max amplitude=0.12
+2025-07-02 15:55:32,408 - __main__ - INFO - Processed audio: SR=48000, Duration=3.17s
+2025-07-02 15:55:32,409 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp3vdpct8e.wav
+2025-07-02 15:55:32,532 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 15:55:33,472 - __main__ - INFO - Recognized text: О Господи помилуй
+2025-07-02 15:55:33,473 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp3vdpct8e.wav
+2025-07-02 15:55:33,474 - __main__ - INFO - REF Pitch: mean=115.3±2.2Hz
+2025-07-02 15:55:33,474 - __main__ - INFO - STU Pitch: mean=158.9±119.7Hz
+2025-07-02 15:55:33,474 - __main__ - INFO - Reference text: господи
+2025-07-02 15:55:33,474 - __main__ - INFO - Student text: о господи помилуй
+2025-07-02 15:55:33,481 - __main__ - INFO - Text similarity: 0.50, warning: Текст частично совпадает
+2025-07-02 15:55:33,483 - __main__ - INFO - Pitch similarity: 0.14
+2025-07-02 15:55:33,484 - __main__ - INFO - Temporal similarity: 0.98
+2025-07-02 15:55:33,489 - __main__ - INFO - Spectral similarity: 0.96
+2025-07-02 15:55:33,489 - __main__ - INFO - Comparison result: 48.67% similarity
+2025-07-02 15:55:33,491 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp3vdpct8e.wav
+2025-07-02 15:55:33,492 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 15:55:33] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-02 16:59:26,078 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_d1d9f35f-84bb-4c72-806a-779abc1ace28.wav
+2025-07-02 16:59:26,101 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_2410b176-87e5-42a8-b4ea-692e1020608e.wav
+2025-07-02 16:59:26,103 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 16:59:26] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-02 16:59:26,108 - __main__ - INFO - 
+=== Starting comparison ===
+2025-07-02 16:59:26,108 - __main__ - INFO - Reference: audio_storage/ref_5102803347_2410b176-87e5-42a8-b4ea-692e1020608e.wav
+2025-07-02 16:59:26,108 - __main__ - INFO - Student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpuca2lewl.wav
+2025-07-02 16:59:26,118 - __main__ - INFO - Original audio: SR=48000, Duration=3.77s, Max amplitude=0.07
+2025-07-02 16:59:26,186 - __main__ - INFO - Processed audio: SR=48000, Duration=3.77s
+2025-07-02 16:59:26,186 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_2410b176-87e5-42a8-b4ea-692e1020608e.wav
+2025-07-02 16:59:26,399 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 16:59:27,374 - __main__ - INFO - Recognized text: Господи поми
+2025-07-02 16:59:27,375 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_2410b176-87e5-42a8-b4ea-692e1020608e.wav
+2025-07-02 16:59:27,381 - __main__ - INFO - Original audio: SR=48000, Duration=3.77s, Max amplitude=0.07
+2025-07-02 16:59:27,457 - __main__ - INFO - Processed audio: SR=48000, Duration=3.77s
+2025-07-02 16:59:27,457 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpuca2lewl.wav
+2025-07-02 16:59:27,631 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 16:59:28,665 - __main__ - INFO - Recognized text: Господи поми
+2025-07-02 16:59:28,666 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpuca2lewl.wav
+2025-07-02 16:59:28,667 - __main__ - INFO - REF Pitch: mean=114.4±32.3Hz
+2025-07-02 16:59:28,667 - __main__ - INFO - STU Pitch: mean=114.4±32.3Hz
+2025-07-02 16:59:28,667 - __main__ - INFO - Text similarity: 1.00, warning: 
+2025-07-02 16:59:28,671 - __main__ - INFO - Pitch similarity: 1.00
+2025-07-02 16:59:28,671 - __main__ - INFO - Temporal similarity: 1.00
+2025-07-02 16:59:28,680 - __main__ - INFO - Spectral similarity: 0.97
+2025-07-02 16:59:28,680 - __main__ - INFO - Comparison result: 100% similarity
+2025-07-02 16:59:28,682 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpuca2lewl.wav
+2025-07-02 16:59:28,683 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 16:59:28] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-02 17:00:30,106 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_2410b176-87e5-42a8-b4ea-692e1020608e.wav
+2025-07-02 17:00:30,114 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_3b3b1221-d1d6-430b-ade5-852e3f14b9ed.wav
+2025-07-02 17:00:30,115 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 17:00:30] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-02 17:00:30,119 - __main__ - INFO - 
+=== Starting comparison ===
+2025-07-02 17:00:30,119 - __main__ - INFO - Reference: audio_storage/ref_5102803347_3b3b1221-d1d6-430b-ade5-852e3f14b9ed.wav
+2025-07-02 17:00:30,119 - __main__ - INFO - Student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpvas1cqkr.wav
+2025-07-02 17:00:30,121 - __main__ - INFO - Original audio: SR=48000, Duration=7.23s, Max amplitude=0.11
+2025-07-02 17:00:30,243 - __main__ - INFO - Processed audio: SR=48000, Duration=7.23s
+2025-07-02 17:00:30,243 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_3b3b1221-d1d6-430b-ade5-852e3f14b9ed.wav
+2025-07-02 17:00:30,538 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 17:00:31,845 - __main__ - INFO - Recognized text: тебе бегу Господи
+2025-07-02 17:00:31,846 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_3b3b1221-d1d6-430b-ade5-852e3f14b9ed.wav
+2025-07-02 17:00:31,855 - __main__ - INFO - Original audio: SR=48000, Duration=7.09s, Max amplitude=0.22
+2025-07-02 17:00:31,982 - __main__ - INFO - Processed audio: SR=48000, Duration=7.09s
+2025-07-02 17:00:31,982 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpvas1cqkr.wav
+2025-07-02 17:00:32,242 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 17:00:34,799 - __main__ - INFO - Recognized text: тебе бегу Господи
+2025-07-02 17:00:34,800 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpvas1cqkr.wav
+2025-07-02 17:00:34,801 - __main__ - INFO - REF Pitch: mean=118.8±40.0Hz
+2025-07-02 17:00:34,801 - __main__ - INFO - STU Pitch: mean=215.9±131.7Hz
+2025-07-02 17:00:34,801 - __main__ - INFO - Text similarity: 1.00, warning: 
+2025-07-02 17:00:34,801 - __main__ - INFO - Pitch similarity: 0.50
+2025-07-02 17:00:34,802 - __main__ - INFO - Temporal similarity: 1.00
+2025-07-02 17:00:34,808 - __main__ - INFO - Spectral similarity: 0.96
+2025-07-02 17:00:34,809 - __main__ - INFO - Comparison result: 84.6% similarity
+2025-07-02 17:00:34,810 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpvas1cqkr.wav
+2025-07-02 17:00:34,813 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 17:00:34] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-02 17:00:52,933 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_3b3b1221-d1d6-430b-ade5-852e3f14b9ed.wav
+2025-07-02 17:00:52,945 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_15c61ab7-80f6-4a7a-83f2-ccfcb32454ed.wav
+2025-07-02 17:00:52,946 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 17:00:52] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-02 17:00:52,953 - __main__ - INFO - 
+=== Starting comparison ===
+2025-07-02 17:00:52,953 - __main__ - INFO - Reference: audio_storage/ref_5102803347_15c61ab7-80f6-4a7a-83f2-ccfcb32454ed.wav
+2025-07-02 17:00:52,953 - __main__ - INFO - Student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpoun8sl78.wav
+2025-07-02 17:00:52,956 - __main__ - INFO - Original audio: SR=48000, Duration=7.23s, Max amplitude=0.11
+2025-07-02 17:00:53,064 - __main__ - INFO - Processed audio: SR=48000, Duration=7.23s
+2025-07-02 17:00:53,065 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_15c61ab7-80f6-4a7a-83f2-ccfcb32454ed.wav
+2025-07-02 17:00:53,433 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 17:00:54,832 - __main__ - INFO - Recognized text: тебе бегу Господи
+2025-07-02 17:00:54,835 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_15c61ab7-80f6-4a7a-83f2-ccfcb32454ed.wav
+2025-07-02 17:00:54,840 - __main__ - INFO - Original audio: SR=48000, Duration=3.53s, Max amplitude=0.24
+2025-07-02 17:00:54,928 - __main__ - INFO - Processed audio: SR=48000, Duration=3.53s
+2025-07-02 17:00:54,928 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpoun8sl78.wav
+2025-07-02 17:00:55,052 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 17:00:55,703 - __main__ - WARNING - Google Speech Recognition could not understand audio
+2025-07-02 17:00:55,705 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpoun8sl78.wav
+2025-07-02 17:00:55,705 - __main__ - INFO - REF Pitch: mean=118.8±40.0Hz
+2025-07-02 17:00:55,706 - __main__ - INFO - STU Pitch: mean=356.7±168.2Hz
+2025-07-02 17:00:55,706 - __main__ - INFO - Text similarity: 0.15, warning: Один из текстов не распознан
+2025-07-02 17:00:55,706 - __main__ - INFO - Pitch similarity: 0.30
+2025-07-02 17:00:55,706 - __main__ - INFO - Temporal similarity: 0.89
+2025-07-02 17:00:55,714 - __main__ - INFO - Spectral similarity: 0.97
+2025-07-02 17:00:55,714 - __main__ - INFO - Comparison result: 35.05% similarity
+2025-07-02 17:00:55,716 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpoun8sl78.wav
+2025-07-02 17:00:55,717 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 17:00:55] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-02 17:01:23,986 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_15c61ab7-80f6-4a7a-83f2-ccfcb32454ed.wav
+2025-07-02 17:01:23,993 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_7d361144-361d-4166-bd89-f25d32c7087f.wav
+2025-07-02 17:01:23,994 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 17:01:23] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-02 17:01:23,997 - __main__ - INFO - 
+=== Starting comparison ===
+2025-07-02 17:01:23,997 - __main__ - INFO - Reference: audio_storage/ref_5102803347_7d361144-361d-4166-bd89-f25d32c7087f.wav
+2025-07-02 17:01:23,997 - __main__ - INFO - Student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpwzryq3up.wav
+2025-07-02 17:01:24,000 - __main__ - INFO - Original audio: SR=48000, Duration=7.23s, Max amplitude=0.11
+2025-07-02 17:01:24,106 - __main__ - INFO - Processed audio: SR=48000, Duration=7.23s
+2025-07-02 17:01:24,107 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_7d361144-361d-4166-bd89-f25d32c7087f.wav
+2025-07-02 17:01:24,406 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 17:01:25,679 - __main__ - INFO - Recognized text: тебе бегу Господи
+2025-07-02 17:01:25,680 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_7d361144-361d-4166-bd89-f25d32c7087f.wav
+2025-07-02 17:01:25,685 - __main__ - INFO - Original audio: SR=48000, Duration=3.41s, Max amplitude=0.15
+2025-07-02 17:01:25,763 - __main__ - INFO - Processed audio: SR=48000, Duration=3.41s
+2025-07-02 17:01:25,763 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpwzryq3up.wav
+2025-07-02 17:01:25,888 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 17:01:26,833 - __main__ - INFO - Recognized text: погода Ой Господи
+2025-07-02 17:01:26,835 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpwzryq3up.wav
+2025-07-02 17:01:26,835 - __main__ - INFO - REF Pitch: mean=118.8±40.0Hz
+2025-07-02 17:01:26,835 - __main__ - INFO - STU Pitch: mean=103.6±12.4Hz
+2025-07-02 17:01:26,836 - __main__ - INFO - Reference text: тебе бегу господи
+2025-07-02 17:01:26,836 - __main__ - INFO - Student text: погода ой господи
+2025-07-02 17:01:26,841 - __main__ - INFO - Text similarity: 0.50, warning: Текст частично совпадает
+2025-07-02 17:01:26,843 - __main__ - INFO - Pitch similarity: 0.50
+2025-07-02 17:01:26,844 - __main__ - INFO - Temporal similarity: 0.89
+2025-07-02 17:01:26,848 - __main__ - INFO - Spectral similarity: 0.97
+2025-07-02 17:01:26,850 - __main__ - INFO - Comparison result: 58.56% similarity
+2025-07-02 17:01:26,852 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpwzryq3up.wav
+2025-07-02 17:01:26,853 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 17:01:26] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-02 17:02:36,342 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_7d361144-361d-4166-bd89-f25d32c7087f.wav
+2025-07-02 17:02:36,347 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_8af2c252-125a-495c-bc30-5498d91974a3.wav
+2025-07-02 17:02:36,348 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 17:02:36] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-02 17:02:36,352 - __main__ - INFO - 
+=== Starting comparison ===
+2025-07-02 17:02:36,352 - __main__ - INFO - Reference: audio_storage/ref_5102803347_8af2c252-125a-495c-bc30-5498d91974a3.wav
+2025-07-02 17:02:36,352 - __main__ - INFO - Student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp9gqogghf.wav
+2025-07-02 17:02:36,354 - __main__ - INFO - Original audio: SR=48000, Duration=3.89s, Max amplitude=0.07
+2025-07-02 17:02:36,408 - __main__ - INFO - Processed audio: SR=48000, Duration=3.89s
+2025-07-02 17:02:36,408 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_8af2c252-125a-495c-bc30-5498d91974a3.wav
+2025-07-02 17:02:36,557 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 17:02:37,488 - __main__ - INFO - Recognized text: Господи поми
+2025-07-02 17:02:37,489 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_8af2c252-125a-495c-bc30-5498d91974a3.wav
+2025-07-02 17:02:37,498 - __main__ - INFO - Original audio: SR=48000, Duration=8.45s, Max amplitude=0.19
+2025-07-02 17:02:37,642 - __main__ - INFO - Processed audio: SR=48000, Duration=8.45s
+2025-07-02 17:02:37,642 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp9gqogghf.wav
+2025-07-02 17:02:37,893 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 17:02:39,252 - __main__ - INFO - Recognized text: тебе Господи
+2025-07-02 17:02:39,253 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp9gqogghf.wav
+2025-07-02 17:02:39,254 - __main__ - INFO - REF Pitch: mean=105.5±6.0Hz
+2025-07-02 17:02:39,254 - __main__ - INFO - STU Pitch: mean=180.4±110.6Hz
+2025-07-02 17:02:39,254 - __main__ - INFO - Reference text: господи поми
+2025-07-02 17:02:39,255 - __main__ - INFO - Student text: тебе господи
+2025-07-02 17:02:39,256 - __main__ - INFO - Text similarity: 0.50, warning: Текст частично совпадает
+2025-07-02 17:02:39,256 - __main__ - INFO - Pitch similarity: 0.50
+2025-07-02 17:02:39,256 - __main__ - INFO - Temporal similarity: 0.86
+2025-07-02 17:02:39,263 - __main__ - INFO - Spectral similarity: 0.97
+2025-07-02 17:02:39,263 - __main__ - INFO - Comparison result: 58.31% similarity
+2025-07-02 17:02:39,265 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp9gqogghf.wav
+2025-07-02 17:02:39,268 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 17:02:39] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-02 17:22:20,954 - __main__ - INFO - Storage initialized at /Users/stepantrubcov/Documents/Bek_Bot/audio_storage
+2025-07-02 17:22:20,954 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-02 17:22:20,967 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-02 17:22:20,967 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-02 17:24:08,044 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_3ed836af-6abd-4dfb-82c7-30b5180ee940.wav
+2025-07-02 17:24:08,047 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 17:24:08] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-02 17:24:08,051 - __main__ - INFO - 
+=== Starting comparison ===
+2025-07-02 17:24:08,051 - __main__ - INFO - Reference: audio_storage/ref_5102803347_3ed836af-6abd-4dfb-82c7-30b5180ee940.wav
+2025-07-02 17:24:08,051 - __main__ - INFO - Student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmproho15cx.wav
+2025-07-02 17:24:08,054 - __main__ - INFO - Original audio: SR=48000, Duration=4.43s, Max amplitude=0.05
+2025-07-02 17:24:08,959 - __main__ - INFO - Processed audio: SR=48000, Duration=4.43s
+2025-07-02 17:24:08,960 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_3ed836af-6abd-4dfb-82c7-30b5180ee940.wav
+2025-07-02 17:24:09,308 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 17:24:10,582 - __main__ - INFO - Recognized text: О Господи поми
+2025-07-02 17:24:10,584 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_3ed836af-6abd-4dfb-82c7-30b5180ee940.wav
+2025-07-02 17:24:10,591 - __main__ - INFO - Original audio: SR=48000, Duration=4.09s, Max amplitude=0.09
+2025-07-02 17:24:10,668 - __main__ - INFO - Processed audio: SR=48000, Duration=4.09s
+2025-07-02 17:24:10,669 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmproho15cx.wav
+2025-07-02 17:24:10,822 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 17:24:12,143 - __main__ - INFO - Recognized text: Господи помилуй
+2025-07-02 17:24:12,145 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmproho15cx.wav
+2025-07-02 17:24:12,145 - __main__ - INFO - REF Pitch: mean=106.0±9.8Hz
+2025-07-02 17:24:12,145 - __main__ - INFO - STU Pitch: mean=187.8±141.5Hz
+2025-07-02 17:24:12,145 - __main__ - INFO - Reference text: о господи поми
+2025-07-02 17:24:12,146 - __main__ - INFO - Student text: господи помилуй
+2025-07-02 17:24:12,150 - __main__ - INFO - Text similarity: 0.20, warning: Текст значительно отличается
+2025-07-02 17:24:12,150 - __main__ - INFO - Pitch similarity: 0.50
+2025-07-02 17:24:12,150 - __main__ - INFO - Temporal similarity: 0.99
+2025-07-02 17:24:12,156 - __main__ - INFO - Spectral similarity: 0.97
+2025-07-02 17:24:12,157 - __main__ - INFO - Comparison result: 38.61% similarity
+2025-07-02 17:24:12,158 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmproho15cx.wav
+2025-07-02 17:24:12,160 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 17:24:12] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-02 17:25:14,128 - __main__ - INFO - Removed file: audio_storage/ref_5102803347_3ed836af-6abd-4dfb-82c7-30b5180ee940.wav
+2025-07-02 17:25:14,132 - __main__ - INFO - Reference audio saved for user 5102803347 at audio_storage/ref_5102803347_9b56573c-09ae-445d-96cd-14c5dff51213.wav
+2025-07-02 17:25:14,132 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 17:25:14] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-02 17:25:14,135 - __main__ - INFO - 
+=== Starting comparison ===
+2025-07-02 17:25:14,135 - __main__ - INFO - Reference: audio_storage/ref_5102803347_9b56573c-09ae-445d-96cd-14c5dff51213.wav
+2025-07-02 17:25:14,135 - __main__ - INFO - Student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpps41pg4o.wav
+2025-07-02 17:25:14,137 - __main__ - INFO - Original audio: SR=48000, Duration=4.23s, Max amplitude=0.10
+2025-07-02 17:25:14,198 - __main__ - INFO - Processed audio: SR=48000, Duration=4.23s
+2025-07-02 17:25:14,199 - __main__ - INFO - Analyzing audio file: audio_storage/ref_5102803347_9b56573c-09ae-445d-96cd-14c5dff51213.wav
+2025-07-02 17:25:14,379 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 17:25:15,527 - __main__ - INFO - Recognized text: Господи помелу
+2025-07-02 17:25:15,528 - __main__ - INFO - Analysis completed for audio_storage/ref_5102803347_9b56573c-09ae-445d-96cd-14c5dff51213.wav
+2025-07-02 17:25:15,534 - __main__ - INFO - Original audio: SR=48000, Duration=3.81s, Max amplitude=0.37
+2025-07-02 17:25:15,614 - __main__ - INFO - Processed audio: SR=48000, Duration=3.81s
+2025-07-02 17:25:15,614 - __main__ - INFO - Analyzing audio file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpps41pg4o.wav
+2025-07-02 17:25:15,820 - __main__ - WARNING - Rhythm analysis failed: No librosa.feature attribute rhythm
+2025-07-02 17:25:16,902 - __main__ - INFO - Recognized text: Господи поми
+2025-07-02 17:25:16,903 - __main__ - INFO - Analysis completed for /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpps41pg4o.wav
+2025-07-02 17:25:16,903 - __main__ - INFO - REF Pitch: mean=128.0±91.1Hz
+2025-07-02 17:25:16,903 - __main__ - INFO - STU Pitch: mean=98.3±8.2Hz
+2025-07-02 17:25:16,903 - __main__ - INFO - Reference text: господи помелу
+2025-07-02 17:25:16,903 - __main__ - INFO - Student text: господи поми
+2025-07-02 17:25:16,904 - __main__ - INFO - Text similarity: 0.20, warning: Текст значительно отличается
+2025-07-02 17:25:16,905 - __main__ - INFO - Pitch similarity: 0.22
+2025-07-02 17:25:16,905 - __main__ - INFO - Temporal similarity: 0.99
+2025-07-02 17:25:16,907 - __main__ - INFO - Spectral similarity: 0.96
+2025-07-02 17:25:16,908 - __main__ - INFO - Comparison result: 35.67% similarity
+2025-07-02 17:25:16,909 - __main__ - INFO - Removed file: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpps41pg4o.wav
+2025-07-02 17:25:16,910 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 17:25:16] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-02 17:35:55,558 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-02 17:35:55,583 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-02 17:35:55,583 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-02 17:36:32,698 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 17:36:32] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-02 17:36:36,818 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 17:36:36] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-02 17:37:44,846 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 17:37:44] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-02 17:37:48,263 - werkzeug - INFO - 127.0.0.1 - - [02/Jul/2025 17:37:48] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-02 17:53:23,996 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-02 17:53:27,097 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-02 17:53:27,097 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-03 10:31:08,572 - werkzeug - INFO - 127.0.0.1 - - [03/Jul/2025 10:31:08] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-03 10:31:12,603 - werkzeug - INFO - 127.0.0.1 - - [03/Jul/2025 10:31:12] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-03 10:31:47,625 - werkzeug - INFO - 127.0.0.1 - - [03/Jul/2025 10:31:47] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-03 10:31:49,917 - werkzeug - INFO - 127.0.0.1 - - [03/Jul/2025 10:31:49] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-03 10:32:12,357 - werkzeug - INFO - 127.0.0.1 - - [03/Jul/2025 10:32:12] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-03 10:32:16,434 - werkzeug - INFO - 127.0.0.1 - - [03/Jul/2025 10:32:16] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-03 10:32:53,723 - werkzeug - INFO - 127.0.0.1 - - [03/Jul/2025 10:32:53] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-03 10:32:55,897 - werkzeug - INFO - 127.0.0.1 - - [03/Jul/2025 10:32:55] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-03 10:34:30,075 - werkzeug - INFO - 127.0.0.1 - - [03/Jul/2025 10:34:30] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-03 10:34:48,411 - werkzeug - INFO - 127.0.0.1 - - [03/Jul/2025 10:34:48] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-03 10:36:00,489 - werkzeug - INFO - 127.0.0.1 - - [03/Jul/2025 10:36:00] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-03 10:36:04,336 - werkzeug - INFO - 127.0.0.1 - - [03/Jul/2025 10:36:04] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-03 10:36:18,599 - werkzeug - INFO - 127.0.0.1 - - [03/Jul/2025 10:36:18] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-03 10:36:21,662 - werkzeug - INFO - 127.0.0.1 - - [03/Jul/2025 10:36:21] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-03 11:08:03,769 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-03 11:08:03,788 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-03 11:08:03,788 - werkzeug - INFO - [33mPress CTRL+C to quit[0m

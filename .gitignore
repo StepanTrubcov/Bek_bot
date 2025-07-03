@@ -1,19 +1,23 @@
-venv/
+# Файлы данных
+audio_storage/
+model/
+*.wav
+*.zip
+*.mp3
+
+# Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-.env
-temp/
-audio_cache/
-venv/
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.env
-temp/
-audio_cache/
-*.h5
-*.so
-*.dylib
+.Python
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Логи
+*.log
