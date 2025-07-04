@@ -5,10 +5,9 @@ PORT=${PORT:-10000}
 
 # Запускаем Gunicorn
 gunicorn app:app \
-  --workers 2 \
-  --worker-class gevent \
-  --timeout 300 \
+  --workers 2 \  # Увеличено количество воркеров, так как sync легче
+  --worker-class sync \  # Используем стандартные sync воркеры
+  --timeout 400 \
   --bind 0.0.0.0:$PORT \
-  --preload \
   --access-logfile - \
   --error-logfile -
