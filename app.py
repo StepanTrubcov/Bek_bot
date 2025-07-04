@@ -800,6 +800,10 @@ class ChurchMusicServer:
             logger.error(f"Server failed to start: {str(e)}")
             raise
 
+# Создаем и настраиваем сервер
+server = ChurchMusicServer()
+app = server.app  # Делаем app доступным для Gunicorn
+
 if __name__ == "__main__":
-    server = ChurchMusicServer()
-    server.run()
+    # Локальный запуск для тестирования
+    server.run(debug=True)

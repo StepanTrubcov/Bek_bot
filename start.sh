@@ -1,9 +1,8 @@
 #!/bin/bash
 
-# Получаем порт из переменной окружения (Render сам его задаст)
 PORT=${PORT:-10000}
 
-# Запускаем Gunicorn
+# Запускаем Gunicorn, указывая правильное имя приложения
 gunicorn app:app \
   --workers 2 \
   --worker-class sync \
