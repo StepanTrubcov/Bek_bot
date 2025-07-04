@@ -989,3 +989,33 @@ AudioProcessingError: Не удалось проанализировать ау�
  * Running on http://127.0.0.1:10000
  * Running on http://192.168.1.8:10000
 2025-07-03 11:08:03,788 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-04 17:53:14,071 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-04 17:53:14,082 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-04 17:53:14,082 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-04 17:53:21,480 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 17:53:21] "GET / HTTP/1.1" 200 -
+2025-07-04 17:54:26,489 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 17:54:26] "GET /health HTTP/1.1" 200 -
+2025-07-04 17:54:26,535 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 17:54:26] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-04 17:54:55,197 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 17:54:55] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-04 17:56:21,107 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 17:56:21] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-04 17:56:45,464 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 17:56:45] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-04 17:57:06,441 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 17:57:06] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-04 17:57:24,565 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 17:57:24] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-04 17:57:53,139 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 17:57:53] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-04 17:58:03,575 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 17:58:03] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-04 17:58:43,102 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 17:58:43] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-04 17:58:54,575 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 17:58:54] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-04 17:59:57,830 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 17:59:57] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-04 18:00:00,956 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 18:00:00] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-04 18:00:14,746 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 18:00:14] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-04 18:00:17,927 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 18:00:17] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-04 18:00:33,151 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 18:00:33] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-04 18:00:35,770 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 18:00:35] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-04 18:00:58,007 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 18:00:58] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-04 18:01:00,625 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 18:01:00] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-04 18:02:19,765 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 18:02:19] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-04 18:02:23,568 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 18:02:23] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-04 18:02:49,577 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 18:02:49] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-04 18:02:52,324 - werkzeug - INFO - 127.0.0.1 - - [04/Jul/2025 18:02:52] "POST /compare_audio HTTP/1.1" 200 -
