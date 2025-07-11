@@ -989,3 +989,145 @@ AudioProcessingError: Не удалось проанализировать ау�
  * Running on http://127.0.0.1:10000
  * Running on http://192.168.1.8:10000
 2025-07-03 11:08:03,788 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-11 12:05:48,538 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-11 12:05:48,549 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-11 12:05:48,549 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-11 12:06:10,131 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:06:10] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 12:06:14,279 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:06:14] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 12:08:57,817 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-11 12:08:57,828 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-11 12:08:57,828 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-11 12:09:27,328 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:09:27] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 12:09:30,979 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:09:30] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 12:09:41,592 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:09:41] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 12:09:44,707 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:09:44] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 12:10:10,188 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:10:10] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 12:10:12,432 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:10:12] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 12:10:35,643 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:10:35] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 12:10:39,506 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:10:39] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 12:11:07,949 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:11:07] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 12:11:10,318 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:11:10] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 12:12:26,750 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:12:26] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 12:12:30,603 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:12:30] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 12:13:01,288 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:13:01] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 12:13:04,434 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:13:04] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 12:13:32,326 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:13:32] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 12:13:35,332 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:13:35] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 12:37:21,110 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-11 12:37:21,126 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-11 12:37:21,126 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-11 12:40:51,581 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:40:51] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 12:40:51,585 - __main__ - INFO - Comparing reference: audio_storage/ref_5102803347_849a2cb7-131a-417a-a2f2-a4182bdf12bf.wav with student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpaqxdl19s.wav
+2025-07-11 12:40:53,038 - __main__ - ERROR - Pitch extraction error: operands could not be broadcast together with shapes (747,) (747,) (351,) 
+2025-07-11 12:40:53,049 - __main__ - WARNING - Tempo detection failed: No librosa.feature attribute rhythm
+2025-07-11 12:40:54,991 - __main__ - INFO - Analyzed audio: audio_storage/ref_5102803347_849a2cb7-131a-417a-a2f2-a4182bdf12bf.wav
+2025-07-11 12:40:54,993 - __main__ - INFO - Duration: 3.73s
+2025-07-11 12:40:54,993 - __main__ - INFO - Pitch mean: 0.0 Hz
+2025-07-11 12:40:54,993 - __main__ - INFO - Recognized text: госпо
+2025-07-11 12:40:55,206 - __main__ - ERROR - Pitch extraction error: operands could not be broadcast together with shapes (755,) (755,) (354,) 
+2025-07-11 12:40:55,214 - __main__ - WARNING - Tempo detection failed: No librosa.feature attribute rhythm
+2025-07-11 12:40:55,922 - __main__ - INFO - Analyzed audio: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpaqxdl19s.wav
+2025-07-11 12:40:55,923 - __main__ - INFO - Duration: 3.77s
+2025-07-11 12:40:55,924 - __main__ - INFO - Pitch mean: 0.0 Hz
+2025-07-11 12:40:55,924 - __main__ - INFO - Recognized text: госпо
+2025-07-11 12:40:55,924 - __main__ - INFO - Text similarity: 1.00, warning: 
+2025-07-11 12:40:55,924 - __main__ - WARNING - Empty pitch contours
+2025-07-11 12:40:55,925 - __main__ - INFO - Pitch similarity: 0.30
+2025-07-11 12:40:55,925 - __main__ - INFO - Temporal similarity: 1.00
+2025-07-11 12:40:55,936 - __main__ - INFO - Spectral similarity: 0.61
+2025-07-11 12:40:55,936 - __main__ - INFO - Final similarity: 0.79
+2025-07-11 12:40:55,939 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:40:55] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 12:42:35,398 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:42:35] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 12:42:35,402 - __main__ - INFO - Comparing reference: audio_storage/ref_5102803347_21520b05-b7a8-4806-af5f-3881f2092671.wav with student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpt5oep461.wav
+2025-07-11 12:42:35,653 - __main__ - ERROR - Pitch extraction error: operands could not be broadcast together with shapes (755,) (755,) (354,) 
+2025-07-11 12:42:35,662 - __main__ - WARNING - Tempo detection failed: No librosa.feature attribute rhythm
+2025-07-11 12:42:36,626 - __main__ - INFO - Analyzed audio: audio_storage/ref_5102803347_21520b05-b7a8-4806-af5f-3881f2092671.wav
+2025-07-11 12:42:36,628 - __main__ - INFO - Duration: 3.77s
+2025-07-11 12:42:36,629 - __main__ - INFO - Pitch mean: 0.0 Hz
+2025-07-11 12:42:36,629 - __main__ - INFO - Recognized text: господи поми
+2025-07-11 12:42:36,833 - __main__ - ERROR - Pitch extraction error: operands could not be broadcast together with shapes (779,) (779,) (366,) 
+2025-07-11 12:42:36,842 - __main__ - WARNING - Tempo detection failed: No librosa.feature attribute rhythm
+2025-07-11 12:42:37,772 - __main__ - INFO - Analyzed audio: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpt5oep461.wav
+2025-07-11 12:42:37,774 - __main__ - INFO - Duration: 3.89s
+2025-07-11 12:42:37,775 - __main__ - INFO - Pitch mean: 0.0 Hz
+2025-07-11 12:42:37,775 - __main__ - INFO - Recognized text: господи поми
+2025-07-11 12:42:37,775 - __main__ - INFO - Text similarity: 1.00, warning: 
+2025-07-11 12:42:37,775 - __main__ - WARNING - Empty pitch contours
+2025-07-11 12:42:37,775 - __main__ - INFO - Pitch similarity: 0.30
+2025-07-11 12:42:37,776 - __main__ - INFO - Temporal similarity: 1.00
+2025-07-11 12:42:37,782 - __main__ - INFO - Spectral similarity: 0.37
+2025-07-11 12:42:37,782 - __main__ - INFO - Final similarity: 0.76
+2025-07-11 12:42:37,784 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:42:37] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 12:43:03,658 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:43:03] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 12:43:03,662 - __main__ - INFO - Comparing reference: audio_storage/ref_5102803347_2472cad8-5a27-4f75-9c7e-9dcccab86bc3.wav with student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmphjl8u87f.wav
+2025-07-11 12:43:03,911 - __main__ - ERROR - Pitch extraction error: operands could not be broadcast together with shapes (755,) (755,) (354,) 
+2025-07-11 12:43:03,920 - __main__ - WARNING - Tempo detection failed: No librosa.feature attribute rhythm
+2025-07-11 12:43:05,010 - __main__ - INFO - Analyzed audio: audio_storage/ref_5102803347_2472cad8-5a27-4f75-9c7e-9dcccab86bc3.wav
+2025-07-11 12:43:05,011 - __main__ - INFO - Duration: 3.77s
+2025-07-11 12:43:05,011 - __main__ - INFO - Pitch mean: 0.0 Hz
+2025-07-11 12:43:05,011 - __main__ - INFO - Recognized text: господи поми
+2025-07-11 12:43:05,244 - __main__ - ERROR - Pitch extraction error: operands could not be broadcast together with shapes (843,) (843,) (396,) 
+2025-07-11 12:43:05,254 - __main__ - WARNING - Tempo detection failed: No librosa.feature attribute rhythm
+2025-07-11 12:43:06,517 - __main__ - INFO - Analyzed audio: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmphjl8u87f.wav
+2025-07-11 12:43:06,518 - __main__ - INFO - Duration: 4.21s
+2025-07-11 12:43:06,518 - __main__ - INFO - Pitch mean: 0.0 Hz
+2025-07-11 12:43:06,519 - __main__ - INFO - Recognized text: господи поми
+2025-07-11 12:43:06,519 - __main__ - INFO - Text similarity: 1.00, warning: 
+2025-07-11 12:43:06,519 - __main__ - WARNING - Empty pitch contours
+2025-07-11 12:43:06,519 - __main__ - INFO - Pitch similarity: 0.30
+2025-07-11 12:43:06,520 - __main__ - INFO - Temporal similarity: 0.99
+2025-07-11 12:43:06,528 - __main__ - INFO - Spectral similarity: 0.56
+2025-07-11 12:43:06,528 - __main__ - INFO - Final similarity: 0.78
+2025-07-11 12:43:06,530 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:43:06] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 12:43:19,737 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:43:19] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 12:43:19,740 - __main__ - INFO - Comparing reference: audio_storage/ref_5102803347_f5685ef9-5991-4534-99fe-c16453ad6759.wav with student: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpyc5kcaom.wav
+2025-07-11 12:43:20,004 - __main__ - ERROR - Pitch extraction error: operands could not be broadcast together with shapes (755,) (755,) (354,) 
+2025-07-11 12:43:20,013 - __main__ - WARNING - Tempo detection failed: No librosa.feature attribute rhythm
+2025-07-11 12:43:20,915 - __main__ - INFO - Analyzed audio: audio_storage/ref_5102803347_f5685ef9-5991-4534-99fe-c16453ad6759.wav
+2025-07-11 12:43:20,916 - __main__ - INFO - Duration: 3.77s
+2025-07-11 12:43:20,916 - __main__ - INFO - Pitch mean: 0.0 Hz
+2025-07-11 12:43:20,916 - __main__ - INFO - Recognized text: господи поми
+2025-07-11 12:43:21,158 - __main__ - ERROR - Pitch extraction error: operands could not be broadcast together with shapes (891,) (891,) (418,) 
+2025-07-11 12:43:21,168 - __main__ - WARNING - Tempo detection failed: No librosa.feature attribute rhythm
+2025-07-11 12:43:22,694 - __main__ - INFO - Analyzed audio: /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpyc5kcaom.wav
+2025-07-11 12:43:22,695 - __main__ - INFO - Duration: 4.45s
+2025-07-11 12:43:22,695 - __main__ - INFO - Pitch mean: 0.0 Hz
+2025-07-11 12:43:22,695 - __main__ - INFO - Recognized text: погода и господи
+2025-07-11 12:43:22,702 - __main__ - INFO - Text similarity: 0.40, warning: Вы поёте не Господи помилуй или ошибаетесь в тексте
+2025-07-11 12:43:22,702 - __main__ - WARNING - Empty pitch contours
+2025-07-11 12:43:22,702 - __main__ - INFO - Pitch similarity: 0.30
+2025-07-11 12:43:22,702 - __main__ - INFO - Temporal similarity: 0.99
+2025-07-11 12:43:22,707 - __main__ - INFO - Spectral similarity: 0.64
+2025-07-11 12:43:22,707 - __main__ - INFO - Final similarity: 0.49
+2025-07-11 12:43:22,710 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:43:22] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 12:55:34,471 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-11 12:55:34,488 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-11 12:55:34,488 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-11 12:56:41,385 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:56:41] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 12:56:45,547 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:56:45] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 12:57:14,539 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:57:14] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 12:57:17,912 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:57:17] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 12:57:30,383 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:57:30] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 12:57:33,764 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:57:33] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 12:58:06,209 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:58:06] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 12:58:09,398 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 12:58:09] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 13:04:58,302 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:04:58] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 13:05:36,006 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:05:36] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 13:06:16,200 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:06:16] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 13:06:54,109 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:06:54] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 13:07:55,537 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:07:55] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 13:08:00,738 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:08:00] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 13:08:32,724 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:08:32] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 13:08:39,892 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:08:39] "POST /compare_audio HTTP/1.1" 200 -

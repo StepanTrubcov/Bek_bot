@@ -19,6 +19,7 @@ import Levenshtein
 import subprocess
 import json
 import re
+import matplotlib.pyplot as plt
 
 # Настройка логирования
 logging.basicConfig(
@@ -61,7 +62,7 @@ class ChurchMusicAnalyzer:
                     "господи помилуй меня"
                 ],
                 "priority": 1.0,
-                "strict": True  # Флаг строгого сравнения
+                "strict": True
             },
             "Отче наш": {
                 "variants": [
@@ -81,7 +82,6 @@ class ChurchMusicAnalyzer:
                 "priority": 0.8,
                 "strict": True
             },
-            # ... другие песнопения
         }
 
     def _validate_audio(self, audio: np.ndarray, sr: int) -> np.ndarray:
@@ -89,20 +89,16 @@ class ChurchMusicAnalyzer:
         if len(audio) == 0:
             raise AudioProcessingError("Пустой аудиосигнал")
         
-        # Конвертация в моно
         if len(audio.shape) > 1:
             audio = np.mean(audio, axis=1)
         
-        # Ресемплинг
         if sr != self.sample_rate:
             audio = librosa.resample(audio, orig_sr=sr, target_sr=self.sample_rate)
         
-        # Ограничение длины
         max_samples = self.max_duration * self.sample_rate
         if len(audio) > max_samples:
             audio = audio[:max_samples]
         
-        # Нормализация и обработка
         audio = librosa.util.normalize(audio)
         audio = librosa.effects.preemphasis(audio, coef=0.97)
         
@@ -136,7 +132,7 @@ class ChurchMusicAnalyzer:
             f0, sp, ap = pw.wav2world(audio.astype(np.float64), self.sample_rate)
             valid_f0 = f0[(f0 >= self.min_pitch) & (f0 <= self.max_pitch)]
             
-            if len(valid_f0) < 2:
+            if len(valid_f0) < 10:
                 return {'mean': 0.0, 'std': 0.0, 'contour': [], 'stability': 0.0}
             
             smoothed = self._smooth_pitch_contour(f0)
@@ -219,7 +215,7 @@ class ChurchMusicAnalyzer:
             return {'mfcc': [0.0]*20, 'chroma': [0.0]*12, 'spectral_contrast': [0.0]*7}
 
     def _recognize_song_text(self, audio_path: str) -> Optional[str]:
-        """Распознавание текста с улучшенной обработкой"""
+        """Распознавание текста песнопения"""
         try:
             duration = sf.info(audio_path).duration
             if duration < 3.0:
@@ -235,12 +231,30 @@ class ChurchMusicAnalyzer:
         except Exception:
             return None
 
+    def _identify_song(self, text: str) -> Optional[str]:
+        """Определение песнопения по тексту"""
+        if not text:
+            return None
+            
+        norm_text = self._normalize_text(text)
+        best_match = None
+        best_score = 0.0
+        
+        for song_name, song_data in self.expected_texts.items():
+            for variant in song_data["variants"]:
+                score = Levenshtein.ratio(norm_text, variant) * song_data["priority"]
+                if score > best_score and score > 0.7:
+                    best_score = score
+                    best_match = song_name
+                    
+        return best_match
+
     def _compare_text_similarity(self, ref_text: str, student_text: str) -> Tuple[float, str]:
-        """Улучшенное сравнение текстов с учетом приоритетов и более строгими правилами"""
+        """Сравнение текстов с жесткими критериями для разных песнопений"""
         if not ref_text and not student_text:
             return 1.0, ""
         elif not ref_text or not student_text:
-            return 0.3, "Текст не распознан"
+            return 0.1, "Текст не распознан"
             
         if ref_text == student_text:
             return 1.0, ""
@@ -252,64 +266,19 @@ class ChurchMusicAnalyzer:
         if norm_ref == norm_student:
             return 1.0, ""
         
-        # Проверка на известные песнопения
-        best_match = None
-        best_score = 0.0
-        is_strict = False
+        # Определяем песнопения
+        ref_song = self._identify_song(ref_text)
+        student_song = self._identify_song(student_text)
         
-        for song_name, song_data in self.expected_texts.items():
-            for variant in song_data["variants"]:
-                sim = Levenshtein.ratio(norm_ref, variant)
-                weighted_sim = sim * song_data["priority"]
-                
-                if weighted_sim > best_score:
-                    best_score = weighted_sim
-                    best_match = song_name
-                    is_strict = song_data.get("strict", False)
+        # Если песнопения разные - низкий процент схожести
+        if ref_song and student_song and ref_song != student_song:
+            return 0.15, f"Разные песнопения: {ref_song} vs {student_song}"
         
-        # Если нашли хорошее соответствие
-        if best_score > 0.7:
-            # Проверяем студента на это же песнопение
-            student_best = max(
-                Levenshtein.ratio(norm_student, variant)
-                for variant in self.expected_texts[best_match]["variants"]
-            )
-            
-            # Более строгие критерии для важных песнопений
-            if is_strict:
-                if student_best < 0.8:  # Повышенный порог для строгих текстов
-                    return 0.2, f"Вы поёте не {best_match} или сильно ошибаетесь в тексте"
-                
-                # Сравниваем напрямую с более строгими критериями
-                direct_sim = Levenshtein.ratio(norm_ref, norm_student)
-                if direct_sim > 0.98:
-                    return 1.0, ""
-                elif direct_sim > 0.95:
-                    return 0.9, "Незначительные отличия"
-                elif direct_sim > 0.9:
-                    return 0.7, "Несколько ошибок в тексте"
-                elif direct_sim > 0.8:
-                    return 0.5, "Заметные отличия в тексте"
-                else:
-                    return 0.2, "Сильно отличается"
-            
-            # Обычные критерии для нестрогих текстов
-            if student_best < 0.6:
-                return 0.3, f"Вы поёте не {best_match}"
-            
-            direct_sim = Levenshtein.ratio(norm_ref, norm_student)
-            if direct_sim > 0.95:
-                return 1.0, ""
-            elif direct_sim > 0.9:
-                return 0.8, "Незначительные отличия"
-            elif direct_sim > 0.8:
-                return 0.6, "Частичное совпадение"
-            elif direct_sim > 0.6:
-                return 0.4, "Отличается"
-            else:
-                return 0.2, "Сильно отличается"
+        # Если определили только одно песнопение
+        if (ref_song and not student_song) or (not ref_song and student_song):
+            return 0.15, "Возможно разные песнопения"
         
-        # Общее сравнение, если не нашли известного песнопения
+        # Общее сравнение текстов
         direct_sim = Levenshtein.ratio(norm_ref, norm_student)
         if direct_sim > 0.95:
             return 1.0, ""
@@ -320,21 +289,17 @@ class ChurchMusicAnalyzer:
         elif direct_sim > 0.6:
             return 0.4, "Отличается"
         else:
-            return 0.2, "Сильно отличается"
+            return 0.1, "Сильно отличается"
 
     def _normalize_text(self, text: str) -> str:
-        """Нормализация текста для сравнения (более строгая)"""
+        """Нормализация текста для сравнения"""
         if not text:
             return ""
         
-        # Удаление всех знаков препинания
         text = re.sub(r'[^\w\s]', '', text.lower())
-        
-        # Удаление стоп-слов и лишних пробелов
         stop_words = {"ну", "вот", "это", "как", "так", "и", "а", "но", "да", "нет"}
         words = [word for word in text.split() if word not in stop_words]
         
-        # Замена чисел на слова (если нужно)
         num_replace = {
             '1': 'один', '2': 'два', '3': 'три', '4': 'четыре',
             '5': 'пять', '6': 'шесть', '7': 'семь', '8': 'восемь',
@@ -362,23 +327,19 @@ class ChurchMusicAnalyzer:
             raise AudioProcessingError("Не удалось проанализировать аудио")
 
     def compare_recordings(self, ref_path: str, student_path: str) -> Dict:
-        """Сравнение записей с улучшенной логикой"""
+        """Сравнение записей с учетом разных песнопений"""
         try:
-            # Проверка на идентичные файлы
             if os.path.getsize(ref_path) == os.path.getsize(student_path):
                 with open(ref_path, 'rb') as f1, open(student_path, 'rb') as f2:
                     if f1.read() == f2.read():
                         return self._perfect_match_response()
             
-            # Анализ
             ref_features = self.analyze_audio(ref_path)
             student_features = self.analyze_audio(student_path)
             
-            # Проверка длительности
             if min(ref_features['temporal']['duration'], student_features['temporal']['duration']) < 2.0:
                 raise AudioProcessingError("Аудио слишком короткое")
             
-            # Сравнение по разным параметрам
             text_sim, text_warning = self._compare_text_similarity(
                 ref_features.get('text'),
                 student_features.get('text')
@@ -399,7 +360,6 @@ class ChurchMusicAnalyzer:
                 student_features['spectral']
             )
             
-            # Итоговая оценка
             similarity = self._calculate_final_similarity(
                 text_sim, pitch_sim, temporal_sim, spectral_sim
             )
@@ -470,7 +430,13 @@ class ChurchMusicAnalyzer:
 
     def _calculate_final_similarity(self, text_sim: float, pitch_sim: float,
                                   temporal_sim: float, spectral_sim: float) -> float:
-        """Расчет итоговой схожести"""
+        """Расчет итоговой схожести с учетом разных песнопений"""
+        # Если тексты разных песнопений - жестко ограничиваем схожесть
+        if text_sim < 0.2:
+            max_similarity = 0.2
+            acoustic_sim = (0.4 * pitch_sim + 0.3 * temporal_sim + 0.3 * spectral_sim)
+            return min(acoustic_sim, max_similarity)
+        
         weights = {
             'text': 0.6,
             'pitch': 0.2,
@@ -485,7 +451,6 @@ class ChurchMusicAnalyzer:
             weights['spectral'] * spectral_sim
         )
         
-        # Автоматически 100% если все параметры > 0.97
         if all(x > 0.97 for x in [text_sim, pitch_sim, temporal_sim, spectral_sim]):
             return 1.0
             
@@ -511,7 +476,6 @@ class ChurchMusicAnalyzer:
             'warnings': []
         }
         
-        # Добавляем предупреждения
         if text_sim < 0.5:
             result['warnings'].append("Текст значительно отличается")
         elif text_sim < 0.8:
@@ -558,15 +522,12 @@ class AudioStorageManager:
     def save_reference_audio(self, user_id: str, audio_file) -> str:
         """Сохранение референсного аудио"""
         try:
-            # Удаляем старый референс
             if user_id in self.references:
                 self._safe_remove_file(self.references[user_id])
             
-            # Создаем новый файл
             filename = f"ref_{user_id}_{uuid.uuid4()}.wav"
             filepath = os.path.join(self.storage_dir, filename)
             
-            # Конвертируем в WAV
             temp_path = self._save_temp_file(audio_file)
             audio, sr = sf.read(temp_path)
             sf.write(filepath, audio, sr, subtype='PCM_16')
@@ -596,7 +557,6 @@ class AudioStorageManager:
                     '-acodec', 'pcm_s16le',
                     '-ar', '48000',
                     '-ac', '1',
-                    '-af', 'highpass=f=80,lowpass=f=4000',
                     '-y', temp_path
                 ], check=True)
                 os.remove(orig_path)
