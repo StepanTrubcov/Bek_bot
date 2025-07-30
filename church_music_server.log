@@ -1131,3 +1131,716 @@ AudioProcessingError: Не удалось проанализировать ау�
 2025-07-11 13:08:00,738 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:08:00] "POST /compare_audio HTTP/1.1" 200 -
 2025-07-11 13:08:32,724 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:08:32] "POST /upload_reference HTTP/1.1" 200 -
 2025-07-11 13:08:39,892 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:08:39] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 13:20:23,017 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-11 13:20:23,030 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-11 13:20:23,030 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-11 13:28:50,445 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:28:50] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 13:28:54,970 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:28:54] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 13:29:19,797 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:29:19] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 13:29:22,639 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:29:22] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 13:29:59,920 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:29:59] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 13:30:02,668 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:30:02] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 13:30:51,455 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:30:51] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 13:30:54,007 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:30:54] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 13:31:22,064 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:31:22] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 13:31:24,950 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:31:24] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 13:32:10,319 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:32:10] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 13:32:13,322 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:32:13] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 13:32:30,702 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:32:30] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 13:32:33,338 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:32:33] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 13:32:47,193 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:32:47] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 13:32:49,779 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:32:49] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 13:33:05,179 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:33:05] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 13:33:08,058 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:33:08] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 13:33:35,373 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:33:35] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 13:33:38,076 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:33:38] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 13:47:01,335 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-11 13:47:01,347 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-11 13:47:01,347 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-11 13:47:49,717 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:47:49] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 13:47:54,264 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:47:54] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 13:48:26,523 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:48:26] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 13:48:30,653 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:48:30] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 13:48:54,732 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:48:54] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 13:48:58,017 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:48:58] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 13:49:14,546 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:49:14] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 13:49:17,839 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 13:49:17] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 16:22:00,821 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-11 16:22:00,831 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-11 16:22:00,831 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-11 16:23:47,054 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:23:47] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 16:23:50,492 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:23:50] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 16:24:03,240 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:24:03] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 16:24:06,091 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:24:06] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 16:25:34,674 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:25:34] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 16:25:37,049 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:25:37] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 16:25:49,780 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:25:49] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 16:25:52,821 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:25:52] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 16:26:43,400 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-11 16:26:43,411 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-11 16:26:43,411 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-11 16:27:18,646 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:27:18] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 16:27:22,634 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:27:22] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 16:27:37,681 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:27:37] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 16:27:40,545 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:27:40] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 16:27:52,945 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:27:52] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 16:27:56,013 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:27:56] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 16:28:19,296 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:28:19] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 16:28:22,440 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:28:22] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 16:28:58,371 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:28:58] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 16:29:01,242 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:29:01] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 16:41:41,142 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-11 16:41:41,153 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-11 16:41:41,153 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-11 16:42:32,456 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:42:32] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 16:42:35,941 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:42:35] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 16:43:05,523 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:43:05] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 16:43:08,303 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:43:08] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 16:43:28,155 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:43:28] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 16:43:31,038 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:43:31] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 16:43:53,119 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:43:53] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 16:43:56,173 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:43:56] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 16:55:38,805 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-11 16:55:38,816 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-11 16:55:38,816 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-11 16:56:27,072 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:56:27] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 16:56:30,619 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:56:30] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 16:56:59,261 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:56:59] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 16:57:02,586 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 16:57:02] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 17:19:50,824 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-11 17:19:50,837 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-11 17:19:50,837 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-11 17:20:38,287 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 17:20:38] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 17:20:42,237 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 17:20:42] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 17:20:56,380 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 17:20:56] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 17:20:59,169 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 17:20:59] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 17:21:19,819 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 17:21:19] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 17:21:22,262 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 17:21:22] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 17:34:54,002 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-11 17:34:54,015 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-11 17:34:54,015 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-11 17:35:52,704 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 17:35:52] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-11 17:35:56,826 - werkzeug - INFO - 127.0.0.1 - - [11/Jul/2025 17:35:56] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-11 17:56:16,090 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-11 17:56:16,091 - __main__ - INFO - Starting Church Music Server on 0.0.0.0:10000
+2025-07-11 17:56:16,106 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.8:10000
+2025-07-11 17:56:16,106 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-14 09:35:18,395 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-14 09:35:18,396 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-14 09:35:18,433 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.0.47:10000
+2025-07-14 09:35:18,433 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-14 09:39:33,298 - werkzeug - INFO - 127.0.0.1 - - [14/Jul/2025 09:39:33] "GET /health HTTP/1.1" 200 -
+2025-07-14 09:39:34,905 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250714_093933_92bda7fe.wav
+2025-07-14 09:39:34,906 - werkzeug - INFO - 127.0.0.1 - - [14/Jul/2025 09:39:34] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-14 09:39:36,162 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-14 09:39:38,019 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-14 09:39:39,198 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpniwq0zgg.wav успешно удален
+2025-07-14 09:39:39,200 - werkzeug - INFO - 127.0.0.1 - - [14/Jul/2025 09:39:39] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-14 09:40:08,108 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250714_093933_92bda7fe.wav успешно удален
+2025-07-14 09:40:08,115 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250714_094008_aad549a2.wav
+2025-07-14 09:40:08,116 - werkzeug - INFO - 127.0.0.1 - - [14/Jul/2025 09:40:08] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-14 09:40:08,346 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-14 09:40:09,647 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-14 09:40:11,515 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp_a6ubdge.wav успешно удален
+2025-07-14 09:40:11,518 - werkzeug - INFO - 127.0.0.1 - - [14/Jul/2025 09:40:11] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-14 09:42:52,709 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250714_094008_aad549a2.wav успешно удален
+2025-07-14 09:42:52,716 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250714_094252_b442df99.wav
+2025-07-14 09:42:52,716 - werkzeug - INFO - 127.0.0.1 - - [14/Jul/2025 09:42:52] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-14 09:42:52,949 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-14 09:42:54,173 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-14 09:42:55,352 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmplmsu1s5c.wav успешно удален
+2025-07-14 09:42:55,353 - werkzeug - INFO - 127.0.0.1 - - [14/Jul/2025 09:42:55] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-15 21:22:35,893 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-15 21:22:35,894 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-15 21:22:35,906 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://198.18.0.1:10000
+2025-07-15 21:22:35,906 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 10:43:00,974 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-17 10:43:00,974 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-17 10:43:00,993 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://198.18.0.1:10000
+2025-07-17 10:43:00,993 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 10:54:25,647 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 10:54:25] "GET /health HTTP/1.1" 200 -
+2025-07-17 10:54:27,444 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_105425_e6258a7d.wav
+2025-07-17 10:54:27,445 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 10:54:27] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 10:54:28,249 - __main__ - WARNING - Подавление шума не удалось: name 'TrueA' is not defined
+2025-07-17 10:54:29,037 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 10:54:30,867 - __main__ - WARNING - Подавление шума не удалось: name 'TrueA' is not defined
+2025-07-17 10:54:31,513 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 10:54:33,126 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpu4567fcr.wav успешно удален
+2025-07-17 10:54:33,128 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 10:54:33] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 10:55:57,829 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250717_105425_e6258a7d.wav успешно удален
+2025-07-17 10:55:57,840 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_105557_6781d8c3.wav
+2025-07-17 10:55:57,842 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 10:55:57] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 10:55:57,852 - __main__ - WARNING - Подавление шума не удалось: name 'TrueA' is not defined
+2025-07-17 10:55:58,430 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 10:55:59,848 - __main__ - WARNING - Подавление шума не удалось: name 'TrueA' is not defined
+2025-07-17 10:56:00,471 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 10:56:02,603 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmppg3amqlu.wav успешно удален
+2025-07-17 10:56:02,604 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 10:56:02] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 10:56:31,206 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250717_105557_6781d8c3.wav успешно удален
+2025-07-17 10:56:31,214 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_105631_c6051eea.wav
+2025-07-17 10:56:31,215 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 10:56:31] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 10:56:31,222 - __main__ - WARNING - Подавление шума не удалось: name 'TrueA' is not defined
+2025-07-17 10:56:31,802 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 10:56:33,247 - __main__ - WARNING - Подавление шума не удалось: name 'TrueA' is not defined
+2025-07-17 10:56:33,854 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 10:56:35,610 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpu4zyw2pk.wav успешно удален
+2025-07-17 10:56:35,612 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 10:56:35] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 10:56:56,314 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250717_105631_c6051eea.wav успешно удален
+2025-07-17 10:56:56,321 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_105656_8965340b.wav
+2025-07-17 10:56:56,322 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 10:56:56] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 10:56:56,328 - __main__ - WARNING - Подавление шума не удалось: name 'TrueA' is not defined
+2025-07-17 10:56:56,903 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 10:56:58,363 - __main__ - WARNING - Подавление шума не удалось: name 'TrueA' is not defined
+2025-07-17 10:56:58,936 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 10:57:00,539 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpcga2_zso.wav успешно удален
+2025-07-17 10:57:00,541 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 10:57:00] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 11:00:38,792 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250717_105656_8965340b.wav успешно удален
+2025-07-17 11:00:38,804 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_110038_34fcf05f.wav
+2025-07-17 11:00:38,804 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 11:00:38] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 11:00:38,813 - __main__ - WARNING - Подавление шума не удалось: name 'TrueA' is not defined
+2025-07-17 11:00:39,302 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 11:00:41,869 - __main__ - WARNING - Подавление шума не удалось: name 'TrueA' is not defined
+2025-07-17 11:00:42,433 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 11:00:43,859 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpuscyleew.wav успешно удален
+2025-07-17 11:00:43,861 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 11:00:43] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 12:45:04,827 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-17 12:45:04,828 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-17 12:45:04,839 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://198.18.0.1:10000
+2025-07-17 12:45:04,839 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 12:46:49,828 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 12:46:49] "GET /health HTTP/1.1" 200 -
+2025-07-17 12:46:50,680 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_124649_05812b5c.wav
+2025-07-17 12:46:50,680 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 12:46:50] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 12:46:51,208 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 12:46:52,966 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 12:46:56,135 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpyxgw_qnu.wav успешно удален
+2025-07-17 12:46:56,137 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 12:46:56] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 12:47:15,251 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250717_124649_05812b5c.wav успешно удален
+2025-07-17 12:47:15,259 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_124715_7967ea30.wav
+2025-07-17 12:47:15,259 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 12:47:15] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 12:47:15,431 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 12:47:16,967 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 12:47:18,515 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpw6ryuwky.wav успешно удален
+2025-07-17 12:47:18,517 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 12:47:18] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 12:49:35,321 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-17 12:49:35,321 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-17 12:49:35,332 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://198.18.0.1:10000
+2025-07-17 12:49:35,332 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 12:50:00,587 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_124959_e127f913.wav
+2025-07-17 12:50:00,588 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 12:50:00] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 12:50:00,809 - __main__ - WARNING - Подавление шума не удалось: name 'TrueA' is not defined
+2025-07-17 12:50:01,331 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 12:50:02,932 - __main__ - WARNING - Подавление шума не удалось: name 'TrueA' is not defined
+2025-07-17 12:50:03,543 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 12:50:09,179 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp_usqhiu6.wav успешно удален
+2025-07-17 12:50:09,181 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 12:50:09] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 12:50:31,687 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250717_124959_e127f913.wav успешно удален
+2025-07-17 12:50:31,694 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_125031_780bc174.wav
+2025-07-17 12:50:31,695 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 12:50:31] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 12:50:31,702 - __main__ - WARNING - Подавление шума не удалось: name 'TrueA' is not defined
+2025-07-17 12:50:32,080 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 12:50:33,597 - __main__ - WARNING - Подавление шума не удалось: name 'TrueA' is not defined
+2025-07-17 12:50:34,147 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 12:50:35,373 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp9auov8_i.wav успешно удален
+2025-07-17 12:50:35,375 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 12:50:35] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 12:55:50,909 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-17 12:55:50,909 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-17 12:55:50,920 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://198.18.0.1:10000
+2025-07-17 12:55:50,921 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 12:56:26,049 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_125625_78465ab1.wav
+2025-07-17 12:56:26,052 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 12:56:26] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 12:56:26,594 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 12:56:29,448 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 12:56:32,739 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp5qxvzaf9.wav успешно удален
+2025-07-17 12:56:32,742 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 12:56:32] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 12:57:46,795 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250717_125625_78465ab1.wav успешно удален
+2025-07-17 12:57:46,804 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_125746_2427d8c8.wav
+2025-07-17 12:57:46,805 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 12:57:46] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 12:57:46,992 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 12:57:50,778 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 12:57:54,035 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmprvj8ru61.wav успешно удален
+2025-07-17 12:57:54,038 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 12:57:54] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 12:58:21,691 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250717_125746_2427d8c8.wav успешно удален
+2025-07-17 12:58:21,702 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_125821_29f01c82.wav
+2025-07-17 12:58:21,702 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 12:58:21] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 12:58:21,876 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 12:58:28,405 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 12:58:32,305 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpkmo1fs0h.wav успешно удален
+2025-07-17 12:58:32,307 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 12:58:32] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 12:59:10,078 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250717_125821_29f01c82.wav успешно удален
+2025-07-17 12:59:10,085 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_125910_d4f6ae23.wav
+2025-07-17 12:59:10,085 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 12:59:10] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 12:59:10,261 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 12:59:15,225 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 12:59:19,368 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpmwg80k70.wav успешно удален
+2025-07-17 12:59:19,370 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 12:59:19] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 13:22:34,073 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-17 13:22:34,073 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-17 13:22:34,093 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://198.18.0.1:10000
+2025-07-17 13:22:34,094 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 13:23:45,361 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_132344_6888aadd.wav
+2025-07-17 13:23:45,362 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:23:45] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 13:23:45,900 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:23:48,197 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:23:52,374 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpdva9ywyo.wav успешно удален
+2025-07-17 13:23:52,376 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:23:52] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 13:24:13,222 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250717_132344_6888aadd.wav успешно удален
+2025-07-17 13:24:13,228 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_132413_1a8b16cc.wav
+2025-07-17 13:24:13,229 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:24:13] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 13:24:13,410 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:24:16,366 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:24:17,852 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpr7e2s8__.wav успешно удален
+2025-07-17 13:24:17,853 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:24:17] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 13:25:17,648 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-17 13:25:17,648 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-17 13:25:17,659 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://198.18.0.1:10000
+2025-07-17 13:25:17,659 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 13:25:45,286 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_132544_50217229.wav
+2025-07-17 13:25:45,287 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:25:45] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 13:25:45,794 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:25:48,118 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:25:51,609 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpae_0o83i.wav успешно удален
+2025-07-17 13:25:51,611 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:25:51] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 13:28:37,994 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250717_132544_50217229.wav успешно удален
+2025-07-17 13:28:38,004 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_132837_5ecbe308.wav
+2025-07-17 13:28:38,005 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:28:38] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 13:28:38,199 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:28:40,633 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:28:43,311 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp3wy6ba7v.wav успешно удален
+2025-07-17 13:28:43,312 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:28:43] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 13:32:50,407 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-17 13:32:50,408 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-17 13:32:50,419 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://198.18.0.1:10000
+2025-07-17 13:32:50,419 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 13:35:34,152 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_133533_7931acd7.wav
+2025-07-17 13:35:34,156 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:35:34] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 13:35:34,691 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:35:36,609 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:35:38,982 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp5gq7q3cb.wav успешно удален
+2025-07-17 13:35:38,984 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:35:38] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 13:38:26,679 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-17 13:38:26,679 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-17 13:38:26,689 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://198.18.0.1:10000
+2025-07-17 13:38:26,689 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 13:38:58,520 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_133857_f06cf4c0.wav
+2025-07-17 13:38:58,521 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:38:58] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 13:38:59,044 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:39:03,239 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:39:05,657 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp6ukhm6d9.wav успешно удален
+2025-07-17 13:39:05,659 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:39:05] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 13:39:28,166 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250717_133857_f06cf4c0.wav успешно удален
+2025-07-17 13:39:28,174 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_133928_4b3e5ebd.wav
+2025-07-17 13:39:28,175 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:39:28] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 13:39:28,359 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:39:30,587 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:39:35,152 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpthvi4gtk.wav успешно удален
+2025-07-17 13:39:35,155 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:39:35] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 13:47:35,798 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-17 13:47:35,799 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-17 13:47:35,950 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.0.18:10000
+2025-07-17 13:47:35,950 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 13:48:17,781 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_134816_9c207422.wav
+2025-07-17 13:48:17,782 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:48:17] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 13:48:18,315 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:48:21,713 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:48:23,907 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpw3_qzl2g.wav успешно удален
+2025-07-17 13:48:23,909 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:48:23] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 13:53:30,050 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-17 13:53:30,051 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-17 13:53:30,062 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://198.18.0.1:10000
+2025-07-17 13:53:30,062 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 13:54:16,779 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_135415_aaf4c621.wav
+2025-07-17 13:54:16,781 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:54:16] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 13:54:17,315 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:54:19,312 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:54:21,357 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpc4o7opme.wav успешно удален
+2025-07-17 13:54:21,360 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:54:21] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 13:55:36,550 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250717_135415_aaf4c621.wav успешно удален
+2025-07-17 13:55:36,558 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_135536_e7594db9.wav
+2025-07-17 13:55:36,559 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:55:36] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 13:55:36,761 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:55:39,842 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:55:43,172 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpd6ck51qb.wav успешно удален
+2025-07-17 13:55:43,174 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:55:43] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 13:56:25,308 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250717_135536_e7594db9.wav успешно удален
+2025-07-17 13:56:25,318 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_135625_15774f10.wav
+2025-07-17 13:56:25,318 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:56:25] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 13:56:25,536 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:56:27,256 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:56:28,656 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpq807o4yz.wav успешно удален
+2025-07-17 13:56:28,658 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:56:28] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 13:57:01,795 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-17 13:57:01,795 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-17 13:57:01,805 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://198.18.0.1:10000
+2025-07-17 13:57:01,806 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 13:57:45,984 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_135745_ee026970.wav
+2025-07-17 13:57:45,985 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:57:45] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 13:57:46,508 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:57:48,218 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:57:53,166 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp1zoa2gn8.wav успешно удален
+2025-07-17 13:57:53,168 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:57:53] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 13:58:44,541 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-17 13:58:44,541 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-17 13:58:44,552 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://198.18.0.1:10000
+2025-07-17 13:58:44,552 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 13:59:16,087 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_135915_222ea89a.wav
+2025-07-17 13:59:16,088 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:59:16] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 13:59:16,640 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:59:20,193 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:59:26,256 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpl9njka45.wav успешно удален
+2025-07-17 13:59:26,259 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:59:26] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 13:59:51,233 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250717_135915_222ea89a.wav успешно удален
+2025-07-17 13:59:51,240 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_135951_a95b523c.wav
+2025-07-17 13:59:51,241 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:59:51] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 13:59:51,446 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:59:53,032 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 13:59:54,587 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpip_aiv6k.wav успешно удален
+2025-07-17 13:59:54,589 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 13:59:54] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 14:06:12,466 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-17 14:06:12,466 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-17 14:06:12,489 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://198.18.0.1:10000
+2025-07-17 14:06:12,489 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 14:07:03,072 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_140702_df5a304e.wav
+2025-07-17 14:07:03,073 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:07:03] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 14:07:03,660 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:07:06,240 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:07:08,552 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpniyckpvs.wav успешно удален
+2025-07-17 14:07:08,554 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:07:08] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 14:12:52,725 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-17 14:12:52,726 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-17 14:12:52,748 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://198.18.0.1:10000
+2025-07-17 14:12:52,748 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 14:13:19,965 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_141319_5be35e38.wav
+2025-07-17 14:13:19,968 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:13:19] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 14:13:20,582 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:13:22,044 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:13:23,753 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp3q5wzgkg.wav успешно удален
+2025-07-17 14:13:23,755 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:13:23] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 14:13:51,342 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-17 14:13:51,342 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-17 14:13:51,352 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://198.18.0.1:10000
+2025-07-17 14:13:51,352 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 14:14:22,817 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_141422_8769b812.wav
+2025-07-17 14:14:22,818 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:14:22] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 14:14:23,392 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:14:29,197 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:14:30,919 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp8m44wtdn.wav успешно удален
+2025-07-17 14:14:30,920 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:14:30] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 14:15:37,297 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-17 14:15:37,297 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-17 14:15:37,307 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://198.18.0.1:10000
+2025-07-17 14:15:37,307 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 14:16:04,042 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_141603_477630a3.wav
+2025-07-17 14:16:04,043 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:16:04] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 14:16:04,606 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:16:06,277 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:16:08,220 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpu1y4kbbf.wav успешно удален
+2025-07-17 14:16:08,222 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:16:08] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 14:22:27,869 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-17 14:22:27,870 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-17 14:22:27,876 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.0.18:10000
+2025-07-17 14:22:27,876 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 14:24:23,158 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_142422_4d85057d.wav
+2025-07-17 14:24:23,159 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:24:23] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 14:24:23,743 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:24:25,293 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:24:26,545 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmplxcwnca2.wav успешно удален
+2025-07-17 14:24:26,547 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:24:26] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 14:36:16,041 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-17 14:36:16,041 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-17 14:36:16,052 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://198.18.0.1:10000
+2025-07-17 14:36:16,052 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 14:38:29,673 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_143828_f08b0124.wav
+2025-07-17 14:38:29,675 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:38:29] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 14:38:30,265 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:38:31,517 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:38:32,543 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp0kn1x28m.wav успешно удален
+2025-07-17 14:38:32,546 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:38:32] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 14:39:38,230 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250717_143828_f08b0124.wav успешно удален
+2025-07-17 14:39:38,235 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_143938_13c9c447.wav
+2025-07-17 14:39:38,236 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:39:38] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 14:39:38,413 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:39:39,590 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:39:40,862 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpzs_bnd96.wav успешно удален
+2025-07-17 14:39:40,864 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:39:40] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 14:40:05,099 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250717_143938_13c9c447.wav успешно удален
+2025-07-17 14:40:05,105 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_144005_4f34b09d.wav
+2025-07-17 14:40:05,105 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:40:05] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 14:40:05,386 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:40:07,227 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:40:08,487 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpi9n3fzlj.wav успешно удален
+2025-07-17 14:40:08,490 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:40:08] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 14:40:29,189 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-17 14:40:29,189 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-17 14:40:29,200 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://198.18.0.1:10000
+2025-07-17 14:40:29,200 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 14:41:30,604 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_144129_1aa49ead.wav
+2025-07-17 14:41:30,605 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:41:30] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 14:41:31,230 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:41:34,227 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:41:35,332 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp42qx3c8b.wav успешно удален
+2025-07-17 14:41:35,334 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:41:35] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 14:48:17,484 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-17 14:48:17,484 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-17 14:48:17,495 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://198.18.0.1:10000
+2025-07-17 14:48:17,495 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-17 14:50:41,635 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_145040_fe5ac607.wav
+2025-07-17 14:50:41,637 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:50:41] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 14:50:42,284 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:50:43,478 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:50:44,665 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpw0_av12h.wav успешно удален
+2025-07-17 14:50:44,668 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:50:44] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 14:52:31,802 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250717_145040_fe5ac607.wav успешно удален
+2025-07-17 14:52:31,824 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_145231_102b5377.wav
+2025-07-17 14:52:31,825 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:52:31] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 14:52:32,050 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:52:33,222 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:52:34,441 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp0ctsn9zr.wav успешно удален
+2025-07-17 14:52:34,442 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:52:34] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 14:52:58,081 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250717_145231_102b5377.wav успешно удален
+2025-07-17 14:52:58,087 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250717_145258_f0fab7fc.wav
+2025-07-17 14:52:58,087 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:52:58] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-17 14:52:58,275 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:52:59,821 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-17 14:53:00,902 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp2ugwtrrg.wav успешно удален
+2025-07-17 14:53:00,904 - werkzeug - INFO - 127.0.0.1 - - [17/Jul/2025 14:53:00] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-17 15:19:23,117 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-17 15:19:23,117 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-17 15:19:23,129 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.0.18:10000
+2025-07-17 15:19:23,129 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-18 12:22:32,851 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:22:32] "GET /health HTTP/1.1" 200 -
+2025-07-18 12:22:33,854 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250718_122232_06e11185.wav
+2025-07-18 12:22:33,854 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:22:33] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-18 12:22:34,436 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:22:35,770 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:22:37,243 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmphrd9mkc3.wav успешно удален
+2025-07-18 12:22:37,245 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:22:37] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-18 12:24:41,026 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:24:41] "GET /health HTTP/1.1" 200 -
+2025-07-18 12:24:41,035 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250718_122232_06e11185.wav успешно удален
+2025-07-18 12:24:41,063 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250718_122441_7d2b6769.wav
+2025-07-18 12:24:41,063 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:24:41] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-18 12:24:41,342 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:24:43,268 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:24:46,238 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpn71esnbp.wav успешно удален
+2025-07-18 12:24:46,239 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:24:46] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-18 12:25:35,992 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250718_122441_7d2b6769.wav успешно удален
+2025-07-18 12:25:36,000 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250718_122535_f8ed91ae.wav
+2025-07-18 12:25:36,001 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:25:36] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-18 12:25:36,198 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:25:39,472 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:25:40,437 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp0pq_q5jx.wav успешно удален
+2025-07-18 12:25:40,438 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:25:40] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-18 12:26:00,047 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250718_122535_f8ed91ae.wav успешно удален
+2025-07-18 12:26:00,055 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250718_122600_c8203673.wav
+2025-07-18 12:26:00,055 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:26:00] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-18 12:26:00,250 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:26:02,254 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:26:03,165 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpy9q8tzyj.wav успешно удален
+2025-07-18 12:26:03,167 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:26:03] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-18 12:26:28,939 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250718_122600_c8203673.wav успешно удален
+2025-07-18 12:26:28,945 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250718_122628_5af2a7eb.wav
+2025-07-18 12:26:28,946 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:26:28] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-18 12:26:29,145 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:26:30,678 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:26:31,890 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp521kvddj.wav успешно удален
+2025-07-18 12:26:31,891 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:26:31] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-18 12:27:54,577 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250718_122628_5af2a7eb.wav успешно удален
+2025-07-18 12:27:54,593 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250718_122754_53d0b362.wav
+2025-07-18 12:27:54,595 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:27:54] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-18 12:27:55,177 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:27:58,276 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:28:00,793 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpye6lvc4k.wav успешно удален
+2025-07-18 12:28:00,797 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:28:00] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-18 12:28:52,526 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250718_122754_53d0b362.wav успешно удален
+2025-07-18 12:28:52,542 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250718_122852_015d3a42.wav
+2025-07-18 12:28:52,543 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:28:52] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-18 12:28:53,125 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:28:56,024 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:28:59,406 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp4k41dvy8.wav успешно удален
+2025-07-18 12:28:59,408 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:28:59] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-18 12:29:56,969 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250718_122852_015d3a42.wav успешно удален
+2025-07-18 12:29:56,988 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250718_122956_6d1f1906.wav
+2025-07-18 12:29:56,990 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:29:56] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-18 12:29:57,723 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:30:03,015 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:30:05,209 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmphav8rs_1.wav успешно удален
+2025-07-18 12:30:05,210 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:30:05] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-18 12:37:00,101 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250718_122956_6d1f1906.wav успешно удален
+2025-07-18 12:37:00,266 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250718_123700_91ab6aea.wav
+2025-07-18 12:37:00,267 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:37:00] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-18 12:37:09,304 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:37:34,469 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:37:45,820 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmphad0ntu2.wav успешно удален
+2025-07-18 12:37:45,822 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:37:45] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-18 12:39:10,646 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250718_123700_91ab6aea.wav успешно удален
+2025-07-18 12:39:10,654 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250718_123910_54bb13a2.wav
+2025-07-18 12:39:10,654 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:39:10] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-18 12:39:10,870 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:39:12,360 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:39:14,016 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpul4fg0fp.wav успешно удален
+2025-07-18 12:39:14,018 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:39:14] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-18 12:39:37,548 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250718_123910_54bb13a2.wav успешно удален
+2025-07-18 12:39:37,556 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250718_123937_47c0c483.wav
+2025-07-18 12:39:37,557 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:39:37] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-18 12:39:37,777 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:39:39,663 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:39:41,838 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpwev63hmd.wav успешно удален
+2025-07-18 12:39:41,840 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:39:41] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-18 12:40:03,622 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250718_123937_47c0c483.wav успешно удален
+2025-07-18 12:40:03,630 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250718_124003_877001a5.wav
+2025-07-18 12:40:03,630 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:40:03] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-18 12:40:03,845 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:40:05,321 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-18 12:40:06,856 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpvkoudxwh.wav успешно удален
+2025-07-18 12:40:06,858 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 12:40:06] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-18 13:00:27,813 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-18 13:00:27,814 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-18 13:00:27,831 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://10.8.2.222:10000
+2025-07-18 13:00:27,831 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-21 13:45:30,329 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 13:45:30] "GET /health HTTP/1.1" 200 -
+2025-07-21 13:45:32,242 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250721_134530_caedf8b1.wav
+2025-07-21 13:45:32,242 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 13:45:32] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-21 13:45:33,528 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-21 13:45:35,758 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-21 13:45:37,739 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpi7irkltd.wav успешно удален
+2025-07-21 13:45:37,741 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 13:45:37] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-21 13:46:00,469 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250721_134530_caedf8b1.wav успешно удален
+2025-07-21 13:46:00,477 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250721_134600_056a3433.wav
+2025-07-21 13:46:00,478 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 13:46:00] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-21 13:46:00,704 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-21 13:46:02,565 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-21 13:46:04,858 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpq8l1s1wc.wav успешно удален
+2025-07-21 13:46:04,860 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 13:46:04] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-21 13:46:21,355 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250721_134600_056a3433.wav успешно удален
+2025-07-21 13:46:21,360 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250721_134621_e6eb0448.wav
+2025-07-21 13:46:21,361 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 13:46:21] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-21 13:46:21,621 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-21 13:46:23,422 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-21 13:46:25,145 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmpz167iqes.wav успешно удален
+2025-07-21 13:46:25,147 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 13:46:25] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-21 13:47:00,615 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250721_134621_e6eb0448.wav успешно удален
+2025-07-21 13:47:00,626 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250721_134700_a53bfc15.wav
+2025-07-21 13:47:00,627 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 13:47:00] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-21 13:47:00,849 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-21 13:47:02,645 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-21 13:47:04,565 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp7vuz_9n8.wav успешно удален
+2025-07-21 13:47:04,567 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 13:47:04] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-21 13:47:19,481 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250721_134700_a53bfc15.wav успешно удален
+2025-07-21 13:47:19,488 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250721_134719_e42ed6f9.wav
+2025-07-21 13:47:19,489 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 13:47:19] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-21 13:47:19,699 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-21 13:47:21,750 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-21 13:47:24,262 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp0mahhp7m.wav успешно удален
+2025-07-21 13:47:24,264 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 13:47:24] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-21 13:47:40,152 - __main__ - INFO - Файл audio_storage/ref_5102803347_20250721_134719_e42ed6f9.wav успешно удален
+2025-07-21 13:47:40,160 - __main__ - INFO - Сохранено референсное аудио для пользователя 5102803347: audio_storage/ref_5102803347_20250721_134740_6bfa4e26.wav
+2025-07-21 13:47:40,161 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 13:47:40] "POST /upload_reference HTTP/1.1" 200 -
+2025-07-21 13:47:40,378 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-21 13:47:42,370 - __main__ - WARNING - Ошибка анализа темпа: No librosa.feature attribute rhythm
+2025-07-21 13:47:44,295 - __main__ - INFO - Файл /var/folders/qq/nhj4vs2s65n8_fyzr1jqxkr00000gn/T/tmp73w25msl.wav успешно удален
+2025-07-21 13:47:44,298 - werkzeug - INFO - 127.0.0.1 - - [21/Jul/2025 13:47:44] "POST /compare_audio HTTP/1.1" 200 -
+2025-07-30 12:54:03,230 - __main__ - INFO - Аудио хранилище инициализировано в audio_storage
+2025-07-30 12:54:03,231 - __main__ - INFO - Запуск сервера сравнения церковных песнопений на 0.0.0.0:10000
+2025-07-30 12:54:03,253 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.0.14:10000
+2025-07-30 12:54:03,253 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
