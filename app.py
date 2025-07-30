@@ -1009,6 +1009,13 @@ class ChurchMusicServer:
             logger.error(f"Ошибка запуска сервера: {str(e)}")
             raise
 
+# Создаем экземпляр сервера
+server = ChurchMusicServer()
+
+# Экспортируем Flask-приложение для Gunicorn
+app = server.app
+application = app  # Альтернативное имя для совместимости
+
 if __name__ == "__main__":
-    server = ChurchMusicServer()
+    # При запуске напрямую через Python (не через Gunicorn)
     server.run(debug=False)
