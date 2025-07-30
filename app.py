@@ -1014,8 +1014,8 @@ def create_app():
     return server.app
 
 # Создаем экземпляр приложения
-application = create_app()
+app = create_app()
 
 if __name__ == "__main__":
     # При запуске напрямую через Python (не через Gunicorn)
-    application.run(host='0.0.0.0', port=8000, debug=False)
+    app.run(host='0.0.0.0', port=8000, debug=False)
