@@ -1008,14 +1008,14 @@ class ChurchMusicServer:
         except Exception as e:
             logger.error(f"Ошибка запуска сервера: {str(e)}")
             raise
+# Создаем и настраиваем приложение
+def create_app():
+    server = ChurchMusicServer()
+    return server.app
 
-# Создаем экземпляр сервера
-server = ChurchMusicServer()
-
-# Экспортируем Flask-приложение для Gunicorn
-app = server.app
-application = app  # Альтернативное имя для совместимости
+# Создаем экземпляр приложения
+application = create_app()
 
 if __name__ == "__main__":
     # При запуске напрямую через Python (не через Gunicorn)
-    server.run(debug=False)
+    application.run(host='0.0.0.0', port=8000, debug=False)
