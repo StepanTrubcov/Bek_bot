@@ -18,6 +18,7 @@ from scipy.interpolate import interp1d
 import Levenshtein
 import subprocess
 import json
+import fcntl
 import re
 
 # Настройка логирования
@@ -224,8 +225,9 @@ class ChurchMusicAnalyzer:
             try:
                 onset_env = librosa.onset.onset_strength(y=audio, sr=self.sample_rate, 
                                                       hop_length=self.hop_length)
-                tempo = librosa.feature.rhythm.tempo(onset_envelope=onset_env, 
-                                                   sr=self.sample_rate)
+                # Fixed: Use librosa.beat.tempo instead of librosa.feature.rhythm.tempo
+                tempo = librosa.beat.tempo(onset_envelope=onset_env, 
+                                         sr=self.sample_rate)
                 beats = librosa.onset.onset_detect(y=audio, sr=self.sample_rate, 
                                                 hop_length=self.hop_length, units='time')
                 
@@ -676,16 +678,45 @@ class AudioStorageManager:
         self._initialize_storage()
 
     def _initialize_storage(self) -> None:
-        """Инициализация хранилища с обработкой ошибок"""
+        """Инициализация хранилища с загрузкой references.json"""
         try:
             os.makedirs(self.storage_dir, exist_ok=True)
+            self._load_references()
             logger.info(f"Аудио хранилище инициализировано в {self.storage_dir}")
         except Exception as e:
             logger.error(f"Ошибка инициализации хранилища: {str(e)}")
             raise
 
+    def _load_references(self) -> None:
+        """Загрузка references из JSON файла с блокировкой"""
+        ref_file = os.path.join(self.storage_dir, "references.json")
+        try:
+            if os.path.exists(ref_file):
+                with open(ref_file, 'r') as f:
+                    fcntl.flock(f.fileno(), fcntl.LOCK_SH)  # Shared lock
+                    self.references = json.load(f)
+                    fcntl.flock(f.fileno(), fcntl.LOCK_UN)  # Unlock
+            else:
+                self.references = {}
+            logger.info(f"Loaded references: {self.references}")
+        except Exception as e:
+            logger.error(f"Ошибка загрузки references.json: {str(e)}")
+            self.references = {}
+
+    def _save_references(self) -> None:
+        """Сохранение references в JSON файл с блокировкой"""
+        ref_file = os.path.join(self.storage_dir, "references.json")
+        try:
+            with open(ref_file, 'w') as f:
+                fcntl.flock(f.fileno(), fcntl.LOCK_EX)  # Exclusive lock
+                json.dump(self.references, f)
+                fcntl.flock(f.fileno(), fcntl.LOCK_UN)  # Unlock
+            logger.info("References сохранены в references.json")
+        except Exception as e:
+            logger.error(f"Ошибка сохранения references.json: {str(e)}")
+
     def save_reference_audio(self, user_id: str, audio_file) -> str:
-        """Сохранение референсного аудио с улучшенной обработкой"""
+        """Сохранение референсного аудио с обновлением references.json"""
         try:
             # Удаление предыдущего референса, если есть
             if user_id in self.references:
@@ -704,8 +735,9 @@ class AudioStorageManager:
             audio = librosa.util.normalize(audio)
             sf.write(filepath, audio, sr, subtype='PCM_16')
             
-            # Обновление ссылок
+            # Обновление ссылок и сохранение
             self.references[user_id] = filepath
+            self._save_references()
             logger.info(f"Сохранено референсное аудио для пользователя {user_id}: {filepath}")
             
             return filepath
@@ -715,7 +747,9 @@ class AudioStorageManager:
 
     def get_reference_audio(self, user_id: str) -> Optional[str]:
         """Получение пути к референсному аудио"""
-        return self.references.get(user_id)
+        ref_path = self.references.get(user_id)
+        logger.info(f"Requested reference audio for user_id: {user_id}, found: {ref_path}")
+        return ref_path
 
     def _save_temp_file(self, audio_file) -> str:
         """Сохранение временного файла с конвертацией в WAV"""
@@ -906,8 +940,12 @@ class ChurchMusicServer:
             )
 
     def _handle_compare_audio(self) -> Tuple[Dict, int]:
-        """Обработка сравнения аудио с улучшенной валидацией"""
+        """Обработка сравнения аудио с улучшенной валидацией и логированием"""
         try:
+            logger.info(f"Received compare_audio request with teacher_id: {request.form.get('teacher_id')}")
+            logger.info(f"Available references: {self.storage.references}")
+            logger.info(f"Files in audio_storage: {os.listdir(self.storage.storage_dir)}")
+            
             # Проверка наличия файла
             if 'audio' not in request.files:
                 return self._api_response(
@@ -927,7 +965,8 @@ class ChurchMusicServer:
                 
             # Проверка наличия референса
             ref_path = self.storage.get_reference_audio(teacher_id)
-            if not ref_path:
+            if not ref_path or not os.path.exists(ref_path):
+                logger.error(f"No reference audio found or file missing for teacher_id: {teacher_id}")
                 return self._api_response(
                     status="error",
                     message="Не найдено референсное аудио для данного преподавателя",
@@ -1020,4 +1059,4 @@ app = create_app()
 
 if __name__ == "__main__":
     # При запуске напрямую через Python (не через Gunicorn)
-    app.run(host='0.0.0.0', port=8000, debug=False)
+    app.run(host='0.0.0.0', port=8001, debug=False)
