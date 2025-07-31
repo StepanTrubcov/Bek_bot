@@ -45,14 +45,14 @@ class ChurchMusicAnalyzer:
         self.min_pitch = 80      # Минимальная частота голоса (Гц)
         self.max_pitch = 500     # Максимальная частота голоса (Гц)
         
-        # Параметры для сравнения (чуть более строгие для высоты тона)
-        self.pitch_diff_threshold = 10    # Уменьшено с 12 до 10 для более строгого сравнения
+        # Параметры для сравнения (усилены для более строгого сравнения высоты тона)
+        self.pitch_diff_threshold = 8     # Уменьшено с 10 до 8 для более строгого сравнения
         self.min_pitch_similarity = 0.01  # Минимальная схожесть высоты тона
         self.min_similarity = 0.05        # Минимальная общая оценка (5%)
         self.base_contour_similarity = 0.15 # Оставлено без изменений
         self.base_spectral_similarity = 0.4 # Базовая спектральная схожесть
         self.different_song_threshold = 0.2 # Порог для определения разных песнопений
-        self.severe_pitch_diff_threshold = 25 # Уменьшено с 30 до 25 для более строгого контроля
+        self.severe_pitch_diff_threshold = 20 # Уменьшено с 25 до 20 для более строгого контроля
         
         # Инициализация распознавателя речи
         self.recognizer = sr.Recognizer()
@@ -415,7 +415,7 @@ class ChurchMusicAnalyzer:
         return ' '.join(words).strip()
 
     def _compare_pitch_features(self, ref: Dict, student: Dict) -> float:
-        """Сравнение характеристик высоты тона с чуть более строгой логикой"""
+        """Сравнение характеристик высоты тона с более строгой логикой"""
         if not ref['contour'] or not student['contour']:
             return self.min_pitch_similarity
             
@@ -431,15 +431,15 @@ class ChurchMusicAnalyzer:
         
         # Если разница в высоте тона слишком большая, ограничиваем оценку
         if pitch_diff > self.severe_pitch_diff_threshold:
-            return 0.40  # Сохраняем ограничение для больших различий
+            return 0.35  # Уменьшено с 0.40 до 0.35 для более строгого контроля
         
-        # Рассчитываем схожесть тона с чуть более строгой шкалой
+        # Рассчитываем схожесть тона с более строгой шкалой
         mean_sim = max(0.01, 1.0 - (pitch_diff / self.pitch_diff_threshold))
-        stability_sim = 0.3 + 0.7 * (1.0 - abs(ref['stability'] - student['stability']))
+        stability_sim = 0.25 + 0.75 * (1.0 - abs(ref['stability'] - student['stability']))  # Увеличен вес стабильности
         contour_sim = self._compare_pitch_contours(ref['contour'], student['contour'])
         
-        # Сбалансированный вес для сравнения среднего тона
-        return max(self.min_pitch_similarity, (0.5 * mean_sim + 0.25 * stability_sim + 0.25 * contour_sim))
+        # Более строгие веса для сравнения (увеличен вес среднего тона)
+        return max(self.min_pitch_similarity, (0.55 * mean_sim + 0.25 * stability_sim + 0.20 * contour_sim))
 
     def _compare_pitch_contours(self, ref_contour: list, student_contour: list) -> float:
         """Сравнение контуров тона с улучшенной логикой"""
@@ -462,8 +462,8 @@ class ChurchMusicAnalyzer:
         if np.isnan(correlation):
             correlation = self.base_contour_similarity
         
-        # Среднее между косинусным сходством и корреляцией
-        return max(self.base_contour_similarity, (0.6 * contour_sim + 0.4 * correlation))
+        # Среднее между косинусным сходством и корреляцией (чуть строже)
+        return max(self.base_contour_similarity, (0.65 * contour_sim + 0.35 * correlation))
 
     def _compare_temporal_features(self, ref: Dict, student: Dict) -> float:
         """Сравнение временных характеристик с улучшенной логикой"""
@@ -513,19 +513,19 @@ class ChurchMusicAnalyzer:
 
     def _calculate_final_similarity(self, text_sim: float, pitch_sim: float,
                                   temporal_sim: float, spectral_sim: float) -> float:
-        """Окончательный расчет схожести без ограничения на 50% для высоты тона"""
+        """Окончательный расчет схожести с более строгим весом для высоты тона"""
         # Если тексты разных песнопений (схожесть < 20%)
         if text_sim < self.different_song_threshold:
             # Жесткое ограничение в 20% для разных песнопений
             acoustic_sim = (0.2 * pitch_sim + 0.1 * temporal_sim + 0.05 * spectral_sim)
             return min(acoustic_sim, 0.2)
         
-        # Основной расчет с более сбалансированными весами
+        # Основной расчет с более строгим весом для высоты тона
         weights = {
-            'text': 0.4,
-            'pitch': 0.35,
+            'text': 0.35,    # Уменьшено с 0.4
+            'pitch': 0.45,   # Увеличено с 0.35 для более строгого контроля высоты
             'temporal': 0.15,
-            'spectral': 0.1
+            'spectral': 0.05  # Уменьшено с 0.1
         }
         
         similarity = (
@@ -540,7 +540,7 @@ class ChurchMusicAnalyzer:
     def _prepare_result(self, similarity: float, text_sim: float, pitch_sim: float,
                        temporal_sim: float, spectral_sim: float, text_warning: str,
                        ref_features: Dict, student_features: Dict) -> Dict:
-        """Подготовка итогового результата с детализированными предупреждениями"""
+        """Подготовка итогового результата с более строгими предупреждениями для высоты"""
         result = {
             'similarity_percent': round(similarity * 100, 1),
             'text_warning': text_warning,
@@ -566,15 +566,16 @@ class ChurchMusicAnalyzer:
             result['warnings'].append("Текст частично совпадает")
             result['suggestions'].append("Обратите внимание на точность произношения текста")
             
-        # Предупреждения по высоте тона (чуть более строгие пороги)
-        if pitch_sim < 0.30:  # Уменьшено с 0.35 до 0.30
+        # Предупреждения по высоте тона (более строгие пороги)
+        if pitch_sim < 0.25:  # Уменьшено с 0.30 до 0.25
             result['warnings'].append("Значительное отличие высоты тона")
-            result['suggestions'].append("Обратите внимание на тональность исполнения")
-        elif pitch_sim < 0.55:  # Уменьшено с 0.6 до 0.55
+            result['suggestions'].append("Требуется серьезная работа над тональностью исполнения")
+        elif pitch_sim < 0.50:  # Уменьшено с 0.55 до 0.50
+            result['warnings'].append("Заметное отличие высоты тона")
+            result['suggestions'].append("Продолжайте работать над точной интонацией")
+        elif pitch_sim < 0.75:  # Уменьшено с 0.8 до 0.75
             result['warnings'].append("Небольшое отличие высоты тона")
-            result['suggestions'].append("Продолжайте работать над интонацией")
-        elif pitch_sim < 0.8:  # Оставлено без изменений
-            result['warnings'].append("Минимальное отличие высоты тона")
+            result['suggestions'].append("Уточните интонацию для более точного соответствия")
             
         # Предупреждения по темпу
         if temporal_sim < 0.5:
@@ -1008,6 +1009,7 @@ class ChurchMusicServer:
         except Exception as e:
             logger.error(f"Ошибка запуска сервера: {str(e)}")
             raise
+
 # Создаем и настраиваем приложение
 def create_app():
     server = ChurchMusicServer()
