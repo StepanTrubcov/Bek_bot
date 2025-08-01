@@ -1,5 +1,5 @@
 import logging
-from flask import Flask, request, jsonify
+import json
 import os
 import uuid
 import numpy as np
@@ -7,6 +7,7 @@ import librosa
 import soundfile as sf
 import pyworld as pw
 from sklearn.metrics.pairwise import cosine_similarity
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import tempfile
 import datetime
@@ -17,12 +18,12 @@ from scipy import signal
 from scipy.interpolate import interp1d
 import Levenshtein
 import subprocess
-import json
-import portalocker  # Added for cross-platform file locking
+import portalocker
+import re
 
 # Настройка логирования
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,  # Changed to DEBUG for more detailed logs
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
         logging.FileHandler("church_music_server.log"),
@@ -95,6 +96,7 @@ class ChurchMusicAnalyzer:
 
     def _validate_audio(self, audio: np.ndarray, sr: int) -> np.ndarray:
         """Валидация и предварительная обработка аудио"""
+        logger.debug("Validating audio")
         if len(audio) == 0:
             raise AudioProcessingError("Пустой аудиосигнал")
         
@@ -120,6 +122,7 @@ class ChurchMusicAnalyzer:
 
     def _load_audio_file(self, filepath: str) -> np.ndarray:
         """Загрузка аудиофайла с обработкой"""
+        logger.debug(f"Loading audio file: {filepath}")
         try:
             audio, sr = sf.read(filepath, always_2d=False)
             return self._validate_audio(audio, sr)
@@ -128,6 +131,7 @@ class ChurchMusicAnalyzer:
 
     def _extract_features(self, audio: np.ndarray) -> Dict:
         """Извлечение всех характеристик аудио"""
+        logger.debug("Extracting audio features")
         features = {
             'pitch': self._extract_pitch_features(audio),
             'temporal': self._extract_temporal_features(audio),
@@ -138,6 +142,7 @@ class ChurchMusicAnalyzer:
 
     def _extract_pitch_features(self, audio: np.ndarray) -> Dict:
         """Извлечение характеристик высоты тона"""
+        logger.debug("Extracting pitch features")
         try:
             f0, sp, ap = pw.wav2world(audio.astype(np.float64), self.sample_rate)
             valid_f0 = f0[(f0 >= self.min_pitch) & (f0 <= self.max_pitch)]
@@ -169,6 +174,7 @@ class ChurchMusicAnalyzer:
 
     def _smooth_pitch_contour(self, f0: np.ndarray) -> np.ndarray:
         """Сглаживание контура тона"""
+        logger.debug("Smoothing pitch contour")
         valid_indices = np.where(f0 > 0)[0]
         if len(valid_indices) < 2:
             return np.zeros_like(f0)
@@ -182,6 +188,7 @@ class ChurchMusicAnalyzer:
 
     def _calculate_pitch_stability(self, f0: np.ndarray) -> float:
         """Расчет стабильности тона"""
+        logger.debug("Calculating pitch stability")
         if len(f0) < 2:
             return 0.5
             
@@ -192,6 +199,7 @@ class ChurchMusicAnalyzer:
 
     def _extract_temporal_features(self, audio: np.ndarray) -> Dict:
         """Извлечение временных характеристик"""
+        logger.debug("Extracting temporal features")
         try:
             duration = len(audio) / self.sample_rate
             if duration < 2.0:
@@ -238,6 +246,7 @@ class ChurchMusicAnalyzer:
 
     def _extract_spectral_features(self, audio: np.ndarray) -> Dict:
         """Извлечение спектральных характеристик"""
+        logger.debug("Extracting spectral features")
         try:
             mfcc = librosa.feature.mfcc(y=audio, sr=self.sample_rate, n_mfcc=25, 
                                       hop_length=self.hop_length, n_fft=self.frame_length)
@@ -261,6 +270,7 @@ class ChurchMusicAnalyzer:
 
     def _recognize_song_text(self, audio_path: str) -> Optional[str]:
         """Распознавание текста песнопения"""
+        logger.debug(f"Recognizing song text from {audio_path}")
         try:
             duration = sf.info(audio_path).duration
             if duration < 3.0:
@@ -272,6 +282,7 @@ class ChurchMusicAnalyzer:
                 audio = self.recognizer.record(source, duration=min(30, duration))
                 try:
                     text = self.recognizer.recognize_google(audio, language="ru-RU")
+                    logger.debug(f"Recognized text: {text}")
                     return text.lower()
                 except (sr.UnknownValueError, sr.RequestError) as e:
                     logger.warning(f"Ошибка распознавания текста: {str(e)}")
@@ -282,6 +293,7 @@ class ChurchMusicAnalyzer:
 
     def _identify_song(self, text: str) -> Optional[str]:
         """Определение песнопения по тексту"""
+        logger.debug(f"Identifying song from text: {text}")
         if not text:
             return None
             
@@ -300,10 +312,12 @@ class ChurchMusicAnalyzer:
                     best_score = score
                     best_match = song_name
                     
+        logger.debug(f"Best match: {best_match}, score: {best_score}")
         return best_match
 
     def _partial_match_ratio(self, text: str, pattern: str) -> float:
         """Вычисление частичного совпадения текста"""
+        logger.debug(f"Calculating partial match ratio for text: {text}, pattern: {pattern}")
         words_text = text.split()
         words_pattern = pattern.split()
         
@@ -318,6 +332,7 @@ class ChurchMusicAnalyzer:
 
     def _compare_text_similarity(self, ref_text: str, student_text: str) -> Tuple[float, str]:
         """Сравнение текстов"""
+        logger.debug(f"Comparing texts: ref={ref_text}, student={student_text}")
         if not ref_text and not student_text:
             return 1.0, ""
         elif not ref_text or not student_text:
@@ -342,6 +357,7 @@ class ChurchMusicAnalyzer:
             return 0.1, "Не удалось точно определить песнопение"
         
         direct_sim = Levenshtein.ratio(norm_ref, norm_student)
+        logger.debug(f"Text similarity: {direct_sim}")
         
         if direct_sim > 0.95:
             return 1.0, ""
@@ -356,6 +372,7 @@ class ChurchMusicAnalyzer:
 
     def _normalize_text(self, text: str) -> str:
         """Нормализация текста"""
+        logger.debug(f"Normalizing text: {text}")
         if not text:
             return ""
         
@@ -380,6 +397,7 @@ class ChurchMusicAnalyzer:
 
     def _compare_pitch_features(self, ref: Dict, student: Dict) -> float:
         """Сравнение характеристик высоты тона"""
+        logger.debug("Comparing pitch features")
         if not ref['contour'] or not student['contour']:
             return self.min_pitch_similarity
             
@@ -398,10 +416,12 @@ class ChurchMusicAnalyzer:
         stability_sim = 0.25 + 0.75 * (1.0 - abs(ref['stability'] - student['stability']))
         contour_sim = self._compare_pitch_contours(ref['contour'], student['contour'])
         
+        logger.debug(f"Pitch mean sim: {mean_sim}, stability sim: {stability_sim}, contour sim: {contour_sim}")
         return max(self.min_pitch_similarity, (0.55 * mean_sim + 0.25 * stability_sim + 0.20 * contour_sim))
 
     def _compare_pitch_contours(self, ref_contour: list, student_contour: list) -> float:
         """Сравнение контуров тона"""
+        logger.debug("Comparing pitch contours")
         min_length = min(len(ref_contour), len(student_contour))
         if min_length < 10:
             return self.base_contour_similarity
@@ -418,10 +438,12 @@ class ChurchMusicAnalyzer:
         if np.isnan(correlation):
             correlation = self.base_contour_similarity
         
+        logger.debug(f"Contour similarity: {contour_sim}, correlation: {correlation}")
         return max(self.base_contour_similarity, (0.65 * contour_sim + 0.35 * correlation))
 
     def _compare_temporal_features(self, ref: Dict, student: Dict) -> float:
         """Сравнение временных характеристик"""
+        logger.debug("Comparing temporal features")
         duration_diff = abs(ref['duration'] - student['duration'])
         if duration_diff > 20:
             return 0.3
@@ -436,10 +458,12 @@ class ChurchMusicAnalyzer:
         max_beats = max(1, ref['beat_count'], student['beat_count'])
         beat_sim = 1 - min(1, beat_diff / max_beats)
         
+        logger.debug(f"Duration sim: {duration_sim}, tempo sim: {tempo_sim}, beat sim: {beat_sim}")
         return (duration_sim * 0.3 + tempo_sim * 0.5 + beat_sim * 0.2)
 
     def _compare_spectral_features(self, ref: Dict, student: Dict) -> float:
         """Сравнение спектральных характеристик"""
+        logger.debug("Comparing spectral features")
         try:
             mfcc_weights = np.array([1.0] * 5 + [0.7] * 5 + [0.5] * 5 + [0.3] * 5 + [0.1] * 5)
             mfcc_sim = cosine_similarity(
@@ -452,6 +476,7 @@ class ChurchMusicAnalyzer:
                 [student['spectral_contrast']]
             )[0][0]
             
+            logger.debug(f"MFCC sim: {mfcc_sim}, chroma sim: {chroma_sim}, contrast sim: {contrast_sim}")
             return max(
                 self.base_spectral_similarity,
                 (0.5 * mfcc_sim + 0.3 * chroma_sim + 0.2 * contrast_sim)
@@ -463,6 +488,7 @@ class ChurchMusicAnalyzer:
     def _calculate_final_similarity(self, text_sim: float, pitch_sim: float,
                                   temporal_sim: float, spectral_sim: float) -> float:
         """Окончательный расчет схожести"""
+        logger.debug(f"Calculating final similarity: text={text_sim}, pitch={pitch_sim}, temporal={temporal_sim}, spectral={spectral_sim}")
         if text_sim < self.different_song_threshold:
             acoustic_sim = (0.2 * pitch_sim + 0.1 * temporal_sim + 0.05 * spectral_sim)
             return min(acoustic_sim, 0.2)
@@ -487,6 +513,7 @@ class ChurchMusicAnalyzer:
                        temporal_sim: float, spectral_sim: float, text_warning: str,
                        ref_features: Dict, student_features: Dict) -> Dict:
         """Подготовка итогового результата"""
+        logger.debug("Preparing result")
         result = {
             'similarity_percent': round(similarity * 100, 1),
             'text_warning': text_warning,
@@ -529,6 +556,7 @@ class ChurchMusicAnalyzer:
 
     def _perfect_match_response(self) -> Dict:
         """Ответ для полностью совпадающих записей"""
+        logger.debug("Returning perfect match response")
         return {
             'similarity_percent': 100.0,
             'text_warning': "",
@@ -546,6 +574,7 @@ class ChurchMusicAnalyzer:
 
     def analyze_audio(self, audio_path: str) -> Dict:
         """Полный анализ аудио"""
+        logger.debug(f"Analyzing audio: {audio_path}")
         try:
             audio = self._load_audio_file(audio_path)
             features = self._extract_features(audio)
@@ -557,6 +586,7 @@ class ChurchMusicAnalyzer:
 
     def compare_recordings(self, ref_path: str, student_path: str) -> Dict:
         """Сравнение записей"""
+        logger.debug(f"Comparing recordings: ref={ref_path}, student={student_path}")
         try:
             if os.path.getsize(ref_path) == os.path.getsize(student_path):
                 with open(ref_path, 'rb') as f1, open(student_path, 'rb') as f2:
@@ -615,9 +645,10 @@ class AudioStorageManager:
 
     def _initialize_storage(self) -> None:
         """Инициализация хранилища с загрузкой references.json"""
+        logger.debug(f"Initializing storage at {self.storage_dir}")
         try:
             os.makedirs(self.storage_dir, exist_ok=True)
-            # Clean up stale reference files
+            os.chmod(self.storage_dir, 0o775)  # Ensure directory permissions
             self._cleanup_stale_files()
             self._load_references()
             logger.info(f"Аудио хранилище инициализировано в {self.storage_dir}")
@@ -625,11 +656,18 @@ class AudioStorageManager:
             logger.error(f"Ошибка инициализации хранилища: {str(e)}")
             raise
 
-    def _acquire_lock(self) -> None:
-        """Получение блокировки файла"""
+    def _acquire_lock(self, timeout: float = 5.0) -> None:
+        """Получение блокировки файла с таймаутом"""
+        logger.debug(f"Acquiring lock on {self.lock_file}")
         try:
             self.lock_fd = open(self.lock_file, 'a')
-            portalocker.lock(self.lock_fd, portalocker.LOCK_EX)
+            portalocker.lock(self.lock_fd, portalocker.LOCK_EX | portalocker.LOCK_NB, timeout=timeout)
+            logger.debug("Lock acquired")
+        except portalocker.exceptions.LockException as e:
+            logger.error(f"Не удалось получить блокировку в течение {timeout} секунд: {str(e)}")
+            if hasattr(self, 'lock_fd'):
+                self.lock_fd.close()
+            raise
         except Exception as e:
             logger.error(f"Ошибка получения блокировки: {str(e)}")
             if hasattr(self, 'lock_fd'):
@@ -638,21 +676,25 @@ class AudioStorageManager:
 
     def _release_lock(self) -> None:
         """Освобождение блокировки файла"""
+        logger.debug("Releasing lock")
         try:
             if hasattr(self, 'lock_fd') and self.lock_fd:
                 portalocker.unlock(self.lock_fd)
                 self.lock_fd.close()
+                logger.debug("Lock released")
         except Exception as e:
             logger.warning(f"Ошибка освобождения блокировки: {str(e)}")
 
     def _load_references(self) -> None:
         """Загрузка references из JSON файла"""
         ref_file = os.path.join(self.storage_dir, "references.json")
+        logger.debug(f"Loading references from {ref_file}")
         try:
             self._acquire_lock()
             if os.path.exists(ref_file):
                 with open(ref_file, 'r') as f:
                     self.references = json.load(f)
+                    logger.debug(f"Raw references loaded: {self.references}")
                     # Validate file paths
                     for user_id, filepath in list(self.references.items()):
                         if not os.path.exists(filepath):
@@ -660,6 +702,7 @@ class AudioStorageManager:
                             del self.references[user_id]
                 self._save_references()  # Save cleaned references
             else:
+                logger.debug("No references.json found, creating empty one")
                 self.references = {}
                 self._save_references()  # Create empty references.json
             logger.info(f"Loaded references: {self.references}")
@@ -673,10 +716,12 @@ class AudioStorageManager:
     def _save_references(self) -> None:
         """Сохранение references в JSON файл"""
         ref_file = os.path.join(self.storage_dir, "references.json")
+        logger.debug(f"Saving references to {ref_file}")
         try:
             self._acquire_lock()
             with open(ref_file, 'w') as f:
                 json.dump(self.references, f, indent=2)
+            os.chmod(ref_file, 0o664)  # Ensure file permissions
             logger.info("References сохранены в references.json")
         except Exception as e:
             logger.error(f"Ошибка сохранения references.json: {str(e)}")
@@ -685,6 +730,7 @@ class AudioStorageManager:
 
     def _cleanup_stale_files(self) -> None:
         """Удаление устаревших референсных файлов"""
+        logger.debug("Cleaning up stale reference files")
         try:
             ref_file = os.path.join(self.storage_dir, "references.json")
             valid_files = set()
@@ -703,6 +749,7 @@ class AudioStorageManager:
 
     def save_reference_audio(self, user_id: str, audio_file) -> str:
         """Сохранение референсного аудио"""
+        logger.debug(f"Saving reference audio for user_id: {user_id}")
         try:
             user_id = str(user_id).strip()  # Normalize user_id
             if user_id in self.references:
@@ -716,6 +763,7 @@ class AudioStorageManager:
             audio, sr = sf.read(temp_path)
             audio = librosa.util.normalize(audio)
             sf.write(filepath, audio, sr, subtype='PCM_16')
+            os.chmod(filepath, 0o664)  # Ensure file permissions
             
             self.references[user_id] = filepath
             self._save_references()
@@ -732,13 +780,19 @@ class AudioStorageManager:
     def get_reference_audio(self, user_id: str) -> Optional[str]:
         """Получение пути к референсному аудио"""
         user_id = str(user_id).strip()  # Normalize user_id
+        logger.debug(f"Getting reference audio for user_id: {user_id}")
         self._load_references()  # Reload to ensure latest state
         ref_path = self.references.get(user_id)
-        logger.info(f"Requested reference audio for user_id: {user_id}, found: {ref_path}")
+        logger.debug(f"Reference path for {user_id}: {ref_path}")
+        if ref_path and os.path.exists(ref_path):
+            logger.debug(f"File exists: {ref_path}")
+        else:
+            logger.warning(f"File does not exist or not in references for user_id: {user_id}")
         return ref_path
 
     def _save_temp_file(self, audio_file) -> str:
         """Сохранение временного файла с конвертацией в WAV"""
+        logger.debug(f"Saving temporary file for {audio_file.filename}")
         try:
             fd, temp_path = tempfile.mkstemp(suffix='.wav')
             os.close(fd)
@@ -758,6 +812,7 @@ class AudioStorageManager:
             else:
                 audio_file.save(temp_path)
                 
+            os.chmod(temp_path, 0o664)  # Ensure file permissions
             return temp_path
         except subprocess.CalledProcessError as e:
             logger.error(f"Ошибка конвертации аудио: {e.stderr.decode()}")
@@ -768,6 +823,7 @@ class AudioStorageManager:
 
     def _safe_remove_file(self, filepath: str) -> None:
         """Безопасное удаление файла"""
+        logger.debug(f"Removing file: {filepath}")
         try:
             if filepath and os.path.exists(filepath):
                 os.remove(filepath)
@@ -787,6 +843,7 @@ class ChurchMusicServer:
 
     def _configure_app(self) -> None:
         """Конфигурация Flask приложения"""
+        logger.debug("Configuring Flask app")
         self.app.config.update(
             MAX_CONTENT_LENGTH=32 * 1024 * 1024,
             UPLOAD_FOLDER='temp_uploads',
@@ -797,6 +854,7 @@ class ChurchMusicServer:
 
     def _setup_routes(self) -> None:
         """Настройка маршрутов"""
+        logger.debug("Setting up routes")
         self.app.add_url_rule('/', 'index', self._handle_index)
         self.app.add_url_rule('/health', 'health_check', self._handle_health_check, methods=['GET'])
         self.app.add_url_rule('/upload_reference', 'upload_reference', 
@@ -811,6 +869,7 @@ class ChurchMusicServer:
     def _api_response(self, data: Optional[Dict] = None, status: str = "success",
                      message: str = "", status_code: int = 200) -> Tuple[Dict, int]:
         """Формат ответа API"""
+        logger.debug(f"Creating API response: status={status}, message={message}, status_code={status_code}")
         response = {
             "status": status,
             "message": message,
@@ -823,6 +882,7 @@ class ChurchMusicServer:
 
     def _handle_index(self) -> Tuple[Dict, int]:
         """Главная страница с документацией"""
+        logger.debug("Handling index request")
         return self._api_response(
             data={
                 "service": "Church Music Comparison API",
@@ -855,6 +915,7 @@ class ChurchMusicServer:
 
     def _handle_health_check(self) -> Tuple[Dict, int]:
         """Проверка здоровья сервера"""
+        logger.debug("Handling health check")
         return self._api_response(
             data={
                 "status": "operational",
@@ -868,6 +929,7 @@ class ChurchMusicServer:
 
     def _get_memory_usage(self) -> float:
         """Получение информации об использовании памяти"""
+        logger.debug("Getting memory usage")
         try:
             import psutil
             return round(psutil.Process(os.getpid()).memory_info().rss / 1024 / 1024, 1)
@@ -876,6 +938,7 @@ class ChurchMusicServer:
 
     def _handle_upload_reference(self) -> Tuple[Dict, int]:
         """Обработка загрузки референсного аудио"""
+        logger.debug("Handling upload_reference request")
         try:
             if 'audio' not in request.files:
                 logger.error("No audio file provided in request")
@@ -886,6 +949,7 @@ class ChurchMusicServer:
                 )
                 
             teacher_id = request.form.get("teacher_id", "").strip()
+            logger.debug(f"Teacher ID: {teacher_id}")
             if not teacher_id:
                 logger.error("Invalid or missing teacher_id")
                 return self._api_response(
@@ -926,11 +990,12 @@ class ChurchMusicServer:
 
     def _handle_compare_audio(self) -> Tuple[Dict, int]:
         """Обработка сравнения аудио с улучшенной валидацией и логированием"""
+        logger.debug("Handling compare_audio request")
         try:
             teacher_id = request.form.get("teacher_id", "").strip()
             logger.info(f"Received compare_audio request with teacher_id: '{teacher_id}'")
-            logger.info(f"Available references: {self.storage.references}")
-            logger.info(f"Files in audio_storage: {os.listdir(self.storage.storage_dir)}")
+            logger.debug(f"Available references: {self.storage.references}")
+            logger.debug(f"Files in audio_storage: {os.listdir(self.storage.storage_dir)}")
             
             if 'audio' not in request.files:
                 logger.error("No audio file provided in request")
@@ -995,6 +1060,7 @@ class ChurchMusicServer:
 
     def _handle_bad_request(self, error) -> Tuple[Dict, int]:
         """Обработка ошибки 400"""
+        logger.error(f"Bad request: {str(error)}")
         return self._api_response(
             status="error",
             message="Неверный запрос: " + str(error),
@@ -1003,6 +1069,7 @@ class ChurchMusicServer:
 
     def _handle_not_found(self, error) -> Tuple[Dict, int]:
         """Обработка ошибки 404"""
+        logger.error(f"Not found: {str(error)}")
         return self._api_response(
             status="error",
             message="Ресурс не найден",
@@ -1011,6 +1078,7 @@ class ChurchMusicServer:
 
     def _handle_request_too_large(self, error) -> Tuple[Dict, int]:
         """Обработка ошибки 413"""
+        logger.error(f"Request too large: {str(error)}")
         return self._api_response(
             status="error",
             message="Файл слишком большой (максимум 32MB)",
@@ -1026,10 +1094,10 @@ class ChurchMusicServer:
             status_code=500
         )
 
-    def run(self, host: str = '0.0.0.0', port: int = 10000, debug: bool = False):
+    def run(self, host: str = '0.0.0.0', port: int = 8000, debug: bool = False):
         """Запуск сервера"""
+        logger.info(f"Запуск сервера сравнения церковных песнопений на {host}:{port}")
         try:
-            logger.info(f"Запуск сервера сравнения церковных песнопений на {host}:{port}")
             self.app.run(host=host, port=port, debug=debug, threaded=True)
         except Exception as e:
             logger.error(f"Ошибка запуска сервера: {str(e)}")
@@ -1042,4 +1110,4 @@ def create_app():
 app = create_app()
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8002, debug=False)
+    app.run(host='0.0.0.0', port=8000, debug=False)
