@@ -19,7 +19,7 @@ import Levenshtein
 import subprocess
 import json
 import portalocker  # Added for cross-platform file locking
-
+#
 # Настройка логирования
 logging.basicConfig(
     level=logging.INFO,
