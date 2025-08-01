@@ -19,7 +19,7 @@ import Levenshtein
 import subprocess
 import json
 import portalocker  # Added for cross-platform file locking
-#
+
 # Настройка логирования
 logging.basicConfig(
     level=logging.INFO,
@@ -1030,6 +1030,10 @@ class ChurchMusicServer:
         """Запуск сервера"""
         try:
             logger.info(f"Запуск сервера сравнения церковных песнопений на {host}:{port}")
+
+            import atexit
+            atexit.register(lambda: self.scheduler.shutdown())
+
             self.app.run(host=host, port=port, debug=debug, threaded=True)
         except Exception as e:
             logger.error(f"Ошибка запуска сервера: {str(e)}")
@@ -1042,4 +1046,4 @@ def create_app():
 app = create_app()
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8002, debug=False)
+    app.run(host='0.0.0.0', port=8000, debug=False)
