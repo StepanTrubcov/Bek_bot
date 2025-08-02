@@ -20,7 +20,7 @@ import Levenshtein
 import subprocess
 import portalocker
 import re
-
+#
 # Настройка логирования
 logging.basicConfig(
     level=logging.DEBUG,  # Changed to DEBUG for more detailed logs
