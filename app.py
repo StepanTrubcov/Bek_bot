@@ -556,7 +556,6 @@ class AudioStorageManager:
         logger.debug(f"Initializing storage at {self.storage_dir}")
         try:
             os.makedirs(self.storage_dir, mode=0o775, exist_ok=True)
-            self._cleanup_stale_files()
             logger.info(f"Аудио хранилище инициализировано в {self.storage_dir}")
         except Exception as e:
             logger.error(f"Ошибка инициализации хранилища: {str(e)}")
@@ -567,7 +566,7 @@ class AudioStorageManager:
         try:
             with sqlite3.connect(self.db_path) as conn:
                 conn.execute("""
-                    CREATE TABLE IF NOT EXISTS references (
+                    CREATE TABLE IF NOT EXISTS [references] (
                         user_id TEXT PRIMARY KEY,
                         filepath TEXT NOT NULL
                     )
@@ -583,13 +582,13 @@ class AudioStorageManager:
         try:
             self.references = {}
             with sqlite3.connect(self.db_path) as conn:
-                cursor = conn.execute("SELECT user_id, filepath FROM references")
+                cursor = conn.execute("SELECT user_id, filepath FROM [references]")
                 for user_id, filepath in cursor.fetchall():
                     if os.path.exists(filepath):
                         self.references[user_id] = filepath
                     else:
                         logger.warning(f"Reference file {filepath} for user_id {user_id} not found, removing")
-                        conn.execute("DELETE FROM references WHERE user_id = ?", (user_id,))
+                        conn.execute("DELETE FROM [references] WHERE user_id = ?", (user_id,))
                 conn.commit()
                 logger.info(f"Loaded references: {self.references}")
         except Exception as e:
@@ -601,7 +600,7 @@ class AudioStorageManager:
         try:
             with sqlite3.connect(self.db_path) as conn:
                 for user_id, filepath in self.references.items():
-                    conn.execute("INSERT OR REPLACE INTO references (user_id, filepath) VALUES (?, ?)", 
+                    conn.execute("INSERT OR REPLACE INTO [references] (user_id, filepath) VALUES (?, ?)", 
                                 (user_id, filepath))
                 conn.commit()
                 logger.info(f"References saved to {self.db_path}")
@@ -614,7 +613,7 @@ class AudioStorageManager:
         try:
             valid_files = set()
             with sqlite3.connect(self.db_path) as conn:
-                cursor = conn.execute("SELECT filepath FROM references")
+                cursor = conn.execute("SELECT filepath FROM [references]")
                 valid_files = set(row[0] for row in cursor.fetchall())
             for filename in os.listdir(self.storage_dir):
                 if filename.startswith("ref_") and filename.endswith(".wav"):
