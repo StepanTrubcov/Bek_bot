@@ -180,7 +180,9 @@ class ChurchMusicAnalyzer:
             if len(f0) < 2:
                 return 0.5
             stability = 1.0 - (0.6 * (np.std(f0) / np.mean(f0)) + 
-                              0.4 * (1.0 - (np.mean(np.abs(np.diff(f0))) / np.mean(f0))))
+                              0.4 * (1.0 - (np.mean(np.abs
+
+(np.diff(f0))) / np.mean(f0))))
             return max(0.1, min(1.0, stability))
         except Exception as e:
             logger.warning(f"Ошибка расчета стабильности тона: {str(e)}")
@@ -586,7 +588,7 @@ class AudioStorageManager:
             logger.info(f"Аудио хранилище инициализировано в {self.storage_dir}")
         except Exception as e:
             logger.error(f"Ошибка инициализации хранилища: {str(e)}")
-            raise
+            raise AudioProcessingError(f"Не удалось инициализировать хранилище: {str(e)}")
 
     def _initialize_db(self) -> None:
         logger.debug(f"Initializing SQLite database at {self.db_path}")
@@ -616,10 +618,12 @@ class AudioStorageManager:
             with conn:
                 cursor = conn.execute("SELECT user_id, filepath FROM [references]")
                 for user_id, filepath in cursor.fetchall():
-                    if os.path.exists(filepath):
-                        self.references[user_id] = filepath
+                    # Convert relative path to absolute for file checks
+                    abs_filepath = os.path.join(self.storage_dir, os.path.basename(filepath))
+                    if os.path.exists(abs_filepath):
+                        self.references[user_id] = abs_filepath
                     else:
-                        logger.warning(f"Reference file {filepath} for user_id {user_id} not found, removing")
+                        logger.warning(f"Reference file {abs_filepath} for user_id {user_id} not found, removing")
                         conn.execute("DELETE FROM [references] WHERE user_id = ?", (user_id,))
                 conn.commit()
                 logger.info(f"Loaded references: {self.references}")
@@ -636,8 +640,10 @@ class AudioStorageManager:
             conn = sqlite3.connect(self.db_path, timeout=10)
             with conn:
                 for user_id, filepath in self.references.items():
+                    # Store relative path in database for portability
+                    rel_filepath = os.path.relpath(filepath, self.storage_dir)
                     conn.execute("INSERT OR REPLACE INTO [references] (user_id, filepath) VALUES (?, ?)", 
-                                (user_id, filepath))
+                                (user_id, rel_filepath))
                 conn.commit()
                 logger.info(f"References saved to {self.db_path}")
         except sqlite3.OperationalError as e:
@@ -654,7 +660,7 @@ class AudioStorageManager:
             conn = sqlite3.connect(self.db_path, timeout=10)
             with conn:
                 cursor = conn.execute("SELECT filepath FROM [references]")
-                valid_files = set(row[0] for row in cursor.fetchall())
+                valid_files = set(os.path.join(self.storage_dir, os.path.basename(row[0])) for row in cursor.fetchall())
             for filename in os.listdir(self.storage_dir):
                 if filename.startswith("ref_") and filename.endswith(".wav"):
                     filepath = os.path.join(self.storage_dir, filename)
@@ -686,7 +692,7 @@ class AudioStorageManager:
             return filepath
         except Exception as e:
             logger.error(f"Ошибка сохранения референсного аудио: {str(e)}")
-            raise
+            raise AudioProcessingError(f"Не удалось сохранить референсное аудио: {str(e)}")
         finally:
             if 'temp_path' in locals():
                 self._safe_remove_file(temp_path)
@@ -769,7 +775,7 @@ class ChurchMusicServer:
             )
         except Exception as e:
             logger.error(f"Ошибка конфигурации Flask: {str(e)}")
-            raise
+            raise AudioProcessingError(f"Не удалось настроить приложение: {str(e)}")
 
     def _setup_routes(self) -> None:
         logger.debug("Setting up routes")
@@ -786,7 +792,7 @@ class ChurchMusicServer:
             self.app.register_error_handler(500, self._handle_internal_error)
         except Exception as e:
             logger.error(f"Ошибка настройки маршрутов: {str(e)}")
-            raise
+            raise AudioProcessingError(f"Не удалось настроить маршруты: {str(e)}")
 
     def _api_response(self, data: Optional[Dict] = None, status: str = "success",
                      message: str = "", status_code: int = 200) -> Tuple[Dict, int]:
@@ -803,7 +809,7 @@ class ChurchMusicServer:
             return jsonify(response), status_code
         except Exception as e:
             logger.error(f"Ошибка создания API ответа: {str(e)}")
-            raise
+            raise AudioProcessingError(f"Не удалось создать API ответ: {str(e)}")
 
     def _handle_index(self) -> Tuple[Dict, int]:
         logger.debug("Handling index request")
@@ -1036,7 +1042,7 @@ class ChurchMusicServer:
             self.app.run(host=host, port=port, debug=debug, threaded=True)
         except Exception as e:
             logger.error(f"Ошибка запуска сервера: {str(e)}")
-            raise
+            raise AudioProcessingError(f"Не удалось запустить сервер: {str(e)}")
 
 def create_app():
     server = ChurchMusicServer()
