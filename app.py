@@ -19,6 +19,7 @@ from scipy.interpolate import interp1d
 import Levenshtein
 import subprocess
 import re
+import psutil
 
 # Настройка логирования
 logging.basicConfig(
@@ -88,22 +89,23 @@ class ChurchMusicAnalyzer:
 
     def _validate_audio(self, audio: np.ndarray, sr: int) -> np.ndarray:
         logger.debug("Validating audio")
-        if len(audio) == 0:
-            raise AudioProcessingError("Пустой аудиосигнал")
-        if len(audio.shape) > 1:
-            audio = np.mean(audio, axis=1)
-        if sr != self.sample_rate:
-            audio = librosa.resample(audio, orig_sr=sr, target_sr=self.sample_rate)
-        max_samples = self.max_duration * self.sample_rate
-        if len(audio) > max_samples:
-            audio = audio[:max_samples]
-        audio = librosa.util.normalize(audio)
-        audio = librosa.effects.preemphasis(audio, coef=0.97)
         try:
+            if len(audio) == 0:
+                raise AudioProcessingError("Пустой аудиосигнал")
+            if len(audio.shape) > 1:
+                audio = np.mean(audio, axis=1)
+            if sr != self.sample_rate:
+                audio = librosa.resample(audio, orig_sr=sr, target_sr=self.sample_rate)
+            max_samples = self.max_duration * self.sample_rate
+            if len(audio) > max_samples:
+                audio = audio[:max_samples]
+            audio = librosa.util.normalize(audio)
+            audio = librosa.effects.preemphasis(audio, coef=0.97)
             audio = nr.reduce_noise(y=audio, sr=self.sample_rate, stationary=True)
+            return audio
         except Exception as e:
-            logger.warning(f"Подавление шума не удалось: {str(e)}")
-        return audio
+            logger.error(f"Ошибка валидации аудио: {str(e)}")
+            raise AudioProcessingError(f"Не удалось обработать аудио: {str(e)}")
 
     def _load_audio_file(self, filepath: str) -> np.ndarray:
         logger.debug(f"Loading audio file: {filepath}")
@@ -111,17 +113,22 @@ class ChurchMusicAnalyzer:
             audio, sr = sf.read(filepath, always_2d=False)
             return self._validate_audio(audio, sr)
         except Exception as e:
-            raise AudioProcessingError(f"Ошибка загрузки аудио: {str(e)}")
+            logger.error(f"Ошибка загрузки аудио: {str(e)}")
+            raise AudioProcessingError(f"Не удалось загрузить аудио: {str(e)}")
 
     def _extract_features(self, audio: np.ndarray) -> Dict:
         logger.debug("Extracting audio features")
-        features = {
-            'pitch': self._extract_pitch_features(audio),
-            'temporal': self._extract_temporal_features(audio),
-            'spectral': self._extract_spectral_features(audio),
-            'text': None
-        }
-        return features
+        try:
+            features = {
+                'pitch': self._extract_pitch_features(audio),
+                'temporal': self._extract_temporal_features(audio),
+                'spectral': self._extract_spectral_features(audio),
+                'text': None
+            }
+            return features
+        except Exception as e:
+            logger.error(f"Ошибка извлечения характеристик: {str(e)}")
+            raise AudioProcessingError(f"Не удалось извлечь характеристики: {str(e)}")
 
     def _extract_pitch_features(self, audio: np.ndarray) -> Dict:
         logger.debug("Extracting pitch features")
@@ -129,6 +136,7 @@ class ChurchMusicAnalyzer:
             f0, sp, ap = pw.wav2world(audio.astype(np.float64), self.sample_rate)
             valid_f0 = f0[(f0 >= self.min_pitch) & (f0 <= self.max_pitch)]
             if len(valid_f0) < 10:
+                logger.warning("Недостаточно данных для анализа тона")
                 return {
                     'mean': 0.0, 
                     'std': 0.0, 
@@ -153,28 +161,37 @@ class ChurchMusicAnalyzer:
 
     def _smooth_pitch_contour(self, f0: np.ndarray) -> np.ndarray:
         logger.debug("Smoothing pitch contour")
-        valid_indices = np.where(f0 > 0)[0]
-        if len(valid_indices) < 2:
+        try:
+            valid_indices = np.where(f0 > 0)[0]
+            if len(valid_indices) < 2:
+                return np.zeros_like(f0)
+            interp_fn = interp1d(valid_indices, f0[valid_indices], kind='linear', fill_value='extrapolate')
+            smoothed = interp_fn(np.arange(len(f0)))
+            smoothed = signal.medfilt(smoothed, kernel_size=5)
+            smoothed = signal.savgol_filter(smoothed, window_length=9, polyorder=2)
+            return smoothed
+        except Exception as e:
+            logger.warning(f"Ошибка сглаживания контура тона: {str(e)}")
             return np.zeros_like(f0)
-        interp_fn = interp1d(valid_indices, f0[valid_indices], kind='linear', fill_value='extrapolate')
-        smoothed = interp_fn(np.arange(len(f0)))
-        smoothed = signal.medfilt(smoothed, kernel_size=5)
-        smoothed = signal.savgol_filter(smoothed, window_length=9, polyorder=2)
-        return smoothed
 
     def _calculate_pitch_stability(self, f0: np.ndarray) -> float:
         logger.debug("Calculating pitch stability")
-        if len(f0) < 2:
+        try:
+            if len(f0) < 2:
+                return 0.5
+            stability = 1.0 - (0.6 * (np.std(f0) / np.mean(f0)) + 
+                              0.4 * (1.0 - (np.mean(np.abs(np.diff(f0))) / np.mean(f0))))
+            return max(0.1, min(1.0, stability))
+        except Exception as e:
+            logger.warning(f"Ошибка расчета стабильности тона: {str(e)}")
             return 0.5
-        stability = 1.0 - (0.6 * (np.std(f0) / np.mean(f0)) + \
-                    0.4 * (1.0 - (np.mean(np.abs(np.diff(f0))) / np.mean(f0))))
-        return max(0.1, min(1.0, stability))
 
     def _extract_temporal_features(self, audio: np.ndarray) -> Dict:
         logger.debug("Extracting temporal features")
         try:
             duration = len(audio) / self.sample_rate
             if duration < 2.0:
+                logger.warning("Аудио слишком короткое для анализа")
                 return {
                     'duration': float(duration), 
                     'tempo': 0.0, 
@@ -182,21 +199,14 @@ class ChurchMusicAnalyzer:
                     'energy_variation': 0.5
                 }
             energy = librosa.feature.rms(y=audio, frame_length=self.frame_length, 
-                                      hop_length=self.hop_length).flatten()
-            tempo, beats = 0.0, np.array([])
-            try:
-                onset_env = librosa.onset.onset_strength(y=audio, sr=self.sample_rate, 
-                                                      hop_length=self.hop_length)
-                tempo = librosa.beat.tempo(onset_envelope=onset_env, 
-                                         sr=self.sample_rate)
-                beats = librosa.onset.onset_detect(y=audio, sr=self.sample_rate, 
-                                                hop_length=self.hop_length, units='time')
-                if isinstance(tempo, (list, np.ndarray)):
-                    tempo = float(tempo[0]) if len(tempo) > 0 else 0.0
-                else:
-                    tempo = float(tempo)
-            except Exception as e:
-                logger.warning(f"Ошибка анализа темпа: {str(e)}")
+                                       hop_length=self.hop_length).flatten()
+            onset_env = librosa.onset.onset_strength(y=audio, sr=self.sample_rate, 
+                                                   hop_length=self.hop_length)
+            tempo = librosa.beat.tempo(onset_envelope=onset_env, 
+                                     sr=self.sample_rate)
+            beats = librosa.onset.onset_detect(y=audio, sr=self.sample_rate, 
+                                             hop_length=self.hop_length, units='time')
+            tempo = float(tempo[0]) if isinstance(tempo, (list, np.ndarray)) and len(tempo) > 0 else float(tempo)
             return {
                 'duration': float(duration),
                 'tempo': tempo,
@@ -239,18 +249,18 @@ class ChurchMusicAnalyzer:
         try:
             duration = sf.info(audio_path).duration
             if duration < 3.0:
+                logger.warning("Аудио слишком короткое для распознавания текста")
                 return None
             with sr.AudioFile(audio_path) as source:
                 self.recognizer.pause_threshold = 0.8
                 self.recognizer.phrase_threshold = 0.3
                 audio = self.recognizer.record(source, duration=min(30, duration))
-                try:
-                    text = self.recognizer.recognize_google(audio, language="ru-RU")
-                    logger.debug(f"Recognized text: {text}")
-                    return text.lower()
-                except (sr.UnknownValueError, sr.RequestError) as e:
-                    logger.warning(f"Ошибка распознавания текста: {str(e)}")
-                    return None
+                text = self.recognizer.recognize_google(audio, language="ru-RU")
+                logger.debug(f"Recognized text: {text}")
+                return text.lower()
+        except (sr.UnknownValueError, sr.RequestError) as e:
+            logger.warning(f"Ошибка распознавания текста: {str(e)}")
+            return None
         except Exception as e:
             logger.warning(f"Ошибка обработки аудио для распознавания: {str(e)}")
             return None
@@ -339,53 +349,62 @@ class ChurchMusicAnalyzer:
 
     def _compare_pitch_features(self, ref: Dict, student: Dict) -> float:
         logger.debug("Comparing pitch features")
-        if not ref['contour'] or not student['contour']:
+        try:
+            if not ref['contour'] or not student['contour']:
+                return self.min_pitch_similarity
+            ref_mean = ref['mean']
+            student_mean = student['mean']
+            if ref_mean < self.min_pitch or student_mean < self.min_pitch:
+                return self.min_pitch_similarity
+            pitch_diff = abs(ref_mean - student_mean)
+            if pitch_diff > self.severe_pitch_diff_threshold:
+                return 0.35
+            mean_sim = max(0.01, 1.0 - (pitch_diff / self.pitch_diff_threshold))
+            stability_sim = 0.25 + 0.75 * (1.0 - abs(ref['stability'] - student['stability']))
+            contour_sim = self._compare_pitch_contours(ref['contour'], student['contour'])
+            logger.debug(f"Pitch mean sim: {mean_sim}, stability sim: {stability_sim}, contour sim: {contour_sim}")
+            return max(self.min_pitch_similarity, (0.55 * mean_sim + 0.25 * stability_sim + 0.20 * contour_sim))
+        except Exception as e:
+            logger.warning(f"Ошибка сравнения высоты тона: {str(e)}")
             return self.min_pitch_similarity
-        ref_mean = ref['mean']
-        student_mean = student['mean']
-        if ref_mean < self.min_pitch or student_mean < self.min_pitch:
-            return self.min_pitch_similarity
-        pitch_diff = abs(ref_mean - student_mean)
-        if pitch_diff > self.severe_pitch_diff_threshold:
-            return 0.35
-        mean_sim = max(0.01, 1.0 - (pitch_diff / self.pitch_diff_threshold))
-        stability_sim = 0.25 + 0.75 * (1.0 - abs(ref['stability'] - student['stability']))
-        contour_sim = self._compare_pitch_contours(ref['contour'], student['contour'])
-        logger.debug(f"Pitch mean sim: {mean_sim}, stability sim: {stability_sim}, contour sim: {contour_sim}")
-        return max(self.min_pitch_similarity, (0.55 * mean_sim + 0.25 * stability_sim + 0.20 * contour_sim))
 
     def _compare_pitch_contours(self, ref_contour: list, student_contour: list) -> float:
         logger.debug("Comparing pitch contours")
-        min_length = min(len(ref_contour), len(student_contour))
-        if min_length < 10:
-            return self.base_contour_similarity
-        ref_norm = np.array(ref_contour[:min_length]) / (np.mean(ref_contour[:min_length]) + 1e-6)
-        student_norm = np.array(student_contour[:min_length]) / (np.mean(student_contour[:min_length]) + 1e-6)
         try:
+            min_length = min(len(ref_contour), len(student_contour))
+            if min_length < 10:
+                return self.base_contour_similarity
+            ref_norm = np.array(ref_contour[:min_length]) / (np.mean(ref_contour[:min_length]) + 1e-6)
+            student_norm = np.array(student_contour[:min_length]) / (np.mean(student_contour[:min_length]) + 1e-6)
             contour_sim = cosine_similarity([ref_norm], [student_norm])[0][0]
-        except ValueError:
-            contour_sim = self.base_contour_similarity
-        correlation = np.corrcoef(ref_norm, student_norm)[0, 1]
-        if np.isnan(correlation):
-            correlation = self.base_contour_similarity
-        logger.debug(f"Contour similarity: {contour_sim}, correlation: {correlation}")
-        return max(self.base_contour_similarity, (0.65 * contour_sim + 0.35 * correlation))
+            correlation = np.corrcoef(ref_norm, student_norm)[0, 1]
+            if np.isnan(correlation):
+                correlation = self.base_contour_similarity
+            logger.debug(f"Contour similarity: {contour_sim}, correlation: {correlation}")
+            return max(self.base_contour_similarity, (0.65 * contour_sim + 0.35 * correlation))
+        except Exception as e:
+            logger.warning(f"Ошибка сравнения контуров тона: {str(e)}")
+            return self.base_contour_similarity
 
     def _compare_temporal_features(self, ref: Dict, student: Dict) -> float:
         logger.debug("Comparing temporal features")
-        duration_diff = abs(ref['duration'] - student['duration'])
-        if duration_diff > 20:
+        try:
+            duration_diff = abs(ref['duration'] - student['duration'])
+            if duration_diff > 20:
+                return 0.3
+            duration_sim = 1 - min(1, duration_diff / 10)
+            tempo_diff = abs(ref['tempo'] - student['tempo'])
+            if tempo_diff > 60:
+                return 0.3
+            tempo_sim = 1 - min(1, tempo_diff / 20)
+            beat_diff = abs(ref['beat_count'] - student['beat_count'])
+            max_beats = max(1, ref['beat_count'], student['beat_count'])
+            beat_sim = 1 - min(1, beat_diff / max_beats)
+            logger.debug(f"Duration sim: {duration_sim}, tempo sim: {tempo_sim}, beat sim: {beat_sim}")
+            return (duration_sim * 0.3 + tempo_sim * 0.5 + beat_sim * 0.2)
+        except Exception as e:
+            logger.warning(f"Ошибка сравнения временных характеристик: {str(e)}")
             return 0.3
-        duration_sim = 1 - min(1, duration_diff / 10)
-        tempo_diff = abs(ref['tempo'] - student['tempo'])
-        if tempo_diff > 60:
-            return 0.3
-        tempo_sim = 1 - min(1, tempo_diff / 20)
-        beat_diff = abs(ref['beat_count'] - student['beat_count'])
-        max_beats = max(1, ref['beat_count'], student['beat_count'])
-        beat_sim = 1 - min(1, beat_diff / max_beats)
-        logger.debug(f"Duration sim: {duration_sim}, tempo sim: {tempo_sim}, beat sim: {beat_sim}")
-        return (duration_sim * 0.3 + tempo_sim * 0.5 + beat_sim * 0.2)
 
     def _compare_spectral_features(self, ref: Dict, student: Dict) -> float:
         logger.debug("Comparing spectral features")
@@ -412,62 +431,70 @@ class ChurchMusicAnalyzer:
     def _calculate_final_similarity(self, text_sim: float, pitch_sim: float,
                                   temporal_sim: float, spectral_sim: float) -> float:
         logger.debug(f"Calculating final similarity: text={text_sim}, pitch={pitch_sim}, temporal={temporal_sim}, spectral={spectral_sim}")
-        if text_sim < self.different_song_threshold:
-            acoustic_sim = (0.2 * pitch_sim + 0.1 * temporal_sim + 0.05 * spectral_sim)
-            return min(acoustic_sim, 0.2)
-        weights = {
-            'text': 0.35,
-            'pitch': 0.45,
-            'temporal': 0.15,
-            'spectral': 0.05
-        }
-        similarity = (
-            weights['text'] * text_sim +
-            weights['pitch'] * pitch_sim +
-            weights['temporal'] * temporal_sim +
-            weights['spectral'] * spectral_sim
-        )
-        return max(self.min_similarity, min(1.0, similarity))
+        try:
+            if text_sim < self.different_song_threshold:
+                acoustic_sim = (0.2 * pitch_sim + 0.1 * temporal_sim + 0.05 * spectral_sim)
+                return min(acoustic_sim, 0.2)
+            weights = {
+                'text': 0.35,
+                'pitch': 0.45,
+                'temporal': 0.15,
+                'spectral': 0.05
+            }
+            similarity = (
+                weights['text'] * text_sim +
+                weights['pitch'] * pitch_sim +
+                weights['temporal'] * temporal_sim +
+                weights['spectral'] * spectral_sim
+            )
+            return max(self.min_similarity, min(1.0, similarity))
+        except Exception as e:
+            logger.warning(f"Ошибка расчета итогового сходства: {str(e)}")
+            return self.min_similarity
 
     def _prepare_result(self, similarity: float, text_sim: float, pitch_sim: float,
                        temporal_sim: float, spectral_sim: float, text_warning: str,
                        ref_features: Dict, student_features: Dict) -> Dict:
         logger.debug("Preparing result")
-        result = {
-            'overall_similarity_percent': round(similarity * 100, 1),
-            'text_similarity_percent': round(text_sim * 100, 1),
-            'pitch_similarity_percent': round(pitch_sim * 100, 1),
-            'temporal_similarity_percent': round(text_sim * 100, 1),
-            'spectral_similarity_percent': round(spectral_sim * 100, 1),
-            'text_warning': text_warning,
-            'details': {
-                'duration_diff': round(abs(ref_features['temporal']['duration'] - 
-                           student_features['temporal']['duration']), 1),
-                'pitch_diff': round(abs(ref_features['pitch']['mean'] - 
-                         student_features['pitch']['mean']), 1)
-            },
-            'warnings': [],
-            'suggestions': []
-        }
-        if text_sim < 0.3:
-            result['warnings'].append("Текст значительно отличается (возможно другое песнопение)")
-            result['suggestions'].append("Проверьте, правильное ли песнопение исполняется")
-        elif text_sim < 0.6:
-            result['warnings'].append("Текст частично совпадает")
-            result['suggestions'].append("Обратите внимание на точность произношения текста")
-        if pitch_sim < 0.25:
-            result['warnings'].append("Значительное отличие высоты тона")
-            result['suggestions'].append("Требуется серьезная работа над тональностью исполнения")
-        elif pitch_sim < 0.50:
-            result['warnings'].append("Заметное отличие высоты тона")
-            result['suggestions'].append("Продолжайте работать над точной интонацией")
-        elif pitch_sim < 0.75:
-            result['warnings'].append("Небольшое отличие высоты тона")
-            result['suggestions'].append("Уточните интонацию для более точного соответствия")
-        if temporal_sim < 0.5:
-            result['warnings'].append("Значительное отличие в темпе исполнения")
-            result['suggestions'].append("Следите за скоростью исполнения")
-        return result
+        try:
+            result = {
+                'overall_similarity_percent': round(similarity * 100, 1),
+                'text_similarity_percent': round(text_sim * 100, 1),
+                'pitch_similarity_percent': round(pitch_sim * 100, 1),
+                'temporal_similarity_percent': round(temporal_sim * 100, 1),
+                'spectral_similarity_percent': round(spectral_sim * 100, 1),
+                'text_warning': text_warning,
+                'details': {
+                    'duration_diff': round(abs(ref_features['temporal']['duration'] - 
+                                             student_features['temporal']['duration']), 1),
+                    'pitch_diff': round(abs(ref_features['pitch']['mean'] - 
+                                           student_features['pitch']['mean']), 1)
+                },
+                'warnings': [],
+                'suggestions': []
+            }
+            if text_sim < 0.3:
+                result['warnings'].append("Текст значительно отличается (возможно другое песнопение)")
+                result['suggestions'].append("Проверьте, правильное ли песнопение исполняется")
+            elif text_sim < 0.6:
+                result['warnings'].append("Текст частично совпадает")
+                result['suggestions'].append("Обратите внимание на точность произношения текста")
+            if pitch_sim < 0.25:
+                result['warnings'].append("Значительное отличие высоты тона")
+                result['suggestions'].append("Требуется серьезная работа над тональностью исполнения")
+            elif pitch_sim < 0.50:
+                result['warnings'].append("Заметное отличие высоты тона")
+                result['suggestions'].append("Продолжайте работать над точной интонацией")
+            elif pitch_sim < 0.75:
+                result['warnings'].append("Небольшое отличие высоты тона")
+                result['suggestions'].append("Уточните интонацию для более точного соответствия")
+            if temporal_sim < 0.5:
+                result['warnings'].append("Значительное отличие в темпе исполнения")
+                result['suggestions'].append("Следите за скоростью исполнения")
+            return result
+        except Exception as e:
+            logger.error(f"Ошибка подготовки результата: {str(e)}")
+            raise AudioProcessingError("Не удалось подготовить результат")
 
     def _perfect_match_response(self) -> Dict:
         logger.debug("Returning perfect match response")
@@ -499,7 +526,7 @@ class ChurchMusicAnalyzer:
             return features
         except Exception as e:
             logger.error(f"Анализ аудио не удался: {str(e)}")
-            raise AudioProcessingError("Не удалось проанализировать аудио")
+            raise AudioProcessingError(f"Не удалось проанализировать аудио: {str(e)}")
 
     def compare_recordings(self, ref_path: str, student_path: str) -> Dict:
         logger.debug(f"Comparing recordings: ref={ref_path}, student={student_path}")
@@ -513,8 +540,8 @@ class ChurchMusicAnalyzer:
             if min(ref_features['temporal']['duration'], student_features['temporal']['duration']) < 2.0:
                 raise AudioProcessingError("Аудио слишком короткое для анализа (минимум 2 секунды)")
             text_sim, text_warning = self._compare_text_similarity(
-                ref_features.get('text'),
-                student_features.get('text')
+                ref_features.get('text', ''),
+                student_features.get('text', '')
             )
             pitch_sim = self._compare_pitch_features(
                 ref_features['pitch'],
@@ -541,7 +568,7 @@ class ChurchMusicAnalyzer:
             raise
         except Exception as e:
             logger.error(f"Сравнение не удалось: {str(e)}")
-            raise AudioProcessingError("Не удалось сравнить аудиозаписи")
+            raise AudioProcessingError(f"Не удалось сравнить аудиозаписи: {str(e)}")
 
 class AudioStorageManager:
     def __init__(self, storage_dir: str = "audio_storage"):
@@ -564,7 +591,8 @@ class AudioStorageManager:
     def _initialize_db(self) -> None:
         logger.debug(f"Initializing SQLite database at {self.db_path}")
         try:
-            with sqlite3.connect(self.db_path) as conn:
+            conn = sqlite3.connect(self.db_path, timeout=10)
+            with conn:
                 conn.execute("""
                     CREATE TABLE IF NOT EXISTS [references] (
                         user_id TEXT PRIMARY KEY,
@@ -573,15 +601,19 @@ class AudioStorageManager:
                 """)
                 conn.commit()
                 logger.info(f"Database initialized at {self.db_path}")
+        except sqlite3.OperationalError as e:
+            logger.error(f"SQLite operational error during database initialization: {str(e)}")
+            raise AudioProcessingError(f"Не удалось инициализировать базу данных: {str(e)}")
         except Exception as e:
-            logger.error(f"Failed to initialize database: {str(e)}")
-            raise
+            logger.error(f"Unexpected error during database initialization: {str(e)}")
+            raise AudioProcessingError(f"Не удалось инициализировать базу данных: {str(e)}")
 
     def _load_references(self) -> None:
         logger.debug(f"Loading references from {self.db_path}")
         try:
             self.references = {}
-            with sqlite3.connect(self.db_path) as conn:
+            conn = sqlite3.connect(self.db_path, timeout=10)
+            with conn:
                 cursor = conn.execute("SELECT user_id, filepath FROM [references]")
                 for user_id, filepath in cursor.fetchall():
                     if os.path.exists(filepath):
@@ -591,28 +623,36 @@ class AudioStorageManager:
                         conn.execute("DELETE FROM [references] WHERE user_id = ?", (user_id,))
                 conn.commit()
                 logger.info(f"Loaded references: {self.references}")
+        except sqlite3.OperationalError as e:
+            logger.error(f"SQLite operational error during loading references: {str(e)}")
+            raise AudioProcessingError(f"Не удалось загрузить референсы: {str(e)}")
         except Exception as e:
-            logger.error(f"Failed to load references: {str(e)}")
-            raise
+            logger.error(f"Unexpected error during loading references: {str(e)}")
+            raise AudioProcessingError(f"Не удалось загрузить референсы: {str(e)}")
 
     def _save_references(self) -> None:
         logger.debug(f"Saving references to {self.db_path}")
         try:
-            with sqlite3.connect(self.db_path) as conn:
+            conn = sqlite3.connect(self.db_path, timeout=10)
+            with conn:
                 for user_id, filepath in self.references.items():
                     conn.execute("INSERT OR REPLACE INTO [references] (user_id, filepath) VALUES (?, ?)", 
                                 (user_id, filepath))
                 conn.commit()
                 logger.info(f"References saved to {self.db_path}")
+        except sqlite3.OperationalError as e:
+            logger.error(f"SQLite operational error during saving references: {str(e)}")
+            raise AudioProcessingError(f"Не удалось сохранить референсы: {str(e)}")
         except Exception as e:
-            logger.error(f"Failed to save references: {str(e)}")
-            raise
+            logger.error(f"Unexpected error during saving references: {str(e)}")
+            raise AudioProcessingError(f"Не удалось сохранить референсы: {str(e)}")
 
     def _cleanup_stale_files(self) -> None:
         logger.debug("Cleaning up stale reference files")
         try:
             valid_files = set()
-            with sqlite3.connect(self.db_path) as conn:
+            conn = sqlite3.connect(self.db_path, timeout=10)
+            with conn:
                 cursor = conn.execute("SELECT filepath FROM [references]")
                 valid_files = set(row[0] for row in cursor.fetchall())
             for filename in os.listdir(self.storage_dir):
@@ -632,7 +672,7 @@ class AudioStorageManager:
             if user_id in self.references:
                 logger.info(f"Replacing existing reference for user_id: {user_id}")
                 self._safe_remove_file(self.references[user_id])
-            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            timestamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%d_%H%M%S")
             filename = f"ref_{user_id}_{timestamp}_{uuid.uuid4().hex[:8]}.wav"
             filepath = os.path.join(self.storage_dir, filename)
             temp_path = self._save_temp_file(audio_file)
@@ -654,18 +694,22 @@ class AudioStorageManager:
     def get_reference_audio(self, user_id: str) -> Optional[str]:
         user_id = str(user_id).strip()
         logger.debug(f"Getting reference audio for user_id: {user_id}")
-        self._load_references()
-        ref_path = self.references.get(user_id)
-        logger.debug(f"Reference path for {user_id}: {ref_path}")
-        if ref_path and os.path.exists(ref_path):
-            logger.debug(f"File exists: {ref_path}")
-            return ref_path
-        else:
-            logger.warning(f"No valid reference found for user_id: {user_id}")
-            if ref_path:
-                del self.references[user_id]
-                self._save_references()
-        return None
+        try:
+            self._load_references()
+            ref_path = self.references.get(user_id)
+            logger.debug(f"Reference path for {user_id}: {ref_path}")
+            if ref_path and os.path.exists(ref_path):
+                logger.debug(f"File exists: {ref_path}")
+                return ref_path
+            else:
+                logger.warning(f"No valid reference found for user_id: {user_id}")
+                if ref_path:
+                    del self.references[user_id]
+                    self._save_references()
+                return None
+        except Exception as e:
+            logger.error(f"Ошибка получения референсного аудио: {str(e)}")
+            raise AudioProcessingError(f"Не удалось получить референсное аудио: {str(e)}")
 
     def _save_temp_file(self, audio_file) -> str:
         logger.debug(f"Saving temporary file for {audio_file.filename}")
@@ -692,7 +736,7 @@ class AudioStorageManager:
             raise AudioProcessingError("Не удалось конвертировать аудио файл")
         except Exception as e:
             logger.error(f"Ошибка сохранения временного файла: {str(e)}")
-            raise
+            raise AudioProcessingError(f"Не удалось сохранить временный файл: {str(e)}")
 
     def _safe_remove_file(self, filepath: str) -> None:
         logger.debug(f"Removing file: {filepath}")
@@ -711,95 +755,116 @@ class ChurchMusicServer:
         self.analyzer = ChurchMusicAnalyzer()
         self.storage = AudioStorageManager()
         CORS(self.app)
+        logger.info("Сервер инициализирован")
 
     def _configure_app(self) -> None:
         logger.debug("Configuring Flask app")
-        self.app.config.update(
-            MAX_CONTENT_LENGTH=32 * 1024 * 1024,
-            UPLOAD_FOLDER='temp_uploads',
-            SECRET_KEY=os.getenv('SECRET_KEY', 'dev-secret-key-123'),
-            DEBUG=os.getenv('DEBUG', 'false').lower() == 'true',
-            JSONIFY_PRETTYPRINT_REGULAR=True
-        )
+        try:
+            self.app.config.update(
+                MAX_CONTENT_LENGTH=32 * 1024 * 1024,
+                UPLOAD_FOLDER='temp_uploads',
+                SECRET_KEY=os.getenv('SECRET_KEY', 'dev-secret-key-123'),
+                DEBUG=os.getenv('DEBUG', 'false').lower() == 'true',
+                JSONIFY_PRETTYPRINT_REGULAR=True
+            )
+        except Exception as e:
+            logger.error(f"Ошибка конфигурации Flask: {str(e)}")
+            raise
 
     def _setup_routes(self) -> None:
         logger.debug("Setting up routes")
-        self.app.add_url_rule('/', 'index', self._handle_index)
-        self.app.add_url_rule('/health', 'health_check', self._handle_health_check, methods=['GET'])
-        self.app.add_url_rule('/upload_reference', 'upload_reference', 
-                             self._handle_upload_reference, methods=['POST'])
-        self.app.add_url_rule('/compare_audio', 'compare_audio',
-                             self._handle_compare_audio, methods=['POST'])
-        self.app.register_error_handler(400, self._handle_bad_request)
-        self.app.register_error_handler(404, self._handle_not_found)
-        self.app.register_error_handler(413, self._handle_request_too_large)
-        self.app.register_error_handler(500, self._handle_internal_error)
+        try:
+            self.app.add_url_rule('/', 'index', self._handle_index)
+            self.app.add_url_rule('/health', 'health_check', self._handle_health_check, methods=['GET'])
+            self.app.add_url_rule('/upload_reference', 'upload_reference', 
+                                 self._handle_upload_reference, methods=['POST'])
+            self.app.add_url_rule('/compare_audio', 'compare_audio',
+                                 self._handle_compare_audio, methods=['POST'])
+            self.app.register_error_handler(400, self._handle_bad_request)
+            self.app.register_error_handler(404, self._handle_not_found)
+            self.app.register_error_handler(413, self._handle_request_too_large)
+            self.app.register_error_handler(500, self._handle_internal_error)
+        except Exception as e:
+            logger.error(f"Ошибка настройки маршрутов: {str(e)}")
+            raise
 
     def _api_response(self, data: Optional[Dict] = None, status: str = "success",
                      message: str = "", status_code: int = 200) -> Tuple[Dict, int]:
         logger.debug(f"Creating API response: status={status}, message={message}, status_code={status_code}")
-        response = {
-            "status": status,
-            "message": message,
-            "timestamp": datetime.datetime.utcnow().isoformat(),
-            "version": "1.5"
-        }
-        if data is not None:
-            response["data"] = data
-        return jsonify(response), status_code
+        try:
+            response = {
+                "status": status,
+                "message": message,
+                "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                "version": "1.5"
+            }
+            if data is not None:
+                response["data"] = data
+            return jsonify(response), status_code
+        except Exception as e:
+            logger.error(f"Ошибка создания API ответа: {str(e)}")
+            raise
 
     def _handle_index(self) -> Tuple[Dict, int]:
         logger.debug("Handling index request")
-        return self._api_response(
-            data={
-                "service": "Church Music Comparison API",
-                "description": "Сервис для сравнения церковных песнопений",
-                "endpoints": {
-                    "/health": {
-                        "method": "GET",
-                        "description": "Проверка работоспособности сервиса"
-                    },
-                    "/upload_reference": {
-                        "method": "POST",
-                        "description": "Загрузка референсного аудио",
-                        "parameters": {
-                            "teacher_id": "ID преподавателя (строка)",
-                            "audio": "Аудиофайл (WAV, MP3, OGG)"
-                        }
-                    },
-                    "/compare_audio": {
-                        "method": "POST",
-                        "description": "Сравнение аудио с референсом",
-                        "parameters": {
-                            "teacher_id": "ID преподавателя (строка)",
-                            "audio": "Аудиофайл для сравнения (WAV, MP3, OGG)",
-                            "simplified": "Флаг для упрощённого ответа (true/false, опционально)"
+        try:
+            return self._api_response(
+                data={
+                    "service": "Church Music Comparison API",
+                    "description": "Сервис для сравнения церковных песнопений",
+                    "endpoints": {
+                        "/health": {
+                            "method": "GET",
+                            "description": "Проверка работоспособности сервиса"
+                        },
+                        "/upload_reference": {
+                            "method": "POST",
+                            "description": "Загрузка референсного аудио",
+                            "parameters": {
+                                "teacher_id": "ID преподавателя (строка)",
+                                "audio": "Аудиофайл (WAV, MP3, OGG)"
+                            }
+                        },
+                        "/compare_audio": {
+                            "method": "POST",
+                            "description": "Сравнение аудио с референсом",
+                            "parameters": {
+                                "teacher_id": "ID преподавателя (строка)",
+                                "audio": "Аудиофайл для сравнения (WAV, MP3, OGG)",
+                                "simplified": "Флаг для упрощённого ответа (true/false, опционально)"
+                            }
                         }
                     }
-                }
-            },
-            message="Сервер сравнения церковных песнопений работает"
-        )
+                },
+                message="Сервер сравнения церковных песнопений работает"
+            )
+        except Exception as e:
+            logger.error(f"Ошибка обработки index: {str(e)}")
+            return self._api_response(status="error", message="Внутренняя ошибка сервера", status_code=500)
 
     def _handle_health_check(self) -> Tuple[Dict, int]:
         logger.debug("Handling health check")
-        return self._api_response(
-            data={
-                "status": "operational",
-                "references_count": len(self.storage.references),
-                "analyzer": "ready",
-                "storage": "available",
-                "memory_usage": f"{self._get_memory_usage()} MB"
-            },
-            message="Сервис работает нормально"
-        )
+        try:
+            return self._api_response(
+                data={
+                    "status": "operational",
+                    "references_count": len(self.storage.references),
+                    "analyzer": "ready",
+                    "storage": "available",
+                    "memory_usage": f"{self._get_memory_usage()} MB"
+                },
+                message="Сервис работает нормально"
+            )
+        except Exception as e:
+            logger.error(f"Ошибка проверки состояния: {str(e)}")
+            return self._api_response(status="error", message="Внутренняя ошибка сервера", status_code=500)
 
     def _get_memory_usage(self) -> float:
         logger.debug("Getting memory usage")
         try:
-            import psutil
             return round(psutil.Process(os.getpid()).memory_info().rss / 1024 / 1024, 1)
-        except ImportError:
+        except Exception as e:
+            logger.warning(f"Ошибка получения использования памяти: {str(e)}")
             return 0.0
 
     def _handle_upload_reference(self) -> Tuple[Dict, int]:
