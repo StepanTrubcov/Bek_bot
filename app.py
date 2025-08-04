@@ -1,6 +1,6 @@
 import logging
-import json
 import os
+import sqlite3
 import uuid
 import numpy as np
 import librosa
@@ -18,7 +18,6 @@ from scipy import signal
 from scipy.interpolate import interp1d
 import Levenshtein
 import subprocess
-import portalocker
 import re
 
 # Настройка логирования
@@ -438,7 +437,7 @@ class ChurchMusicAnalyzer:
             'overall_similarity_percent': round(similarity * 100, 1),
             'text_similarity_percent': round(text_sim * 100, 1),
             'pitch_similarity_percent': round(pitch_sim * 100, 1),
-            'temporal_similarity_percent': round(temporal_sim * 100, 1),
+            'temporal_similarity_percent': round(text_sim * 100, 1),
             'spectral_similarity_percent': round(spectral_sim * 100, 1),
             'text_warning': text_warning,
             'details': {
@@ -546,115 +545,77 @@ class ChurchMusicAnalyzer:
 
 class AudioStorageManager:
     def __init__(self, storage_dir: str = "audio_storage"):
-        self.storage_dir = storage_dir
+        self.storage_dir = os.path.abspath(storage_dir)
+        self.db_path = os.path.join(self.storage_dir, "references.db")
         self.references = {}
-        self.lock_file = os.path.join(self.storage_dir, "references.lock")
-        self.lock_fd = None
         self._initialize_storage()
+        self._initialize_db()
+        self._load_references()
 
     def _initialize_storage(self) -> None:
         logger.debug(f"Initializing storage at {self.storage_dir}")
         try:
-            os.makedirs(self.storage_dir, exist_ok=True)
-            os.chmod(self.storage_dir, 0o775)
+            os.makedirs(self.storage_dir, mode=0o775, exist_ok=True)
             self._cleanup_stale_files()
-            self._load_references()
             logger.info(f"Аудио хранилище инициализировано в {self.storage_dir}")
         except Exception as e:
             logger.error(f"Ошибка инициализации хранилища: {str(e)}")
             raise
 
-    def _acquire_lock(self) -> None:
-        logger.debug(f"Acquiring lock on {self.lock_file}")
+    def _initialize_db(self) -> None:
+        logger.debug(f"Initializing SQLite database at {self.db_path}")
         try:
-            self.lock_fd = open(self.lock_file, 'a')
-            portalocker.lock(self.lock_fd, portalocker.LOCK_EX)
-            logger.debug("Lock acquired")
+            with sqlite3.connect(self.db_path) as conn:
+                conn.execute("""
+                    CREATE TABLE IF NOT EXISTS references (
+                        user_id TEXT PRIMARY KEY,
+                        filepath TEXT NOT NULL
+                    )
+                """)
+                conn.commit()
+                logger.info(f"Database initialized at {self.db_path}")
         except Exception as e:
-            logger.error(f"Ошибка получения блокировки: {str(e)}")
-            if self.lock_fd:
-                self.lock_fd.close()
-                self.lock_fd = None
+            logger.error(f"Failed to initialize database: {str(e)}")
             raise
-
-    def _release_lock(self) -> None:
-        logger.debug("Releasing lock")
-        try:
-            if self.lock_fd:
-                portalocker.unlock(self.lock_fd)
-                self.lock_fd.close()
-                self.lock_fd = None
-                logger.debug("Lock released")
-        except Exception as e:
-            logger.warning(f"Ошибка освобождения блокировки: {str(e)}")
-        finally:
-            if self.lock_fd:
-                self.lock_fd.close()
-                self.lock_fd = None
 
     def _load_references(self) -> None:
-        ref_file = os.path.join(self.storage_dir, "references.json")
-        logger.debug(f"Loading references from {ref_file}")
+        logger.debug(f"Loading references from {self.db_path}")
         try:
-            self._acquire_lock()
-            if os.path.exists(ref_file):
-                with open(ref_file, 'r', encoding='utf-8') as f:
-                    try:
-                        self.references = json.load(f)
-                        if not isinstance(self.references, dict):
-                            logger.warning(f"Invalid format in {ref_file}, resetting to empty dict")
-                            self.references = {}
-                    except json.JSONDecodeError as e:
-                        logger.error(f"Corrupted JSON in {ref_file}: {str(e)}")
-                        self.references = {}
-                # Validate and clean references
-                for user_id, filepath in list(self.references.items()):
-                    if not isinstance(user_id, str) or not isinstance(filepath, str):
-                        logger.warning(f"Invalid entry for user_id {user_id}, removing")
-                        del self.references[user_id]
-                    elif not os.path.exists(filepath):
-                        logger.warning(f"Reference file {filepath} for user_id {user_id} not found, removing")
-                        del self.references[user_id]
-                self._save_references()
-            else:
-                logger.debug("No references.json found, creating empty one")
-                self.references = {}
-                self._save_references()
-            logger.info(f"Loaded references: {self.references}")
-        except Exception as e:
-            logger.error(f"Ошибка загрузки references.json: {str(e)}")
             self.references = {}
-            self._save_references()
-        finally:
-            self._release_lock()
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.execute("SELECT user_id, filepath FROM references")
+                for user_id, filepath in cursor.fetchall():
+                    if os.path.exists(filepath):
+                        self.references[user_id] = filepath
+                    else:
+                        logger.warning(f"Reference file {filepath} for user_id {user_id} not found, removing")
+                        conn.execute("DELETE FROM references WHERE user_id = ?", (user_id,))
+                conn.commit()
+                logger.info(f"Loaded references: {self.references}")
+        except Exception as e:
+            logger.error(f"Failed to load references: {str(e)}")
+            raise
 
     def _save_references(self) -> None:
-        ref_file = os.path.join(self.storage_dir, "references.json")
-        logger.debug(f"Saving references to {ref_file}")
+        logger.debug(f"Saving references to {self.db_path}")
         try:
-            self._acquire_lock()
-            with open(ref_file, 'w', encoding='utf-8') as f:
-                json.dump(self.references, f, indent=2, ensure_ascii=False)
-            os.chmod(ref_file, 0o664)
-            logger.info("References saved to references.json")
+            with sqlite3.connect(self.db_path) as conn:
+                for user_id, filepath in self.references.items():
+                    conn.execute("INSERT OR REPLACE INTO references (user_id, filepath) VALUES (?, ?)", 
+                                (user_id, filepath))
+                conn.commit()
+                logger.info(f"References saved to {self.db_path}")
         except Exception as e:
-            logger.error(f"Ошибка сохранения references.json: {str(e)}")
+            logger.error(f"Failed to save references: {str(e)}")
             raise
-        finally:
-            self._release_lock()
 
     def _cleanup_stale_files(self) -> None:
         logger.debug("Cleaning up stale reference files")
         try:
-            ref_file = os.path.join(self.storage_dir, "references.json")
             valid_files = set()
-            if os.path.exists(ref_file):
-                with open(ref_file, 'r', encoding='utf-8') as f:
-                    try:
-                        refs = json.load(f)
-                        valid_files = set(refs.values())
-                    except json.JSONDecodeError:
-                        logger.warning(f"Corrupted references.json, skipping cleanup")
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.execute("SELECT filepath FROM references")
+                valid_files = set(row[0] for row in cursor.fetchall())
             for filename in os.listdir(self.storage_dir):
                 if filename.startswith("ref_") and filename.endswith(".wav"):
                     filepath = os.path.join(self.storage_dir, filename)
@@ -697,16 +658,14 @@ class AudioStorageManager:
         self._load_references()
         ref_path = self.references.get(user_id)
         logger.debug(f"Reference path for {user_id}: {ref_path}")
-        if ref_path:
-            if os.path.exists(ref_path):
-                logger.debug(f"File exists: {ref_path}")
-                return ref_path
-            else:
-                logger.warning(f"File {ref_path} does not exist for user_id: {user_id}")
+        if ref_path and os.path.exists(ref_path):
+            logger.debug(f"File exists: {ref_path}")
+            return ref_path
+        else:
+            logger.warning(f"No valid reference found for user_id: {user_id}")
+            if ref_path:
                 del self.references[user_id]
                 self._save_references()
-        else:
-            logger.warning(f"No reference found in references.json for user_id: {user_id}")
         return None
 
     def _save_temp_file(self, audio_file) -> str:
