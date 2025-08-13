@@ -11,7 +11,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import tempfile
 import datetime
-from typing import Dict, Optional, Tuple, Union
+from typing import Dict, Optional, Tuple, Union, List
 import noisereduce as nr
 import speech_recognition as sr
 from scipy import signal
@@ -20,6 +20,7 @@ import Levenshtein
 import subprocess
 import re
 import psutil
+import gc
 
 # Настройка логирования
 logging.basicConfig(
@@ -38,10 +39,12 @@ class AudioProcessingError(Exception):
 
 class ChurchMusicAnalyzer:
     def __init__(self):
-        self.sample_rate = 48000
+        self.sample_rate = 22050
         self.frame_length = 2048
         self.hop_length = 512
         self.max_duration = 600
+        self.chunk_duration = 30
+        self.chunk_samples = self.chunk_duration * self.sample_rate
         self.min_pitch = 80
         self.max_pitch = 500
         self.pitch_diff_threshold = 8
@@ -86,8 +89,9 @@ class ChurchMusicAnalyzer:
                 "strict": True
             }
         }
+        logger.info(f"Analyzer initialized: sample_rate={self.sample_rate}, chunk_duration={self.chunk_duration}s")
 
-    def _validate_audio(self, audio: np.ndarray, sr: int) -> np.ndarray:
+    def _validate_audio(self, audio: np.ndarray, sr: int, apply_noise_reduction: bool = True) -> np.ndarray:
         logger.debug("Validating audio")
         try:
             if len(audio) == 0:
@@ -101,20 +105,37 @@ class ChurchMusicAnalyzer:
                 audio = audio[:max_samples]
             audio = librosa.util.normalize(audio)
             audio = librosa.effects.preemphasis(audio, coef=0.97)
-            audio = nr.reduce_noise(y=audio, sr=self.sample_rate, stationary=True)
+            if apply_noise_reduction:
+                audio = nr.reduce_noise(y=audio, sr=self.sample_rate, stationary=True, prop_decrease=0.5, n_fft=1024)
             return audio
         except Exception as e:
             logger.error(f"Ошибка валидации аудио: {str(e)}")
             raise AudioProcessingError(f"Не удалось обработать аудио: {str(e)}")
 
-    def _load_audio_file(self, filepath: str) -> np.ndarray:
-        logger.debug(f"Loading audio file: {filepath}")
+    def _load_and_chunk_audio(self, filepath: str) -> List[np.ndarray]:
+        logger.debug(f"Loading and chunking audio file: {filepath}")
         try:
             audio, sr = sf.read(filepath, always_2d=False)
-            return self._validate_audio(audio, sr)
+            audio = self._validate_audio(audio, sr, apply_noise_reduction=False)
+            duration = len(audio) / self.sample_rate
+            logger.info(f"Loaded audio: {filepath}, duration: {duration:.2f}s, memory usage: {psutil.Process().memory_info().rss / 1024 / 1024:.2f} MB")
+            
+            if duration <= self.chunk_duration:
+                audio = nr.reduce_noise(y=audio, sr=self.sample_rate, stationary=True, prop_decrease=0.5, n_fft=1024)
+                return [audio]
+            
+            chunks = []
+            for start in range(0, len(audio), self.chunk_samples):
+                end = min(start + self.chunk_samples, len(audio))
+                chunk = audio[start:end]
+                chunk = nr.reduce_noise(y=chunk, sr=self.sample_rate, stationary=True, prop_decrease=0.5, n_fft=1024)
+                chunks.append(chunk)
+                logger.debug(f"Created chunk: {len(chunk)/self.sample_rate:.2f}s")
+                gc.collect()
+            return chunks
         except Exception as e:
-            logger.error(f"Ошибка загрузки аудио: {str(e)}")
-            raise AudioProcessingError(f"Не удалось загрузить аудио: {str(e)}")
+            logger.error(f"Ошибка загрузки/деления аудио: {str(e)}")
+            raise AudioProcessingError(f"Не удалось загрузить/разделить аудио: {str(e)}")
 
     def _extract_features(self, audio: np.ndarray) -> Dict:
         logger.debug("Extracting audio features")
@@ -180,9 +201,7 @@ class ChurchMusicAnalyzer:
             if len(f0) < 2:
                 return 0.5
             stability = 1.0 - (0.6 * (np.std(f0) / np.mean(f0)) + 
-                              0.4 * (1.0 - (np.mean(np.abs
-
-(np.diff(f0))) / np.mean(f0))))
+                              0.4 * (1.0 - (np.mean(np.abs(np.diff(f0))) / np.mean(f0))))
             return max(0.1, min(1.0, stability))
         except Exception as e:
             logger.warning(f"Ошибка расчета стабильности тона: {str(e)}")
@@ -204,8 +223,15 @@ class ChurchMusicAnalyzer:
                                        hop_length=self.hop_length).flatten()
             onset_env = librosa.onset.onset_strength(y=audio, sr=self.sample_rate, 
                                                    hop_length=self.hop_length)
-            tempo = librosa.beat.tempo(onset_envelope=onset_env, 
-                                     sr=self.sample_rate)
+            if not np.any(onset_env):
+                logger.warning("Пустой onset envelope, возвращаем дефолтные значения")
+                return {
+                    'duration': float(duration),
+                    'tempo': 0.0,
+                    'beat_count': 0,
+                    'energy_variation': 0.5
+                }
+            tempo = librosa.beat.tempo(onset_envelope=onset_env, sr=self.sample_rate)
             beats = librosa.onset.onset_detect(y=audio, sr=self.sample_rate, 
                                              hop_length=self.hop_length, units='time')
             tempo = float(tempo[0]) if isinstance(tempo, (list, np.ndarray)) and len(tempo) > 0 else float(tempo)
@@ -246,26 +272,61 @@ class ChurchMusicAnalyzer:
                 'spectral_contrast': [0.0]*7
             }
 
-    def _recognize_song_text(self, audio_path: str) -> Optional[str]:
-        logger.debug(f"Recognizing song text from {audio_path}")
+    def _recognize_song_text(self, audio: np.ndarray = None, audio_path: str = None) -> Optional[str]:
+        logger.debug(f"Recognizing song text from {audio_path if audio_path else 'audio chunk'}")
         try:
-            duration = sf.info(audio_path).duration
-            if duration < 3.0:
+            duration = len(audio) / self.sample_rate if audio is not None else sf.info(audio_path).duration
+            if duration < 1.0:
                 logger.warning("Аудио слишком короткое для распознавания текста")
                 return None
-            with sr.AudioFile(audio_path) as source:
-                self.recognizer.pause_threshold = 0.8
-                self.recognizer.phrase_threshold = 0.3
-                audio = self.recognizer.record(source, duration=min(30, duration))
-                text = self.recognizer.recognize_google(audio, language="ru-RU")
-                logger.debug(f"Recognized text: {text}")
-                return text.lower()
+            with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as tmp:
+                temp_path = tmp.name
+                if audio is not None:
+                    sf.write(temp_path, audio, self.sample_rate)
+                    source_path = temp_path
+                else:
+                    source_path = audio_path
+                with sr.AudioFile(source_path) as source:
+                    self.recognizer.pause_threshold = 0.8
+                    self.recognizer.phrase_threshold = 0.3
+                    audio_data = self.recognizer.record(source, duration=min(30, duration))
+                    text = self.recognizer.recognize_google(audio_data, language="ru-RU")
+                    logger.debug(f"Google SR recognized text: {text}")
+                    return text.lower()
         except (sr.UnknownValueError, sr.RequestError) as e:
             logger.warning(f"Ошибка распознавания текста: {str(e)}")
             return None
         except Exception as e:
             logger.warning(f"Ошибка обработки аудио для распознавания: {str(e)}")
             return None
+        finally:
+            if 'temp_path' in locals():
+                os.unlink(temp_path)
+
+    def _normalize_text(self, text: str) -> str:
+        logger.debug(f"Normalizing text: {text}")
+        if not text:
+            return ""
+        text = re.sub(r'[^\w\s]', '', text.lower())
+        stop_words = {
+            "ну", "вот", "это", "как", "так", "и", "а", "но", "да", "нет",
+            "ой", "ах", "ох", "ай", "эй"
+        }
+        num_replace = {
+            '1': 'один', '2': 'два', '3': 'три', '4': 'четыре',
+            '5': 'пять', '6': 'шесть', '7': 'семь', '8': 'восемь',
+            '9': 'девять', '0': 'ноль'
+        }
+        words = []
+        seen_words = set()
+        for word in text.split():
+            if word in stop_words:
+                continue
+            normalized_word = num_replace.get(word, word)
+            if normalized_word not in seen_words:
+                words.append(normalized_word)
+                seen_words.add(normalized_word)
+        return ' '.join(words).strip()
 
     def _identify_song(self, text: str) -> Optional[str]:
         logger.debug(f"Identifying song from text: {text}")
@@ -297,8 +358,8 @@ class ChurchMusicAnalyzer:
         common_words = set(words_text) & set(words_pattern)
         return len(common_words) / max(len(words_pattern), 1)
 
-    def _compare_text_similarity(self, ref_text: str, student_text: str) -> Tuple[float, str]:
-        logger.debug(f"Comparing texts: ref={ref_text}, student={student_text}")
+    def _compare_text_similarity(self, ref_text: str, student_text: str, is_long_audio: bool = False) -> Tuple[float, str]:
+        logger.debug(f"Comparing texts: ref={ref_text}, student={student_text}, is_long_audio={is_long_audio}")
         if not ref_text and not student_text:
             return 1.0, ""
         elif not ref_text or not student_text:
@@ -317,37 +378,28 @@ class ChurchMusicAnalyzer:
             return 0.1, "Не удалось точно определить песнопение"
         direct_sim = Levenshtein.ratio(norm_ref, norm_student)
         logger.debug(f"Text similarity: {direct_sim}")
-        if direct_sim > 0.95:
-            return 1.0, ""
-        elif direct_sim > 0.9:
-            return 0.8, "Незначительные отличия"
-        elif direct_sim > 0.8:
-            return 0.6, "Частичное совпадение"
-        elif direct_sim > 0.6:
-            return 0.3, "Значительные отличия"
+        if is_long_audio:
+            if direct_sim > 0.85:  # Понижено с 0.9
+                return 1.0, ""
+            elif direct_sim > 0.75:  # Понижено с 0.85
+                return 0.8, "Незначительные отличия"
+            elif direct_sim > 0.65:  # Понижено с 0.75
+                return 0.6, "Частичное совпадение"
+            elif direct_sim > 0.4:  # Понижено с 0.5
+                return 0.3, "Значительные отличия"
+            else:
+                return 0.1, "Текст сильно отличается"
         else:
-            return 0.1, "Текст сильно отличается"
-
-    def _normalize_text(self, text: str) -> str:
-        logger.debug(f"Normalizing text: {text}")
-        if not text:
-            return ""
-        text = re.sub(r'[^\w\s]', '', text.lower())
-        stop_words = {
-            "ну", "вот", "это", "как", "так", "и", "а", "но", "да", "нет",
-            "ой", "ах", "ох", "ай", "эй"
-        }
-        num_replace = {
-            '1': 'один', '2': 'два', '3': 'три', '4': 'четыре',
-            '5': 'пять', '6': 'шесть', '7': 'семь', '8': 'восемь',
-            '9': 'девять', '0': 'ноль'
-        }
-        words = []
-        for word in text.split():
-            if word in stop_words:
-                continue
-            words.append(num_replace.get(word, word))
-        return ' '.join(words).strip()
+            if direct_sim > 0.95:
+                return 1.0, ""
+            elif direct_sim > 0.9:
+                return 0.8, "Незначительные отличия"
+            elif direct_sim > 0.8:
+                return 0.6, "Частичное совпадение"
+            elif direct_sim > 0.6:
+                return 0.3, "Значительные отличия"
+            else:
+                return 0.1, "Текст сильно отличается"
 
     def _compare_pitch_features(self, ref: Dict, student: Dict) -> float:
         logger.debug("Comparing pitch features")
@@ -392,7 +444,7 @@ class ChurchMusicAnalyzer:
         logger.debug("Comparing temporal features")
         try:
             duration_diff = abs(ref['duration'] - student['duration'])
-            if duration_diff > 20:
+            if duration_diff > 15:
                 return 0.3
             duration_sim = 1 - min(1, duration_diff / 10)
             tempo_diff = abs(ref['tempo'] - student['tempo'])
@@ -419,7 +471,7 @@ class ChurchMusicAnalyzer:
             chroma_sim = cosine_similarity([ref['chroma']], [student['chroma']])[0][0]
             contrast_sim = cosine_similarity(
                 [ref['spectral_contrast']],
-                [student['spectral_contrast']]
+                [ref['spectral_contrast']]
             )[0][0]
             logger.debug(f"MFCC sim: {mfcc_sim}, chroma sim: {chroma_sim}, contrast sim: {contrast_sim}")
             return max(
@@ -456,7 +508,7 @@ class ChurchMusicAnalyzer:
 
     def _prepare_result(self, similarity: float, text_sim: float, pitch_sim: float,
                        temporal_sim: float, spectral_sim: float, text_warning: str,
-                       ref_features: Dict, student_features: Dict) -> Dict:
+                       ref_features: Dict, student_features: Dict, chunk_results: List[Dict] = None) -> Dict:
         logger.debug("Preparing result")
         try:
             result = {
@@ -473,7 +525,8 @@ class ChurchMusicAnalyzer:
                                            student_features['pitch']['mean']), 1)
                 },
                 'warnings': [],
-                'suggestions': []
+                'suggestions': [],
+                'chunk_results': chunk_results or []
             }
             if text_sim < 0.3:
                 result['warnings'].append("Текст значительно отличается (возможно другое песнопение)")
@@ -522,13 +575,82 @@ class ChurchMusicAnalyzer:
     def analyze_audio(self, audio_path: str) -> Dict:
         logger.debug(f"Analyzing audio: {audio_path}")
         try:
-            audio = self._load_audio_file(audio_path)
-            features = self._extract_features(audio)
-            features['text'] = self._recognize_song_text(audio_path)
-            return features
+            chunks = self._load_and_chunk_audio(audio_path)
+            all_features = {
+                'pitch': {'mean': [], 'std': [], 'contour': [], 'stability': []},
+                'temporal': {'duration': [], 'tempo': [], 'beat_count': [], 'energy_variation': []},
+                'spectral': {'mfcc': [], 'chroma': [], 'spectral_contrast': []},
+                'text': []
+            }
+
+            for i, chunk in enumerate(chunks):
+                features = self._extract_features(chunk)
+                chunk_duration = len(chunk) / self.sample_rate
+                text = self._recognize_song_text(audio=chunk)
+                features['text'] = text
+                all_features['pitch']['mean'].append(features['pitch']['mean'])
+                all_features['pitch']['std'].append(features['pitch']['std'])
+                all_features['pitch']['contour'].extend(features['pitch']['contour'])
+                all_features['pitch']['stability'].append(features['pitch']['stability'])
+                all_features['temporal']['duration'].append(chunk_duration)
+                all_features['temporal']['tempo'].append(features['temporal']['tempo'])
+                all_features['temporal']['beat_count'].append(features['temporal']['beat_count'])
+                all_features['temporal']['energy_variation'].append(features['temporal']['energy_variation'])
+                all_features['spectral']['mfcc'].append(np.array(features['spectral']['mfcc']))
+                all_features['spectral']['chroma'].append(np.array(features['spectral']['chroma']))
+                all_features['spectral']['spectral_contrast'].append(np.array(features['spectral']['spectral_contrast']))
+                all_features['text'].append(text if text else "")
+                logger.debug(f"Analyzed chunk {i+1}/{len(chunks)}, duration: {chunk_duration:.2f}s, memory usage: {psutil.Process().memory_info().rss / 1024 / 1024:.2f} MB")
+                gc.collect()
+
+            agg_features = {
+                'pitch': {
+                    'mean': np.mean(all_features['pitch']['mean']) if all_features['pitch']['mean'] else 0.0,
+                    'std': np.mean(all_features['pitch']['std']) if all_features['pitch']['std'] else 0.0,
+                    'contour': all_features['pitch']['contour'],
+                    'stability': np.mean(all_features['pitch']['stability']) if all_features['pitch']['stability'] else 0.5
+                },
+                'temporal': {
+                    'duration': sum(all_features['temporal']['duration']),
+                    'tempo': np.median(all_features['temporal']['tempo']) if all_features['temporal']['tempo'] else 0.0,
+                    'beat_count': sum(all_features['temporal']['beat_count']),
+                    'energy_variation': np.mean(all_features['temporal']['energy_variation']) if all_features['temporal']['energy_variation'] else 0.5
+                },
+                'spectral': {
+                    'mfcc': np.mean(all_features['spectral']['mfcc'], axis=0).tolist() if all_features['spectral']['mfcc'] else [0.0]*25,
+                    'chroma': np.mean(all_features['spectral']['chroma'], axis=0).tolist() if all_features['spectral']['chroma'] else [0.0]*12,
+                    'spectral_contrast': np.mean(all_features['spectral']['spectral_contrast'], axis=0).tolist() if all_features['spectral']['spectral_contrast'] else [0.0]*7
+                },
+                'text': self._deduplicate_text(all_features['text'])
+            }
+            logger.info(f"Aggregated features for {audio_path}, total duration: {agg_features['temporal']['duration']:.2f}s")
+            return agg_features
         except Exception as e:
             logger.error(f"Анализ аудио не удался: {str(e)}")
             raise AudioProcessingError(f"Не удалось проанализировать аудио: {str(e)}")
+
+    def _deduplicate_text(self, texts: List[str]) -> str:
+        logger.debug("Deduplicating text")
+        filtered_texts = [t for t in texts if t and len(t) >= 5]
+        if not filtered_texts:
+            return ""
+        result = filtered_texts[0]
+        for i in range(1, len(filtered_texts)):
+            current = filtered_texts[i]
+            overlap = Levenshtein.ratio(result[-20:], current[:20]) if len(result) > 20 and len(current) > 20 else 0.0
+            if overlap > 0.7:
+                words = current.split()
+                new_words = []
+                found_overlap = False
+                for word in words:
+                    if not found_overlap and word in result[-20:].split():
+                        continue
+                    found_overlap = True
+                    new_words.append(word)
+                result += " " + " ".join(new_words)
+            else:
+                result += " " + current
+        return result.strip()
 
     def compare_recordings(self, ref_path: str, student_path: str) -> Dict:
         logger.debug(f"Comparing recordings: ref={ref_path}, student={student_path}")
@@ -537,13 +659,102 @@ class ChurchMusicAnalyzer:
                 with open(ref_path, 'rb') as f1, open(student_path, 'rb') as f2:
                     if f1.read() == f2.read():
                         return self._perfect_match_response()
+            
+            ref_chunks = self._load_and_chunk_audio(ref_path)
+            student_chunks = self._load_and_chunk_audio(student_path)
+            student_duration = sum(len(chunk) / self.sample_rate for chunk in student_chunks)
+            is_long_audio = student_duration > 60
+            num_chunks = min(len(ref_chunks), len(student_chunks))
+            similarities = []
+            weights = []
+            chunk_results = []
+
+            for i in range(num_chunks):
+                ref_features = self._extract_features(ref_chunks[i])
+                student_features = self._extract_features(student_chunks[i])
+                ref_features['text'] = self._recognize_song_text(audio=ref_chunks[i])
+                student_features['text'] = self._recognize_song_text(audio=student_chunks[i])
+                
+                text_sim, text_warning = self._compare_text_similarity(
+                    ref_features.get('text', ''),
+                    student_features.get('text', ''),
+                    is_long_audio=is_long_audio
+                )
+                pitch_sim = self._compare_pitch_features(
+                    ref_features['pitch'],
+                    student_features['pitch']
+                )
+                temporal_sim = self._compare_temporal_features(
+                    ref_features['temporal'],
+                    student_features['temporal']
+                )
+                spectral_sim = self._compare_spectral_features(
+                    ref_features['spectral'],
+                    student_features['spectral']
+                )
+                similarity = self._calculate_final_similarity(
+                    text_sim, pitch_sim, temporal_sim, spectral_sim
+                )
+                chunk_duration = min(len(ref_chunks[i]), len(student_chunks[i])) / self.sample_rate
+                similarities.append(similarity)
+                weights.append(chunk_duration)
+                chunk_results.append({
+                    'chunk_index': i + 1,
+                    'duration': chunk_duration,
+                    'overall_similarity_percent': round(similarity * 100, 1),
+                    'text_similarity_percent': round(text_sim * 100, 1),
+                    'pitch_similarity_percent': round(pitch_sim * 100, 1),
+                    'temporal_similarity_percent': round(temporal_sim * 100, 1),
+                    'spectral_similarity_percent': round(spectral_sim * 100, 1),
+                    'text_warning': text_warning
+                })
+                logger.debug(f"Chunk {i+1}/{num_chunks} similarity: {similarity:.2%}, duration: {chunk_duration:.2f}s, memory usage: {psutil.Process().memory_info().rss / 1024 / 1024:.2f} MB")
+                gc.collect()
+
+            if len(ref_chunks) > num_chunks:
+                for i in range(num_chunks, len(ref_chunks)):
+                    chunk_duration = len(ref_chunks[i]) / self.sample_rate
+                    similarities.append(0.0)
+                    weights.append(chunk_duration)
+                    chunk_results.append({
+                        'chunk_index': i + 1,
+                        'duration': chunk_duration,
+                        'overall_similarity_percent': 0.0,
+                        'text_similarity_percent': 0.0,
+                        'pitch_similarity_percent': 0.0,
+                        'temporal_similarity_percent': 0.0,
+                        'spectral_similarity_percent': 0.0,
+                        'text_warning': "Отсутствует соответствующий чанк в пользовательском аудио"
+                    })
+                    logger.debug(f"Extra ref chunk {i+1}, similarity: 0%, duration: {chunk_duration:.2f}s")
+            elif len(student_chunks) > num_chunks:
+                for i in range(num_chunks, len(student_chunks)):
+                    chunk_duration = len(student_chunks[i]) / self.sample_rate
+                    similarities.append(0.0)
+                    weights.append(chunk_duration)
+                    chunk_results.append({
+                        'chunk_index': i + 1,
+                        'duration': chunk_duration,
+                        'overall_similarity_percent': 0.0,
+                        'text_similarity_percent': 0.0,
+                        'pitch_similarity_percent': 0.0,
+                        'temporal_similarity_percent': 0.0,
+                        'spectral_similarity_percent': 0.0,
+                        'text_warning': "Отсутствует соответствующий чанк в референсном аудио"
+                    })
+                    logger.debug(f"Extra student chunk {i+1}, similarity: 0%, duration: {chunk_duration:.2f}s")
+
+            total_weight = sum(weights)
+            if total_weight == 0:
+                logger.warning("No valid chunks to compare")
+                return self._perfect_match_response()
+
             ref_features = self.analyze_audio(ref_path)
             student_features = self.analyze_audio(student_path)
-            if min(ref_features['temporal']['duration'], student_features['temporal']['duration']) < 2.0:
-                raise AudioProcessingError("Аудио слишком короткое для анализа (минимум 2 секунды)")
             text_sim, text_warning = self._compare_text_similarity(
                 ref_features.get('text', ''),
-                student_features.get('text', '')
+                student_features.get('text', ''),
+                is_long_audio=is_long_audio
             )
             pitch_sim = self._compare_pitch_features(
                 ref_features['pitch'],
@@ -557,14 +768,10 @@ class ChurchMusicAnalyzer:
                 ref_features['spectral'],
                 student_features['spectral']
             )
-            similarity = self._calculate_final_similarity(
-                text_sim, pitch_sim, temporal_sim, spectral_sim
-            )
+            overall_similarity = np.average(similarities, weights=weights)
             return self._prepare_result(
-                similarity,
-                text_sim, pitch_sim, temporal_sim, spectral_sim,
-                text_warning,
-                ref_features, student_features
+                overall_similarity, text_sim, pitch_sim, temporal_sim, spectral_sim,
+                text_warning, ref_features, student_features, chunk_results
             )
         except AudioProcessingError as e:
             raise
@@ -618,7 +825,6 @@ class AudioStorageManager:
             with conn:
                 cursor = conn.execute("SELECT user_id, filepath FROM [references]")
                 for user_id, filepath in cursor.fetchall():
-                    # Convert relative path to absolute for file checks
                     abs_filepath = os.path.join(self.storage_dir, os.path.basename(filepath))
                     if os.path.exists(abs_filepath):
                         self.references[user_id] = abs_filepath
@@ -640,7 +846,6 @@ class AudioStorageManager:
             conn = sqlite3.connect(self.db_path, timeout=10)
             with conn:
                 for user_id, filepath in self.references.items():
-                    # Store relative path in database for portability
                     rel_filepath = os.path.relpath(filepath, self.storage_dir)
                     conn.execute("INSERT OR REPLACE INTO [references] (user_id, filepath) VALUES (?, ?)", 
                                 (user_id, rel_filepath))
@@ -982,7 +1187,8 @@ class ChurchMusicServer:
                         "text_warning": result['text_warning'],
                         "details": result['details'],
                         "warnings": result['warnings'],
-                        "suggestions": result['suggestions']
+                        "suggestions": result['suggestions'],
+                        "chunk_results": result['chunk_results']
                     },
                     message="Сравнение аудио выполнено успешно"
                 )
