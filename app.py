@@ -43,7 +43,7 @@ class ChurchMusicAnalyzer:
         self.frame_length = 2048
         self.hop_length = 512
         self.max_duration = 600
-        self.chunk_duration = 30
+        self.chunk_duration = 15
         self.chunk_samples = self.chunk_duration * self.sample_rate
         self.min_pitch = 80
         self.max_pitch = 500
